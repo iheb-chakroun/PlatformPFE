@@ -1,5 +1,6 @@
 package entities.users;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -17,8 +18,10 @@ import entities.documents.PfeFile;
 import entities.tracking.StudentNotification;
 
 @Entity
-public class Student {
+public class Student implements Serializable {
 	
+	
+	private static final long serialVersionUID = 1L;
 	//Attributes
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,8 +51,32 @@ public class Student {
 		super();
 	}
 
-	//Getters & Setters
+	public Student(String firstName, String lastName, Date birthDate, String email, String sexe, String tel,
+			String password, boolean status) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.birthDate = birthDate;
+		this.email = email;
+		this.sexe = sexe;
+		this.tel = tel;
+		this.password = password;
+		this.status = status;
+	}
 	
+	
+	public Student(String firstName, String lastName, String email, String sexe, String tel, String password,
+			boolean status) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.sexe = sexe;
+		this.tel = tel;
+		this.password = password;
+		this.status = status;
+	}
+
+	//Getters & Setters
+
 	public int getId() {
 		return id;
 	}
