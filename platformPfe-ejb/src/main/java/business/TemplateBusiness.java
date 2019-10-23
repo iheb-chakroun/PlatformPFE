@@ -18,12 +18,8 @@ import interfaces.TemplateRemote;
 public class TemplateBusiness implements TemplateLocal,TemplateRemote{
 	@PersistenceContext(unitName="platform") 
 	EntityManager em;
-	@Override
-	public int addTemplate(Template T) {
-		System.out.println("add template");
-		em.persist(T);
-		return T.getId();
-	}
+	
+	
 
 	@Override
 	public void removeTemplate(int id) {
@@ -49,7 +45,7 @@ public class TemplateBusiness implements TemplateLocal,TemplateRemote{
 
 	@Override
 	public List<Template> findAllTemplate() {
-		List<Template>template=em.createQuery("from template",Template.class).getResultList();
+		List<Template>template=em.createQuery("Select e from  Template e",Template.class).getResultList();
 		return template;
 	}
 
@@ -58,6 +54,13 @@ public class TemplateBusiness implements TemplateLocal,TemplateRemote{
 		Site siteManagedEntity = em.find(Site.class, siteId);
 		Template templateManagedEntity = em.find(Template.class, templateId);
 		templateManagedEntity.setSite(siteManagedEntity);
+		
+	}
+
+	@Override
+	public void addTemplate(Template T) {
+		System.out.println("add template");
+		em.persist(T);
 		
 	}
 

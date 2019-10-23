@@ -9,7 +9,7 @@ import entities.administration.Template;
 
 @Remote
 public interface TemplateRemote {
-	public int addTemplate(Template T);
+	public void addTemplate(Template T);
 	public void removeTemplate(int id);
 	public void updateTemplate(Template e);
 	public Template findTemplateById(int id);
