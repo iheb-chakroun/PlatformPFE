@@ -1,5 +1,6 @@
 package business;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -53,18 +54,22 @@ public class StudentBusiness implements StudentRemote{
 	}
 
 	@Override
-	public Student findStudentById(int id) {
+	public String findStudentById(int id) {
 		System.out.println("In findStudentById : "); 
 		Student st = em.find(Student.class, id); 
 		System.out.println("Out of findStudentById : "); 
-		return st; 
+		return st.getFirstName(); 
 	}
 
 	@Override
 	public List<Student> findAllStudents() {
 		// TODO Auto-generated method stub
 		System.out.println("In findAllStudents : "); 
-		List<Student> students = em.createQuery("select c.id, c.email, c.firstName, c.lastName, c.password, c.sexe, c.status, c.tel from Student c", Student.class).getResultList(); 
+		List<Student> students = new ArrayList<>();
+		for(Student st : em.createQuery("from Student", Student.class).getResultList()) {
+			Student st1 = new Student(st.getId(),st.getEmail(),st.getFirstName(),st.getLastName(),st.getSexe(),st.getTel(),st.getPassword(),st.isStatus());
+			students.add(st1);
+		}
 		System.out.println("Out of findAlltudents : "); 
 		return students; 
 	}
