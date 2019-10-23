@@ -1,0 +1,32 @@
+2019-10-23 17:42:31,646 [Worker-3: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2019-10-23 17:46:49,372 [Worker-3: Importing Maven projects] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.EjbLifecycleMapping lifecycle mapping for MavenProject: tn.esprit.hashtag:platformPfe-ejb:0.0.1 @ C:\Users\Imene\eclipse-workspace\PIDEV\PlatformPFE\platformPfe-ejb\pom.xml.
+2019-10-23 17:46:51,738 [Worker-3: Importing Maven projects] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: tn.esprit.hashtag:platformPfe-web:0.0.1 @ C:\Users\Imene\eclipse-workspace\PIDEV\PlatformPFE\platformPfe-web\pom.xml.
+2019-10-23 17:46:52,092 [Worker-3: Importing Maven projects] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/platformPfe-ejb: tn.esprit.hashtag:platformPfe-ejb:0.0.1 with classifier  to /platformPfe-ejb/target/classes
+2019-10-23 17:46:52,299 [Worker-3: Importing Maven projects] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.EarLifecycleMapping lifecycle mapping for MavenProject: tn.esprit.hashtag:platformPfe-ear:0.0.1 @ C:\Users\Imene\eclipse-workspace\PIDEV\PlatformPFE\platformPfe-ear\pom.xml.
+2019-10-23 17:46:52,305 [Worker-3: Importing Maven projects] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/platformPfe-web: tn.esprit.hashtag:platformPfe-web:0.0.1 with classifier  to /platformPfe-web/target/classes
+2019-10-23 17:46:52,305 [Worker-3: Importing Maven projects] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/platformPfe-ejb: tn.esprit.hashtag:platformPfe-ejb:0.0.1 with classifier  to /platformPfe-ejb/target/classes
+2019-10-23 17:46:52,816 [Worker-3: Importing Maven projects] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/platformPfe-ejb: tn.esprit.hashtag:platformPfe-ejb:0.0.1 with classifier  to /platformPfe-ejb/target/classes
+2019-10-23 17:46:59,701 [Worker-3: Importing Maven projects] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/platformPfe-web: tn.esprit.hashtag:platformPfe-web:0.0.1 with classifier  to /platformPfe-web/target/classes
+2019-10-23 17:46:59,702 [Worker-3: Importing Maven projects] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/platformPfe-ejb: tn.esprit.hashtag:platformPfe-ejb:0.0.1 with classifier  to /platformPfe-ejb/target/classes
+2019-10-23 17:47:02,327 [Worker-3: Importing Maven projects] INFO  o.e.m.c.i.embedder.EclipseLogger - Generating application.xml
+2019-10-23 17:47:11,505 [Worker-3: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /platformPfe-ejb/src/main/java
+2019-10-23 17:47:11,506 [Worker-3: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /platformPfe-ejb/src/main/resources
+2019-10-23 17:47:11,507 [Worker-3: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /platformPfe-ejb/src/test/java
+2019-10-23 17:47:11,508 [Worker-3: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /platformPfe-ejb/src/test/resources
+2019-10-23 17:47:11,860 [Worker-3: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /platformPfe-web/src/main/java
+2019-10-23 17:47:11,873 [Worker-3: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /platformPfe-web/src/test/java
+2019-10-23 17:47:12,571 [Worker-3: Importing Maven projects] INFO  o.e.m.c.i.embedder.EclipseLogger - Generating application.xml
+2019-10-23 17:47:12,677 [Worker-3: Importing Maven projects] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 3 project(s) in 45 sec
+2019-10-23 17:47:16,954 [Worker-19: Building workspace] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/platformPfe-web: tn.esprit.hashtag:platformPfe-web:0.0.1 with classifier  to /platformPfe-web/target/classes
+2019-10-23 17:47:16,987 [Worker-19: Building workspace] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/platformPfe-ejb: tn.esprit.hashtag:platformPfe-ejb:0.0.1 with classifier  to /platformPfe-ejb/target/classes
+2019-10-23 17:47:17,060 [Worker-19: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-10-23 17:47:17,138 [Worker-19: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Imene\eclipse-workspace\PIDEV\PlatformPFE\platformPfe-ear\src\main\resources
+2019-10-23 17:47:21,675 [Worker-22: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-10-23 17:47:21,702 [Worker-22: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2019-10-23 17:47:21,773 [Worker-22: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-10-23 17:47:21,801 [Worker-22: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 3 resources
+2019-10-23 17:47:22,535 [Worker-22: Building workspace] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/platformPfe-ejb: tn.esprit.hashtag:platformPfe-ejb:0.0.1 with classifier  to /platformPfe-ejb/target/classes
+2019-10-23 17:47:22,553 [Worker-22: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-10-23 17:47:22,553 [Worker-22: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Imene\eclipse-workspace\PIDEV\PlatformPFE\platformPfe-web\src\main\resources
+2019-10-23 17:47:22,555 [Worker-22: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-10-23 17:47:22,555 [Worker-22: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Imene\eclipse-workspace\PIDEV\PlatformPFE\platformPfe-web\src\test\resources

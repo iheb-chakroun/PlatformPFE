@@ -1,0 +1,2 @@
+INDEX VERSION 1.4+C:\Users\Imene\eclipse-workspace\PIDEV\PlatformPFE\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+3469810643.index
