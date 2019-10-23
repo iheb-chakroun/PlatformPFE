@@ -9,11 +9,13 @@ public interface PfeFileLocal {
 
 	boolean updatePfeFile(PfeFile p);
 
-	List<Entreprise> getAllPfeFile();
+	List<PfeFile> getAllPfeFile();
 
 	void ajouterPfeFile(PfeFile p);
 
 	boolean deletePfeFileById(int PfeFileId);
+
+	PfeFile findPfeById(int id);
 	
 
 }

@@ -16,8 +16,8 @@ public class PfeFileBuisness implements PfeFileLocal {
 	
 	@PersistenceContext(unitName = "platform")
 	EntityManager em;
-
-	public PfeFile findEntrepriseById(int id) {
+	@Override
+	public PfeFile findPfeById(int id) {
 
 		PfeFile a = em.find(PfeFile.class, id);
 
@@ -46,9 +46,9 @@ public class PfeFileBuisness implements PfeFileLocal {
 	}
 
 	@Override
-	public List<Entreprise> getAllPfeFile() {
+	public List<PfeFile> getAllPfeFile() {
 		// TODO Auto-generated method stub
-		List<Entreprise> pfes = em.createQuery("select e from PfeFile e", Entreprise.class).getResultList();
+		List<PfeFile> pfes = em.createQuery("select e from PfeFile e", PfeFile.class).getResultList();
 		return pfes;
 	}
 

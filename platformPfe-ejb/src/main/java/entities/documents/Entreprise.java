@@ -6,7 +6,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Entreprise {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +24,7 @@ public class Entreprise {
 	private String emailResponsable;
 	private String emailEncadrent;
 	@OneToOne(mappedBy="entreprise")
+	@JsonIgnoreProperties({"entreprise"})
 	private PfeFile pfeFile;
 
 	public int getId() {

@@ -3,6 +3,7 @@ package entities.documents;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,6 +11,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import entities.tracking.ArchivePfeFile;
 import entities.users.Student;
@@ -33,16 +40,18 @@ public class PfeFile {
 	private boolean reportDeposite;
 	@OneToOne
 	private Student student;
-	@OneToMany(mappedBy="pfeFile")
+	@OneToMany(mappedBy="pfeFile", fetch=FetchType.EAGER)
 	private List<ArchivePfeFile> archivePfeFile;
 	@OneToOne
+	@JsonIgnoreProperties({"pfeFile"})
 	private Entreprise entreprise;
 	@OneToOne(mappedBy="pfeFile")
 	private Thesis thesis;
 	@ManyToOne
 	private Teacher pre_validator;
 	@ManyToMany
-	private List<Categorie> categories;
+	@JsonIgnore
+private List<Categorie> categories;
 	public int getId() {
 		return id;
 	}

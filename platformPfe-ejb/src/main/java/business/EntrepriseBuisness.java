@@ -53,20 +53,11 @@ public class EntrepriseBuisness implements EntrepriseLocal {
 
 	@Override
 	public boolean updateEntreprise(Entreprise E) {
-		// TODO Auto-generated method stub
-		Entreprise E1 = em.find(Entreprise.class, E.getId());
-
-		E1.setAddress(E.getAddress());
-		E1.setCountry(E.getCountry());
-		E.setEmailEncadrent(E.getEmailEncadrent());
-		E.setEmailResponsable(E.getEmailResponsable());
-		E.setNameResponsable(E.getNameResponsable());
-		E.setPfeFile(E.getPfeFile());
-		E.setWebsite(E.getWebsite());
+	
 
 
 		try {
-			em.merge(E1);
+			em.merge(E);
 			return true;
 
 		} catch (Exception e) {
