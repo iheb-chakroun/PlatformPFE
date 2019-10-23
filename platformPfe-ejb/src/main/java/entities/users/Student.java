@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,7 +41,7 @@ public class Student implements Serializable {
 	private Class classe;
 	@OneToOne(mappedBy="student")
 	private Convention convention;
-	@OneToMany(mappedBy="student")
+	@OneToMany(mappedBy="student",fetch = FetchType.EAGER)
 	private List<StudentNotification> notifications;
 	@OneToOne(mappedBy="student")
 	private PfeFile pfeFile;
@@ -49,63 +50,6 @@ public class Student implements Serializable {
 	
 	public Student() {
 		super();
-	}
-
-	public Student(int id, String firstName, String lastName, String email, String sexe, String tel, String password,
-			boolean status) {
-		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.sexe = sexe;
-		this.tel = tel;
-		this.password = password;
-		this.status = status;
-	}
-
-	public Student(String firstName, String lastName, Date birthDate, String email, String sexe, String tel,
-			String password, boolean status) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.birthDate = birthDate;
-		this.email = email;
-		this.sexe = sexe;
-		this.tel = tel;
-		this.password = password;
-		this.status = status;
-	}
-	
-	
-	public Student(String firstName, String lastName, String email, String sexe, String tel, String password,
-			boolean status) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.sexe = sexe;
-		this.tel = tel;
-		this.password = password;
-		this.status = status;
-	}
-	
-
-	public Student(int id, String firstName, String lastName, Date birthDate, String email, String sexe, String tel,
-			String password, boolean status, Class classe, Convention convention,
-			List<StudentNotification> notifications, PfeFile pfeFile) {
-		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.birthDate = birthDate;
-		this.email = email;
-		this.sexe = sexe;
-		this.tel = tel;
-		this.password = password;
-		this.status = status;
-		this.classe = classe;
-		this.convention = convention;
-		this.notifications = notifications;
-		this.pfeFile = pfeFile;
 	}
 
 	//Getters & Setters

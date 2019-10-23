@@ -13,7 +13,7 @@ public interface StudentRemote {
 	public int addStudent(Student student);
 	public void removeStudent(int id);
 	public void updateStudent(Student student);
-	public String findStudentById(int id);
+	public Student findStudentById(int id);
 	public List<Student> findAllStudents();
 	
 }

@@ -54,22 +54,19 @@ public class StudentBusiness implements StudentRemote{
 	}
 
 	@Override
-	public String findStudentById(int id) {
+	public Student findStudentById(int id) {
 		System.out.println("In findStudentById : "); 
 		Student st = em.find(Student.class, id); 
+		System.out.println(st);
 		System.out.println("Out of findStudentById : "); 
-		return st.getFirstName(); 
+		return st; 
 	}
 
 	@Override
 	public List<Student> findAllStudents() {
 		// TODO Auto-generated method stub
 		System.out.println("In findAllStudents : "); 
-		List<Student> students = new ArrayList<>();
-		for(Student st : em.createQuery("from Student", Student.class).getResultList()) {
-			Student st1 = new Student(st.getId(),st.getEmail(),st.getFirstName(),st.getLastName(),st.getSexe(),st.getTel(),st.getPassword(),st.isStatus());
-			students.add(st1);
-		}
+		List<Student> students =  em.createQuery("from Student", Student.class).getResultList();
 		System.out.println("Out of findAlltudents : "); 
 		return students; 
 	}
