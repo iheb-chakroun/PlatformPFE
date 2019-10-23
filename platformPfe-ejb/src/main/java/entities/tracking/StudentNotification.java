@@ -9,16 +9,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import entities.users.Student;
 
 @Entity
 public class StudentNotification implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private Date date;
 	private String content;
+	@JsonIgnoreProperties({ "notifications"})
 	@ManyToOne
 	private Student student;
 	

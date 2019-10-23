@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import entities.administration.Class;
 import entities.documents.Convention;
 import entities.documents.PfeFile;
@@ -41,6 +44,8 @@ public class Student implements Serializable {
 	private Class classe;
 	@OneToOne(mappedBy="student")
 	private Convention convention;
+	
+	@JsonIgnoreProperties({"student"})
 	@OneToMany(mappedBy="student",fetch = FetchType.EAGER)
 	private List<StudentNotification> notifications;
 	@OneToOne(mappedBy="student")

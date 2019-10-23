@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import entities.tracking.StudentNotification;
 import entities.users.Student;
 import interfaces.StudentRemote;
 
@@ -69,6 +70,15 @@ public class StudentBusiness implements StudentRemote{
 		List<Student> students =  em.createQuery("from Student", Student.class).getResultList();
 		System.out.println("Out of findAlltudents : "); 
 		return students; 
+	}
+
+	@Override
+	public List<StudentNotification> findAllNotifications() {
+		// TODO Auto-generated method stub
+		System.out.println("In findAllStudents : "); 
+		List<StudentNotification> notifs =  em.createQuery("from StudentNotification", StudentNotification.class).getResultList();
+		System.out.println("Out of findAlltudents : "); 
+		return notifs; 
 	}
 
 }
