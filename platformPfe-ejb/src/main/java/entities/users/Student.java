@@ -51,6 +51,19 @@ public class Student implements Serializable {
 		super();
 	}
 
+	public Student(int id, String firstName, String lastName, String email, String sexe, String tel, String password,
+			boolean status) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.sexe = sexe;
+		this.tel = tel;
+		this.password = password;
+		this.status = status;
+	}
+
 	public Student(String firstName, String lastName, Date birthDate, String email, String sexe, String tel,
 			String password, boolean status) {
 		this.firstName = firstName;
@@ -73,6 +86,26 @@ public class Student implements Serializable {
 		this.tel = tel;
 		this.password = password;
 		this.status = status;
+	}
+	
+
+	public Student(int id, String firstName, String lastName, Date birthDate, String email, String sexe, String tel,
+			String password, boolean status, Class classe, Convention convention,
+			List<StudentNotification> notifications, PfeFile pfeFile) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.birthDate = birthDate;
+		this.email = email;
+		this.sexe = sexe;
+		this.tel = tel;
+		this.password = password;
+		this.status = status;
+		this.classe = classe;
+		this.convention = convention;
+		this.notifications = notifications;
+		this.pfeFile = pfeFile;
 	}
 
 	//Getters & Setters

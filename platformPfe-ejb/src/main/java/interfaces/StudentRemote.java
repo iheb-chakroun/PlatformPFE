@@ -11,9 +11,9 @@ public interface StudentRemote {
 	//Simple CRUD Methods
 	
 	public int addStudent(Student student);
-	public void removeUser(int id);
-	public void updateUser(Student student);
-	public Student findUserById(int id);
-	public List<Student> findAllUsers();
+	public void removeStudent(int id);
+	public void updateStudent(Student student);
+	public Student findStudentById(int id);
+	public List<Student> findAllStudents();
 	
 }

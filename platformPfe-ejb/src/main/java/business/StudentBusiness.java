@@ -5,9 +5,9 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import entities.users.Student;
-
 import interfaces.StudentRemote;
 
 @Stateless
@@ -26,27 +26,47 @@ public class StudentBusiness implements StudentRemote{
 	}
 
 	@Override
-	public void removeUser(int id) {
+	public void removeStudent(int id) {
 		// TODO Auto-generated method stub
+		//Find managed Entity reference
+        Student st = em.find(Student.class, id );
+        //Call remove method to remove the entity
+        if(st != null){
+            em.remove(st);
+        }
+	}
+
+	@Override
+	public void updateStudent(Student student) {
+		// TODO Auto-generated method stub
+		Query query = em.createQuery("update Student u set u.email=:email, u.firstName=:fname, u.lastName=:lname, u.password=:password, u.sexe=:sexe, u.status=:status, u.tel=:tel where u.id=:id");
+		query.setParameter("id", student.getId());
+		query.setParameter("email", student.getEmail());
+		query.setParameter("fname", student.getFirstName());
+		query.setParameter("lname", student.getLastName());
+		query.setParameter("password", student.getPassword());
+		query.setParameter("sexe", student.getSexe());
+		query.setParameter("status", student.isStatus());
+		query.setParameter("tel", student.getTel());
+		query.executeUpdate();
 		
 	}
 
 	@Override
-	public void updateUser(Student student) {
-		// TODO Auto-generated method stub
-		
+	public Student findStudentById(int id) {
+		System.out.println("In findStudentById : "); 
+		Student st = em.find(Student.class, id); 
+		System.out.println("Out of findStudentById : "); 
+		return st; 
 	}
 
 	@Override
-	public Student findUserById(int id) {
+	public List<Student> findAllStudents() {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Student> findAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("In findAllStudents : "); 
+		List<Student> students = em.createQuery("select c.id, c.email, c.firstName, c.lastName, c.password, c.sexe, c.status, c.tel from Student c", Student.class).getResultList(); 
+		System.out.println("Out of findAlltudents : "); 
+		return students; 
 	}
 
 }
