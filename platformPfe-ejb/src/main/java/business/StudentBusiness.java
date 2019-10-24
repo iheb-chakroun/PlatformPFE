@@ -58,7 +58,6 @@ public class StudentBusiness implements StudentRemote{
 	public Student findStudentById(int id) {
 		System.out.println("In findStudentById : "); 
 		Student st = em.find(Student.class, id); 
-		System.out.println(st);
 		System.out.println("Out of findStudentById : "); 
 		return st; 
 	}
