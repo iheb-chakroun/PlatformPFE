@@ -1,6 +1,7 @@
 package entities.tracking;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +28,7 @@ public class ArchivePfeFile {
 	private String event;
 	private String emmeteur;
 	private String note;
-	@ManyToOne
+	@ManyToOne(fetch= FetchType.EAGER)
 	private PfeFile pfeFile;
 	public ArchivePfeFile(int id, String title, String description, String problematic, String functionnalities,
 			String keywords, float gradeSupervisor, float gradeReporter, String emailPersonel, String emailProfessionel,

@@ -40,6 +40,9 @@ public class PfeFile {
 	private boolean reportDeposite;
 	@OneToOne
 	private Student student;
+	@OneToOne
+	@JsonIgnoreProperties({"pfeFile"})
+	private Thesis Thesis;
 	@OneToMany(mappedBy="pfeFile", fetch=FetchType.EAGER)
 	private List<ArchivePfeFile> archivePfeFile;
 	@OneToOne
