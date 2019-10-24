@@ -1,17 +1,22 @@
 package entities.users;
 
+import java.io.Serializable;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToOne;
+
 
 import entities.administration.School;
 
 @Entity
-@DiscriminatorValue(value = "admin")
-public class Admin extends Employe {
+@DiscriminatorValue(value = "Admin")
+public class Admin extends Employe implements Serializable {
+	
+	
+	private static final long serialVersionUID = 1L;
+
+
 
 	@OneToOne(mappedBy = "admin")
 	private School school;
