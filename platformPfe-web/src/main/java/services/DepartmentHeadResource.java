@@ -12,59 +12,59 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import entities.users.Admin;
-import interfaces.AdminRemote;
+import entities.users.DepartementHead;
+import interfaces.DepartmentHeadRemote;
 
-@Path("admin")
-public class AdminResource {
-	
+@Path("head-dep")
+public class DepartmentHeadResource {
 	@EJB
-	AdminRemote adminBusiness;
+	DepartmentHeadRemote headBusiness;
 	
 	@POST
 	@Path("/add")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response addAdmin(Admin admin) {
-		if(admin == null) {
+	public Response addHead(DepartementHead dh) {
+		if(dh == null) {
 			return Response.status(Response.Status.BAD_REQUEST).entity("No Content.").build();
 		}
-		adminBusiness.addAdmin(admin);
-		return Response.status(Response.Status.CREATED).entity(admin).build();
+		headBusiness.addDepartmentHead(dh);
+		return Response.status(Response.Status.CREATED).entity(dh).build();
 	}
 	
 	@PUT
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response updateAdmin(Admin admin) {
-		if(admin == null) {
+	public Response updateHead(DepartementHead dh) {
+		if(dh == null) {
 			return Response.status(Response.Status.BAD_REQUEST).entity("No Content.").build();
 		}
-		adminBusiness.updateAdmin(admin);
-		return Response.status(Response.Status.ACCEPTED).entity(admin).build();
+		headBusiness.updateDepartmentHead(dh);
+		return Response.status(Response.Status.ACCEPTED).entity(dh).build();
 	}
 	
 	@GET
 	@Path("{id}")
 	@Produces("application/json")
-	public Response findAdmin(@PathParam("id")int id) {
-		return Response.ok(adminBusiness.findAdminById(id), MediaType.APPLICATION_JSON).build();
+	public Response findHead(@PathParam("id")int id) {
+		return Response.ok(headBusiness.findDepartmentHeadById(id), MediaType.APPLICATION_JSON).build();
 	}
 	
 	@DELETE
 	@Path("delete/{id}")
 	@Produces("application/json")
-	public Response deleteAdmin(@PathParam("id") int id) {
+	public Response deleteHead(@PathParam("id") int id) {
 		String deleted = "Employe deleted :"+id;
-		adminBusiness.removeAdmin(id);
+		headBusiness.removeDepartmentHead(id);
 	    return Response.ok(MediaType.APPLICATION_JSON).entity(deleted).build();
 	}
 	
 	@GET
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response findAllAdmins() {
-		return Response.ok(adminBusiness.findAllAdmins(), MediaType.APPLICATION_JSON).build();
+	public Response findAllHeads() {
+		return Response.ok(headBusiness.findDepartmentHeads(), MediaType.APPLICATION_JSON).build();
 	}
+
 
 }

@@ -8,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entities.users.Admin;
-import entities.users.Employe;
 import interfaces.AdminRemote;
 
 @Stateless
