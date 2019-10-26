@@ -5,14 +5,15 @@ import java.util.List;
 import entities.documents.Thesis;
 
 public interface ThesisLocal {
-Thesis findThesisById(int id);
 
-void ajouterThesis(Thesis p);
+	Thesis findThesisById(int id);
 
-List<Thesis> getAllThesis();
+	boolean deleteThesisById(int ThesisId);
 
-boolean updateThesis(Thesis p);
+	void ajouterThesis(Thesis p);
 
-boolean deleteThesisById(int ThesisId);
+	List<Thesis> getAllThesis();
+
+	boolean updateThesis(Thesis p);
 
 }

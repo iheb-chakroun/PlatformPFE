@@ -1,5 +1,6 @@
 package entities.documents;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ import entities.users.Student;
 import entities.users.Teacher;
 
 @Entity
-public class PfeFile {
+public class PfeFile implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -38,6 +39,7 @@ public class PfeFile {
 	private String emailProfessionel;
 	private boolean status;
 	private boolean reportDeposite;
+	@JsonIgnoreProperties({"pfeFile"})
 	@OneToOne
 	private Student student;
 	@OneToOne
@@ -53,8 +55,8 @@ public class PfeFile {
 	@ManyToOne
 	private Teacher pre_validator;
 	@ManyToMany
-	@JsonIgnore
-private List<Categorie> categories;
+	private List<Categorie> categories;
+
 	public int getId() {
 		return id;
 	}
