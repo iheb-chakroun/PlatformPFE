@@ -15,6 +15,8 @@ import javax.persistence.InheritanceType;
 @DiscriminatorColumn(name="type")
 public class Employe implements Serializable {
 
+	
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -28,11 +30,6 @@ public class Employe implements Serializable {
 
 	public Employe() {
 		super();
-	}
-
-	public Employe(int id) {
-		super();
-		this.id = id;
 	}
 
 	public int getId() {

@@ -19,6 +19,10 @@ import entities.users.Teacher;
 @Entity
 public class Departement implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -32,6 +36,10 @@ public class Departement implements Serializable {
 	private DepartementHead departementHead;
 	@OneToMany(mappedBy="departement", cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Teacher> teachers;
+	//Note new attribute
+	@JsonIgnoreProperties("departement")
+	@OneToMany(mappedBy="departement", cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
+	private List<Classroom> classrooms;
 	
 	public Site getSite() {
 		return site;
