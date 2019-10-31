@@ -9,13 +9,13 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import entities.documents.Entreprise;
 import entities.documents.PfeFile;
-import interfaces.EntrepriseLocal;
+import entities.users.DepartementHead;
 import interfaces.PfeFileLocal;
 @Path("pfe")
 public class PfeFileService {
@@ -48,6 +48,27 @@ public class PfeFileService {
 		else
 
 			return Response.ok(pfeService.findPfeById(id), MediaType.APPLICATION_JSON).build();
+	}
+	
+	@GET
+	@Produces("application/json")
+	public Response getPfeByYear(@QueryParam("year") String year) {
+		return Response.ok(pfeService.filterPfe(year), MediaType.APPLICATION_JSON).build();
+	}
+	
+	@GET
+	@Path("/no")
+	@Produces("application/json")
+	public Response getNonPfe() {
+		return Response.ok(pfeService.filterPfeNonTreated(), MediaType.APPLICATION_JSON).build();
+	}
+	
+	@POST
+	@Produces("application/json")
+
+	public Response accepterPfe(@QueryParam("id") int id) {
+		DepartementHead dep = pfeService.accepterPfe(id);
+		return Response.status(Status.CREATED).entity("Moderator"+dep.getFirstName()+dep.getLastName()).build();
 
 	}
 
@@ -72,12 +93,9 @@ public class PfeFileService {
 
 	public Response SupprimerPfe(@PathParam (value="id") int id) {
 		
-		
-		
 		if(pfeService.deletePfeFileById(id) ) {
-			return Response.status(Status.OK).build(); }
-		
-	
+			return Response.status(Status.OK).build(); 
+			}	
 	return Response.status(Status.BAD_REQUEST).build();
 
 }

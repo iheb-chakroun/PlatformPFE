@@ -6,15 +6,13 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import entities.documents.PfeFile;
 import entities.documents.Thesis;
 import interfaces.ThesisLocal;
+
 @Stateless
 public class ThesisBuisness implements ThesisLocal  {
 	@PersistenceContext(unitName = "platform")
 	EntityManager em;
-	
-	
 	
 	@Override
 	public Thesis findThesisById(int id) {
@@ -55,8 +53,6 @@ public class ThesisBuisness implements ThesisLocal  {
 	@Override
 	public boolean updateThesis(Thesis p) {
 		// TODO Auto-generated method stub
-
-
 		try {
 			em.merge(p);
 			return true;

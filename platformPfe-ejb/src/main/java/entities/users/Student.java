@@ -2,7 +2,6 @@ package entities.users;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -40,6 +39,7 @@ public class Student implements Serializable {
 	private boolean status;
 	
 	//Associations
+	@JsonIgnoreProperties({"students"})
 	@ManyToOne
 	private Class classe;
 	

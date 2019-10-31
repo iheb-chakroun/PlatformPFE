@@ -1,5 +1,6 @@
 package interfaces;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -18,5 +19,6 @@ public interface StudentRemote {
 	public Student findStudentById(int id);
 	public List<Student> findAllStudents();
 	public List<StudentNotification> findAllNotifications();
+	public List<Student> findStudentsByYears(String year1, String year2, String year3);
 	
 }

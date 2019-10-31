@@ -2,11 +2,13 @@ package business;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import entities.tracking.StudentNotification;
 import entities.users.Student;
@@ -77,7 +79,55 @@ public class StudentBusiness implements StudentRemote{
 		System.out.println("In findAllStudents : "); 
 		List<StudentNotification> notifs =  em.createQuery("from StudentNotification", StudentNotification.class).getResultList();
 		System.out.println("Out of findAlltudents : "); 
-		return notifs; 
+		return notifs;
+	}
+
+	@Override
+	public List<Student> findStudentsByYears(String year1, String year2, String year3) {
+		// TODO Auto-generated method stub
+		List<Student> studentsFiltred = new ArrayList<>();
+		if(year2 == null && year3 == null) {
+			TypedQuery<Student> q = em.createQuery("select e from Student e where e.classe.scholarYear=:year", Student.class);
+			q.setParameter("year", year1);
+		    q.getResultList().forEach(line -> {
+		    	if(line.getPfeFile() == null) {
+		    		//System.out.println(line);
+		    		studentsFiltred.add(line);
+		    	} 	
+		    });
+			return studentsFiltred;
+		}
+		else if (year3 == null) {
+			TypedQuery<Student> q = em.createQuery("select e from Student e where e.classe.scholarYear=:year1 or e.classe.scholarYear=:year2", Student.class);
+			q.setParameter("year1", year1);
+			q.setParameter("year2", year2);
+			q.getResultList().forEach(line -> {
+		    	if(line.getPfeFile() == null) {
+		    		//System.out.println(line);
+		    		studentsFiltred.add(line);
+		    	} 	
+		    });
+			return studentsFiltred;
+		}else {
+			TypedQuery<Student> q = em.createQuery("select e from Student e where e.classe.scholarYear=:year1 or e.classe.scholarYear=:year2 or e.classe.scholarYear=:year3", Student.class);
+			q.setParameter("year1", year1);
+			q.setParameter("year2", year2);
+			q.setParameter("year3", year3);
+			q.getResultList().forEach(line -> {
+		    	if(line.getPfeFile() == null) {
+		    		//System.out.println(line);
+		    		studentsFiltred.add(line);
+		    	} 	
+		    });
+			return studentsFiltred;
+		}
+		 
+		// return students;
+		 /*for(Class c : q.getResultList() ) {
+			students.addAll(c.getStudents());
+		}*/
+		 
+		//return studentsFiltred;
 	}
 
 }

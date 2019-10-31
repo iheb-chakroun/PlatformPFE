@@ -1,6 +1,7 @@
 package entities.documents;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -13,18 +14,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import entities.tracking.ArchivePfeFile;
+import entities.users.DepartementHead;
 import entities.users.Student;
 import entities.users.Teacher;
 
 @Entity
 public class PfeFile implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -38,6 +38,7 @@ public class PfeFile implements Serializable{
 	private String emailPersonel;
 	private String emailProfessionel;
 	private boolean status;
+	private Date createdAt;
 	private boolean reportDeposite;
 	@JsonIgnoreProperties({"pfeFile"})
 	@OneToOne
@@ -56,6 +57,8 @@ public class PfeFile implements Serializable{
 	private Teacher pre_validator;
 	@ManyToMany
 	private List<Categorie> categories;
+	@ManyToOne()
+	private DepartementHead moderator;
 
 	public int getId() {
 		return id;
@@ -191,6 +194,18 @@ public class PfeFile implements Serializable{
 	}
 	public PfeFile() {
 		super();
+	}
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	public DepartementHead getModerator() {
+		return moderator;
+	}
+	public void setModerator(DepartementHead moderator) {
+		this.moderator = moderator;
 	}
 	
 	
