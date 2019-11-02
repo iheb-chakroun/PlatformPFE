@@ -54,7 +54,7 @@ public class PfeFichierBusiness implements PfeFichierLocal{
 	}
 
 	@Override
-	public boolean prevalidatepfefile(int id,Statuspfefile s,String msg) throws RestException {
+	public boolean prevalidatepfefile(int id,Statuspfefile s,String msg)  {
 		Query q = em.createQuery("update PfeFile p set p.spf=:s where p.id=:id");
 		q.setParameter("s", s);
 		q.setParameter("id", id);
@@ -63,7 +63,6 @@ public class PfeFichierBusiness implements PfeFichierLocal{
 		Query q1 = em.createQuery("select s.tel from Student s,PfeFile p where p.id=:id  ");
 		q1.setParameter("id", id);
 		String n=(String) q1.getSingleResult();
-		
 		
 		if(s==Statuspfefile.REFUSED) {
 			System.out.println(n);

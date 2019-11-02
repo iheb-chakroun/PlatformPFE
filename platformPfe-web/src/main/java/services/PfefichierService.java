@@ -88,7 +88,7 @@ public class PfefichierService {
 	@Path("modify/{id}/{s}/{msg}")
 	//@Consumes("application/json")
 	//@Produces(MediaType.TEXT_PLAIN)
-	public Response modifierCategorie(@PathParam("id") int id ,@PathParam("s")Statuspfefile s ,@PathParam("msg")String msg ) throws RestException {
+	public Response modifierCategorie(@PathParam("id") int id ,@PathParam("s")Statuspfefile s ,@PathParam("msg")String msg ) {
 		
 			if(PfeFichierBusiness.prevalidatepfefile(id, s,msg) ) {
 			return Response.status(Status.OK).build(); }

@@ -17,7 +17,7 @@ public interface PfeFichierLocal {
 	public List<PfeFile> getAllPfeFileyear(String year);
 	public List<PfeFile> getAllPfeFileyears(String year);
 	public List<PfeFile> getAllprevalidatedfiles(Statuspfefile s);
-	public boolean prevalidatepfefile(int id,Statuspfefile s,String msg) throws RestException ;
+	public boolean prevalidatepfefile(int id,Statuspfefile s,String msg) ;
 	public boolean gradesupervisorpfefile(int id,float g);
 	public boolean graderapporterpfefile(int id,float g);
 
