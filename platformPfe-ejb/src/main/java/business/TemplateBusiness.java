@@ -28,17 +28,11 @@ public class TemplateBusiness implements TemplateLocal,TemplateRemote{
 		
 	}
 
-	@Override
-	public void updateTemplate(Template e) {
-	Template template= em.find(Template.class,e.getId());
-		template.setContent(e.getContent());
-		template.setTemplateType(e.getTemplateType());
-		
-	}
 
 	@Override
 	public Template findTemplateById(int id) {
 		Template template= em.find(Template.class,id);
+		System.out.println(template);
 		return template;
 	
 	}
@@ -63,6 +57,20 @@ public class TemplateBusiness implements TemplateLocal,TemplateRemote{
 		em.persist(T);
 		
 	}
+
+
+	@Override
+	public void updateTemplate(int id, Template temp) {
+		Template t=em.find(Template.class, id);
+		t.setContent(temp.getContent());
+		t.setTemplateType(temp.getTemplateType());
+		em.merge(t);
+		
+	}
+
+
+
+
 
 	
 }

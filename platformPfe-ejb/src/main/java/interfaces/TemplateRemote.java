@@ -11,7 +11,7 @@ import entities.administration.Template;
 public interface TemplateRemote {
 	public void addTemplate(Template T);
 	public void removeTemplate(int id);
-	public void updateTemplate(Template e);
+	public void updateTemplate(int id,Template t) ;
 	public Template findTemplateById(int id);
 	public List<Template> findAllTemplate();
 	public void affectSiteToTemplate(int siteId, int templateId);
