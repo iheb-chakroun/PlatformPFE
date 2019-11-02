@@ -56,4 +56,29 @@ public class Departement implements Serializable {
 	public void setLabel(String label) {
 		this.label = label;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public DepartementHead getDepartementHead() {
+		return departementHead;
+	}
+
+	public void setDepartementHead(DepartementHead departementHead) {
+		this.departementHead = departementHead;
+	}
+
+	public List<Teacher> getTeachers() {
+		return teachers;
+	}
+
+	public void setTeachers(List<Teacher> teachers) {
+		this.teachers = teachers;
+	}
+	
 }

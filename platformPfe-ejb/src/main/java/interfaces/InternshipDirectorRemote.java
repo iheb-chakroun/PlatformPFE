@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
+import entities.administration.Site;
 import entities.users.InternshipDirector;
 
 @Remote
@@ -14,5 +15,6 @@ public interface InternshipDirectorRemote {
 	public void updateDirector(InternshipDirector director);
 	public InternshipDirector findDirectorById(int id);
 	public List<InternshipDirector> findAllDirectors();
+	public void fixNumbers(Site site);
 
 }

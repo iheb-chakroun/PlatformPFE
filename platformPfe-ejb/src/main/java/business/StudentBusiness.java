@@ -1,6 +1,7 @@
 package business;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,15 +11,23 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import collection.Status;
+import entities.documents.PfeFile;
+import entities.tracking.ArchivePfeFile;
 import entities.tracking.StudentNotification;
 import entities.users.Student;
 import interfaces.StudentRemote;
+import utilities.EmailBusiness;
+import utilities.Reason;
+import utilities.TemplateMessage;
 
 @Stateless
 public class StudentBusiness implements StudentRemote{
 
 	@PersistenceContext(unitName="platform")
 	EntityManager em;
+	
+	EmailBusiness eb = new EmailBusiness();
 	
 	@Override
 	public int addStudent(Student student) {
@@ -81,53 +90,74 @@ public class StudentBusiness implements StudentRemote{
 		System.out.println("Out of findAlltudents : "); 
 		return notifs;
 	}
+	//Requirement 1
+	//@Author: khaled
+	@Override
+	public List<Student> findStudentsByYears(String... years) {
+		// TODO Auto-generated method stub
+		String values = Arrays.asList(years).stream().filter(y -> y != null).collect(Collectors.joining(", "));
+		String query = "select e from Student e where e.classe.scholarYear IN ("+values+")";
+		//System.out.println(names);
+		List<Student> studentsFiltred = new ArrayList<>();
+		TypedQuery<Student> q = em.createQuery(query, Student.class);
+		q.getResultList().forEach(line -> {
+		    if(line.getPfeFile() == null) {
+		    	//System.out.println(line);
+		    	studentsFiltred.add(line);
+		    	} 	
+		    });
+			return studentsFiltred;
+	}
+	
+	//Requirement 7
+	//@Author: khaled
+	@Override
+	public void authorizeStudent(int id) {
+		// TODO Auto-generated method stub
+		Student st = em.find(Student.class, id);
+		st.setStatus(!st.isStatus());
+	}
 
 	@Override
-	public List<Student> findStudentsByYears(String year1, String year2, String year3) {
+	public Status demandeAnnulation(int id) {
 		// TODO Auto-generated method stub
-		List<Student> studentsFiltred = new ArrayList<>();
-		if(year2 == null && year3 == null) {
-			TypedQuery<Student> q = em.createQuery("select e from Student e where e.classe.scholarYear=:year", Student.class);
-			q.setParameter("year", year1);
-		    q.getResultList().forEach(line -> {
-		    	if(line.getPfeFile() == null) {
-		    		//System.out.println(line);
-		    		studentsFiltred.add(line);
-		    	} 	
-		    });
-			return studentsFiltred;
-		}
-		else if (year3 == null) {
-			TypedQuery<Student> q = em.createQuery("select e from Student e where e.classe.scholarYear=:year1 or e.classe.scholarYear=:year2", Student.class);
-			q.setParameter("year1", year1);
-			q.setParameter("year2", year2);
-			q.getResultList().forEach(line -> {
-		    	if(line.getPfeFile() == null) {
-		    		//System.out.println(line);
-		    		studentsFiltred.add(line);
-		    	} 	
-		    });
-			return studentsFiltred;
-		}else {
-			TypedQuery<Student> q = em.createQuery("select e from Student e where e.classe.scholarYear=:year1 or e.classe.scholarYear=:year2 or e.classe.scholarYear=:year3", Student.class);
-			q.setParameter("year1", year1);
-			q.setParameter("year2", year2);
-			q.setParameter("year3", year3);
-			q.getResultList().forEach(line -> {
-		    	if(line.getPfeFile() == null) {
-		    		//System.out.println(line);
-		    		studentsFiltred.add(line);
-		    	} 	
-		    });
-			return studentsFiltred;
-		}
-		 
-		// return students;
-		 /*for(Class c : q.getResultList() ) {
-			students.addAll(c.getStudents());
-		}*/
-		 
-		//return studentsFiltred;
+		PfeFile pfe = em.find(PfeFile.class, id);
+		pfe.setAnnulation(Status.Pending);
+		return pfe.getAnnulation();
 	}
+	
+	//Requirement 6
+	//@Author: khaled
+	@Override
+	public Status approveAnnulation(int id) {
+		// TODO Auto-generated method stub
+		PfeFile pfe = em.find(PfeFile.class, id);
+		ArchivePfeFile archive = new ArchivePfeFile();
+		pfe.setAnnulation(Status.Approved);
+		archive.setTitle(pfe.getTitle());
+		archive.setDescription(pfe.getDescription());
+		archive.setEmailPersonel(pfe.getEmailPersonel());
+		archive.setEmailProfessionel(pfe.getEmailProfessionel());
+		archive.setGradeReporter(pfe.getGradeReporter());
+		archive.setGradeSupervisor(pfe.getGradeSupervisor());
+		archive.setKeywords(pfe.getKeywords());
+		archive.setProblematic(pfe.getProblematic());
+		archive.setStatus(pfe.isStatus());
+		archive.setReportDeposite(pfe.isReportDeposite());
+		archive.setFunctionnalities(pfe.getFunctionnalities());
+		em.persist(archive);
+		return pfe.getAnnulation();
+	}
+	
+	//Requirement 6
+	//@Author: khaled
+	@Override
+	public void declineAnnulation(Reason reason) {
+		// TODO Auto-generated method stub
+		PfeFile pfe = em.find(PfeFile.class, reason.getId());
+		pfe.setAnnulation(Status.Declined);
+		TemplateMessage template = new TemplateMessage(reason.getMessage());
+		eb.sendEmail(pfe.getStudent().getEmail(), "PFE annulation denied.", template.getTemplate());
+	}	 
 
 }

@@ -14,12 +14,15 @@ import javax.ws.rs.core.Response;
 
 import entities.users.Admin;
 import interfaces.AdminRemote;
+import utilities.EmailBusiness;
 
 @Path("admin")
 public class AdminResource {
 	
 	@EJB
 	AdminRemote adminBusiness;
+	
+	EmailBusiness eb = new EmailBusiness();
 	
 	@POST
 	@Path("/add")
@@ -31,6 +34,7 @@ public class AdminResource {
 		}
 		adminBusiness.addAdmin(admin);
 		return Response.status(Response.Status.CREATED).entity(admin).build();
+		
 	}
 	
 	@PUT
@@ -47,7 +51,7 @@ public class AdminResource {
 	@GET
 	@Path("{id}")
 	@Produces("application/json")
-	public Response findAdmin(@PathParam("id")int id) {
+	public Response findAdmin(@PathParam("id") int id) {
 		return Response.ok(adminBusiness.findAdminById(id), MediaType.APPLICATION_JSON).build();
 	}
 	

@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import entities.administration.Site;
 import entities.users.InternshipDirector;
 import interfaces.InternshipDirectorRemote;
 
@@ -67,6 +68,17 @@ public class InternshipDirectorBusiness implements InternshipDirectorRemote {
 		List<InternshipDirector> directors =  em.createQuery("from InternshipDirector", InternshipDirector.class).getResultList();
 		System.out.println("Out of findAllDirectors : "); 
 		return directors;
+	}
+	//@Author: khaled
+	//requirement 8
+	@Override
+	public void fixNumbers(Site site) {
+		// TODO Auto-generated method stub
+		Site st = em.find(Site.class, site.getId());
+		st.setNmapresident(site.getNmapresident());
+		st.setNmarapporteur(site.getNmarapporteur());
+		st.setNmasupervisor(site.getNmasupervisor());
+		st.setNmavalidator(st.getNmavalidator());
 	}
 
 }

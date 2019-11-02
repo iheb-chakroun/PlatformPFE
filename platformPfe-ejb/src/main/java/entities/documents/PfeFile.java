@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +18,7 @@ import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import collection.Status;
 import entities.tracking.ArchivePfeFile;
 import entities.users.DepartementHead;
 import entities.users.Student;
@@ -38,6 +41,8 @@ public class PfeFile implements Serializable{
 	private String emailPersonel;
 	private String emailProfessionel;
 	private boolean status;
+	@Enumerated(EnumType.STRING)
+	private Status annulation;
 	private Date createdAt;
 	private boolean reportDeposite;
 	@JsonIgnoreProperties({"pfeFile"})
@@ -206,6 +211,12 @@ public class PfeFile implements Serializable{
 	}
 	public void setModerator(DepartementHead moderator) {
 		this.moderator = moderator;
+	}
+	public Status getAnnulation() {
+		return annulation;
+	}
+	public void setAnnulation(Status annulation) {
+		this.annulation = annulation;
 	}
 	
 	

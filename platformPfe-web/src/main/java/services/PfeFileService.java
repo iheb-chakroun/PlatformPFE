@@ -16,11 +16,15 @@ import javax.ws.rs.core.Response.Status;
 
 import entities.documents.PfeFile;
 import entities.users.DepartementHead;
+import entities.users.Teacher;
 import interfaces.PfeFileLocal;
+import interfaces.TeacherRemote;
 @Path("pfe")
 public class PfeFileService {
 	@EJB
 	PfeFileLocal pfeService;
+	@EJB
+	TeacherRemote teacherBusiness;
 
 	@GET
 	@Produces("application/json")
@@ -50,28 +54,102 @@ public class PfeFileService {
 			return Response.ok(pfeService.findPfeById(id), MediaType.APPLICATION_JSON).build();
 	}
 	
+	
+	
+	/*------------Internship director-----------*/
+	//@Author: khaled
 	@GET
+	@Path("/filtred")
 	@Produces("application/json")
-	public Response getPfeByYear(@QueryParam("year") String year) {
-		return Response.ok(pfeService.filterPfe(year), MediaType.APPLICATION_JSON).build();
+	@Consumes("application/json")
+	public Response getSortedPfe(String... ops) {
+		return Response.ok(pfeService.filterPfe(ops), MediaType.APPLICATION_JSON).build();
 	}
 	
+	//@author: khaled
 	@GET
-	@Path("/no")
+	@Path("/NonTreated")
 	@Produces("application/json")
 	public Response getNonPfe() {
 		return Response.ok(pfeService.filterPfeNonTreated(), MediaType.APPLICATION_JSON).build();
 	}
+	//@author: khaled
+	@GET
+	@Path("/planification")
+	@Produces("application/json")
+	public Response getPendingPfePlans() {
+		if(pfeService.getPedingFilesPlanification().isEmpty()) {
+			String message = "{\"message\": \"No pending pfe for thesis defense planification was found!\"}";
+			return Response.status(Response.Status.OK).entity(message).build();
+		}
+		return Response.ok(pfeService.getPedingFilesPlanification(), MediaType.APPLICATION_JSON).build();
+	}	
 	
+	//@author: khaled
 	@POST
 	@Produces("application/json")
-
 	public Response accepterPfe(@QueryParam("id") int id) {
 		DepartementHead dep = pfeService.accepterPfe(id);
 		return Response.status(Status.CREATED).entity("Moderator"+dep.getFirstName()+dep.getLastName()).build();
 
 	}
-
+	
+	//@author: khaled
+	@POST
+	@Consumes("application/json")
+	@Produces("application/json")
+	public Response refusePfe(@QueryParam("id") int id,@QueryParam("reason") String reason) {
+		pfeService.refusePfe(id, reason);
+		String message = "{\"message\": \"Pfe file declined sucessufully\"}";
+		 
+	    return Response
+	      .status(Response.Status.OK)
+	      .entity(message)
+	      .type(MediaType.APPLICATION_JSON)
+	      .build();
+	}
+	
+	//@author: khaled
+	@POST
+	@Path("/report")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public Response authorizeStudent(PfeFile input) {
+		if(input == null) {
+			String message = "{\"message\": \"No content!\"}";
+			return Response.status(Response.Status.BAD_REQUEST).entity(message).build();
+		}
+		PfeFile pfe = pfeService.findPfeById(input.getId());
+		if(!pfe.isReportDeposite()) {
+			pfeService.approveReport(pfe.getId());
+			String message = "{\"message\": \"Report submitted successfully!\"}";
+			return Response.status(Response.Status.OK).entity(message).build();
+		}else {
+			pfeService.approveReport(pfe.getId());
+			String message = "{\"message\": \"Report not deposited yet!\"}";
+			return Response.status(Response.Status.OK).entity(message).build();
+		}
+	}
+	//@author: khaled
+		@POST
+		@Path("/reporter")
+		@Consumes("application/json")
+		@Produces("application/json")
+		public Response asignReporter(PfeFile input) {
+			if(input == null) {
+				String message = "{\"message\": \"No content!\"}";
+				return Response.status(Response.Status.BAD_REQUEST).entity(message).build();
+			}
+			Teacher teacher = teacherBusiness.findTeacherById(input.getPre_validator().getId());
+			if(pfeService.asignReporter(input.getId(), teacher.getId())) {
+				String message = "{\"message\": \"The rapporteur: "+teacher.getFirstName()+" "+teacher.getLastName()+" asigned to pfe number: "+input.getId()+"!\"}";
+				return Response.status(Response.Status.OK).entity(message).build();
+			}
+			String message = "{\"message\": \"The student didn't deposit his report yet!\"}";
+			return Response.status(Response.Status.BAD_REQUEST).entity(message).build();
+		}
+	/*----------------------------------------------------------------------*/
+	
 	@POST
 	@Consumes("application/json")
 	@Produces("application/json")

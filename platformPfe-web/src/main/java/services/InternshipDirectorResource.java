@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import entities.administration.Site;
 import entities.users.InternshipDirector;
 import interfaces.InternshipDirectorRemote;
 
@@ -41,6 +42,21 @@ public class InternshipDirectorResource {
 		}
 		directorBusiness.updateDirector(director);
 		return Response.status(Response.Status.ACCEPTED).entity(director).build();
+	}
+	
+	@PUT
+	@Path("/maximum")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public Response fixNumbers(Site site) {
+		if(site == null) {
+			String message = "{\"message\": \"No content!\"}";
+			return Response.status(Response.Status.BAD_REQUEST).entity(message).build();
+		}
+		directorBusiness.fixNumbers(site);
+		String message = "{\"message\": \"Each teacher now can be a rapporteur, supervisor, president and prevalidator for:"
+		+site.getNmarapporteur()+" times, "+site.getNmasupervisor()+" times, "+site.getNmapresident()+" times, "+site.getNmavalidator()+" times. \"}";
+		return Response.status(Response.Status.ACCEPTED).entity(message).build();
 	}
 	
 	@GET

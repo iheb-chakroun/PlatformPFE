@@ -52,7 +52,7 @@ public class TeacherBusiness implements TeacherRemote {
 	}
 
 	@Override
-	public Employe findTeacherById(int id) {
+	public Teacher findTeacherById(int id) {
 		// TODO Auto-generated method stub
 		Teacher teacher = em.find(Teacher.class, id); 
 		System.out.println("Out of findAdminById : "); 
