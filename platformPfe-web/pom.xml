@@ -95,7 +95,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
+	<dependency>
+    <groupId>com.textmagic.sdk</groupId>
+    <artifactId>textmagic-java-sdk</artifactId>
+    <version>1.2.0</version>
+</dependency>
 	</dependencies>
 
 	<build>

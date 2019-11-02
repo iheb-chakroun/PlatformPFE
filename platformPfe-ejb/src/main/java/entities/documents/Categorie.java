@@ -1,12 +1,14 @@
 package entities.documents;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Categorie {
+public class Categorie implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -22,6 +24,13 @@ public class Categorie {
 	}
 	
 	
+	public Categorie(String label, boolean status) {
+		super();
+		this.label = label;
+		this.status = status;
+	}
+
+
 	public Categorie() {
 		super();
 	}
@@ -46,6 +55,8 @@ public class Categorie {
 		this.status = status;
 	}
 
-	
+	public boolean getStatus() {
+		return status;
+	}
 	
 }

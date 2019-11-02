@@ -1,7 +1,9 @@
 package services;
 
+import java.io.Serializable;
+
 import javax.ejb.EJB;
-import javax.websocket.server.PathParam;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -17,7 +19,7 @@ import entities.documents.Categorie;
 import interfaces.CategorieSerivceLocal;
 
 @Path("categorie")
-public class CategorieService {
+public class CategorieService implements Serializable {
 
 	@EJB
 	CategorieSerivceLocal CategorieBusiness;
@@ -45,6 +47,8 @@ public class CategorieService {
 		try {
 			
 			CategorieBusiness.addCategorie(categorie);
+			System.out.println(Response.ok(MediaType.APPLICATION_JSON).toString());
+			System.out.println(categorie);
 			return Response.status(Status.CREATED).build();
 
 		}
@@ -56,7 +60,7 @@ public class CategorieService {
 	
 	@DELETE
 	@Path("delete/{id}")
-	public Response SupprimerEntreprise(@PathParam (value="id") int id) {
+	public Response SupprimerCategorie(@PathParam("id") int id) {
 		
 		if(CategorieBusiness.deleteCategorie(id) ) {
 			return Response.status(Status.OK).build(); }
@@ -66,12 +70,12 @@ public class CategorieService {
 }
 	
 	@PUT
-	@Consumes("application/json")
 	@Path("modify/{id}")
-
-	public Response modifierEntreprise(@PathParam (value="id") int id , Categorie c) {
+	@Consumes("application/json")
+	//@Produces(MediaType.TEXT_PLAIN)
+	public Response modifierCategorie(@PathParam("id") int id , Categorie c) {
 		
-			if(CategorieBusiness.ModifyCategorie(c) ) {
+			if(CategorieBusiness.ModifyCategorie(id,c) ) {
 			return Response.status(Status.OK).build(); }
 		return Response.status(Status.BAD_REQUEST).build();
 

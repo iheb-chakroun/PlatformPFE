@@ -33,8 +33,6 @@ public class CategorieBusiness implements CategorieSerivceLocal{
 	public boolean deleteCategorie(int idcategorie) {
    em.remove(em.find(Categorie.class, idcategorie)); 
 	   return true;
-	   
-   		
 	}
 
 	@Override
@@ -44,18 +42,11 @@ public class CategorieBusiness implements CategorieSerivceLocal{
 	}
 
 	@Override
-	public boolean ModifyCategorie(Categorie categorie) {
-		//Query query=em.createQuery("Update Categorie c set label=:label,status=:status where c.id=:idcategorie");
-		//query.setParameter("label", label);
-		//query.setParameter("status", status);
-		//int i=query.executeUpdate();
-		//if(i==1)
-		//{	System.out.println("success");
-		//}
-		//else {
-		//System.out.println("failed");
-		//}
-		em.merge(categorie);
+	public boolean ModifyCategorie(int id, Categorie categorie) {
+		Categorie c=em.find(Categorie.class, id);
+		c.setLabel(categorie.getLabel());
+		c.setStatus(categorie.getStatus());
+		em.merge(c);
 		return true;
 	}
 
