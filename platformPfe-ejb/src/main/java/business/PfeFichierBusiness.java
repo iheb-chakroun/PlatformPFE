@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import com.textmagic.sdk.RestException;
+
 import collection.Statuspfefile;
 import entities.documents.Categorie;
 import entities.documents.PfeFile;
@@ -18,7 +20,7 @@ public class PfeFichierBusiness implements PfeFichierLocal{
 	
 	@PersistenceContext(unitName ="platform")
 	EntityManager em;
-
+	SmsSender sms=new SmsSender();
 	@Override
 	public List<PfeFile> getAllPfeFileyear(String year) {
 		Query q = em.createQuery("SELECT p from PfeFile p where p.student.classe.scholarYear=:year ", PfeFile.class);
@@ -52,12 +54,20 @@ public class PfeFichierBusiness implements PfeFichierLocal{
 	}
 
 	@Override
-	public boolean prevalidatepfefile(int id,Statuspfefile s) {
+	public boolean prevalidatepfefile(int id,Statuspfefile s,String msg) throws RestException {
 		Query q = em.createQuery("update PfeFile p set p.spf=:s where p.id=:id");
 		q.setParameter("s", s);
 		q.setParameter("id", id);
 		System.out.println(s);
+		
+		Query q1 = em.createQuery("select s.tel from Student s,PfeFile p where p.id=:id  ");
+		q1.setParameter("id", id);
+		String n=(String) q1.getSingleResult();
+		
+		
 		if(s==Statuspfefile.REFUSED) {
+			System.out.println(n);
+			sms.send(n, msg);
 			
 		}
 		int modified= q.executeUpdate();

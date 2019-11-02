@@ -20,6 +20,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.textmagic.sdk.RestException;
+
 import collection.Statuspfefile;
 import entities.documents.Categorie;
 import interfaces.CategorieSerivceLocal;
@@ -81,17 +83,24 @@ public class PfefichierService {
 
 	}
 	
+	
 	@PUT
-	@Path("modify/{id}/{s}")
+	@Path("modify/{id}/{s}/{msg}")
 	//@Consumes("application/json")
 	//@Produces(MediaType.TEXT_PLAIN)
-	public Response modifierCategorie(@PathParam("id") int id ,@PathParam("s")Statuspfefile s ) {
+	public Response modifierCategorie(@PathParam("id") int id ,@PathParam("s")Statuspfefile s ,@PathParam("msg")String msg ) throws RestException {
 		
-			if(PfeFichierBusiness.prevalidatepfefile(id, s) ) {
+			if(PfeFichierBusiness.prevalidatepfefile(id, s,msg) ) {
 			return Response.status(Status.OK).build(); }
 		return Response.status(Status.BAD_REQUEST).build();
-
-}
+		
+		
+		
+	}
+	
+	
+	
+	
 	@PUT
 	@Path("gradesupervisor/{id}/{g}")
 	//@Consumes("application/json")
