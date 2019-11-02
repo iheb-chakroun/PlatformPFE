@@ -39,17 +39,19 @@ public class Student implements Serializable {
 	private boolean status;
 	
 	//Associations
+	@JsonIgnoreProperties("students")
 	@ManyToOne
 	private Class classe;
 	
+	@JsonIgnoreProperties("student")
 	@OneToOne(mappedBy="student")
 	private Convention convention;
 	
-	@JsonIgnoreProperties({"student"})
+	@JsonIgnoreProperties("student")
 	@OneToMany(mappedBy="student",fetch = FetchType.EAGER)
 	private Set<StudentNotification> notifications;
 	
-	@JsonIgnoreProperties({"student"})
+	@JsonIgnoreProperties("student")
 	@OneToOne(mappedBy="student")
 	private PfeFile pfeFile;
 	

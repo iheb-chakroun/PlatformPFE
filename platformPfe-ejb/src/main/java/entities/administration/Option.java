@@ -27,9 +27,12 @@ public class Option implements Serializable{
 	private String responsibleName;
 	private String responsibleTel;
 	private String responsibleEmail;
-	@JsonIgnoreProperties({"departements", "options", "school"})
+	
+	@JsonIgnoreProperties("departement")
 	@ManyToOne
 	private Departement departement;
+	
+	@JsonIgnoreProperties("option")
 	@OneToMany(mappedBy="option", cascade= {CascadeType.REMOVE, CascadeType.PERSIST})
 	private List<Class> classes;
 	

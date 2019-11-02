@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import entities.users.Student;
 
 @Entity
@@ -49,6 +51,8 @@ public class Convention implements Serializable{
 	private int id;
 	private Date startDate;
 	private Date endDate;
+	
+	@JsonIgnoreProperties("convention")
 	@OneToOne
 	private Student student;
 	

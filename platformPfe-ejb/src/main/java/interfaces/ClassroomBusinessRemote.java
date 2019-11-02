@@ -1,6 +1,5 @@
 package interfaces;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -14,7 +13,6 @@ public interface ClassroomBusinessRemote {
 	boolean deleteClassroom(int id);
 	Classroom getClassroomById(int id);
 	List<Classroom> getClassrooms();
-	List<Classroom> getAvailableClassrooms(Date date);
 	
 
 }

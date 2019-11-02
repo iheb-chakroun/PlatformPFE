@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Entreprise implements Serializable {
 	/**
@@ -23,6 +25,7 @@ public class Entreprise implements Serializable {
 	private String nameResponsable;
 	private String emailResponsable;
 	private String emailEncadrent;
+	@JsonIgnoreProperties("entreprise")
 	@OneToOne(mappedBy="entreprise")
 	private PfeFile pfeFile;
 	public int getId() {

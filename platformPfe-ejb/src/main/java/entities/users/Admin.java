@@ -6,6 +6,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import entities.administration.School;
 
@@ -17,7 +18,7 @@ public class Admin extends Employe implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 
-
+	@JsonIgnoreProperties("admin")
 	@OneToOne(mappedBy = "admin")
 	private School school;
 	

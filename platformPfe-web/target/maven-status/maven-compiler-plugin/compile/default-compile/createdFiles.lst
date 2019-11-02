@@ -1,4 +1,8 @@
 services\EmployeService.class
+services\OptionService.class
+services\DepartementService.class
 utilities\RestActivator.class
 services\SchoolService.class
 services\SiteService.class
+services\ClassService.class
+services\ThesisService.class

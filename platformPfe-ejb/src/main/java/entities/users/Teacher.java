@@ -10,6 +10,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import entities.administration.Departement;
 import entities.documents.Categorie;
 import entities.documents.PfeFile;
@@ -23,14 +25,26 @@ public class Teacher extends Employe implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@JsonIgnore
+	// @JsonIgnoreProperties("teachers")
 	@ManyToOne
 	private Departement departement;
+
+	@JsonIgnore
+	// @JsonIgnoreProperties("pre_validator")
 	@OneToMany(mappedBy = "pre_validator")
 	private List<PfeFile> pfeFiles;
+
 	@ManyToMany
 	private List<Categorie> categories;
+
+	@JsonIgnore
+	// @JsonIgnoreProperties("teacher")
 	@OneToMany(mappedBy = "teacher")
 	private List<TeacherNotification> teacherNotification;
+
+	@JsonIgnore
+	// @JsonIgnoreProperties("teacher")
 	@OneToMany(mappedBy = "teacher")
 	private List<TeacherRole> teacherRole;
 
@@ -74,39 +88,48 @@ public class Teacher extends Employe implements Serializable {
 		this.teacherRole = teacherRole;
 	}
 
-	//Note isAvailable : to check if the teacher is available in a given date
+	// Note isAvailable : to check if the teacher is available in a given date
 	public boolean isAvailable(Date date) {
 		for (TeacherRole tr : teacherRole) {
-			if (tr.getThesis().getDate() == date) {
-				return false;
+			if (tr.getThesis().getDate() != null) {
+				if (tr.getThesis().getDate().compareTo(date) == 0) {
+					return false;
+				}
 			}
 		}
 		return true;
 	}
 
 	/**
-	 * Note isValid : to check if the teacher can take another action 
-	 * and to check if has already a role in a given thesis
+	 * Note isValid : to check if the teacher can take another action and to check
+	 * if has already a role in a given thesis
+	 * 
 	 * @param thesis
 	 * @param date
 	 * @return
 	 */
 	public boolean isValid(Thesis thesis, Date date) {
-		if (this.teacherRole.size() < this.departement.getSite().getNbrMaxAction()) {
-			return false;
+		boolean valid = true;
+		if (this.teacherRole.size() >= this.departement.getSite().getNbrMaxAction()) {
+			valid = false;
 		}
-		
-		
+
+		if (this.getDepartement().getId() != thesis.getPfeFile().getStudent().getClasse().getOption().getDepartement().getId()) {
+			valid = false;
+		}
+
 		for (TeacherRole tr : this.teacherRole) {
 			if (tr.getThesis().equals(thesis)) {
-				return false;
+				valid = false;
 			}
-			if (tr.getThesis().getDate() == date) {
-				return false;
+			if (tr.getThesis().getDate() != null) {
+				if (tr.getThesis().getDate().compareTo(date) == 0) {
+					valid = false;
+				}
 			}
 		}
 
-		return true;
+		return valid;
 	}
 
 }

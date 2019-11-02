@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Schedule implements Serializable{
 	/**
@@ -23,8 +25,11 @@ public class Schedule implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 	private boolean available;
+	
+	@JsonIgnoreProperties("schedules")
 	@ManyToOne
 	private Classroom classroom;
+	
 	public int getId() {
 		return id;
 	}

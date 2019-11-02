@@ -3,6 +3,8 @@ package entities.users;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,16 +28,19 @@ public class TeacherRole implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@Enumerated(EnumType.STRING)
 	private Role role;
 	
 	@ManyToOne
 	@JsonIgnoreProperties({"teacherRole"})
-    @JoinColumn(name="idThesis", referencedColumnName="id", insertable=false, updatable=false)
+    @JoinColumn(name="idThesis", referencedColumnName="id")
 	private Thesis thesis;
 	
 	
+	@JsonIgnoreProperties({"teacherRole"})
 	@ManyToOne
-	@JoinColumn(name="idTeacher", referencedColumnName="id", insertable=false, updatable=false)
+	@JoinColumn(name="idTeacher", referencedColumnName="id")
 	private Teacher teacher;
 	
 	

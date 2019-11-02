@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import entities.documents.PfeFile;
 
 @Entity
@@ -36,8 +38,11 @@ public class ArchivePfeFile implements Serializable {
 	private String event;
 	private String emmeteur;
 	private String note;
+
+	@JsonIgnoreProperties("archivePfeFile")
 	@ManyToOne
 	private PfeFile pfeFile;
+	
 	//Note I added date of event
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateOfEvent;
@@ -149,7 +154,14 @@ public class ArchivePfeFile implements Serializable {
 		this.title = pfeFile.getTitle();
 		this.description = pfeFile.getDescription();
 		this.problematic = pfeFile.getProblematic();
-		//TODO complete copy
+		this.functionnalities = pfeFile.getFunctionnalities();
+		this.keywords = pfeFile.getKeywords();
+		this.gradeSupervisor = pfeFile.getGradeSupervisor();
+		this.gradeReporter = pfeFile.getGradeReporter();
+		this.emailPersonel = pfeFile.getEmailPersonel();
+		this.emailProfessionel = pfeFile.getEmailProfessionel();
+		this.status = pfeFile.isStatus();
+		this.reportDeposite = pfeFile.isReportDeposite();
 	}
 	
 	

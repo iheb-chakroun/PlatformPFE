@@ -1,6 +1,5 @@
 package business;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -41,6 +40,9 @@ public class PfeFileBuisness implements PfeFileLocal {
 	@Override
 	public void ajouterPfeFile(PfeFile p) {
 		em.persist(p);
+		if (p.isReady()) {
+			// XXX
+		}
 	}
 
 	@Override
@@ -54,25 +56,14 @@ public class PfeFileBuisness implements PfeFileLocal {
 
 		try {
 			em.merge(p);
+			if (p.isReady()) {
+				// XXX
+			}
 			return true;
 
 		} catch (Exception e) {
 			return false;
 		}
-	}
-
-	// Iheb
-
-	@Override
-	public List<PfeFile> getAllReadyPfeFile() {
-		List<PfeFile> pfes = this.getAllPfeFile();
-		List<PfeFile> pfeReady = new ArrayList<PfeFile>();
-		for (PfeFile pfeFile : pfes) {
-			if (pfeFile.isReady()) {
-				pfeReady.add(pfeFile);
-			}
-		}
-		return pfeReady;
 	}
 
 }

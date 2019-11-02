@@ -16,9 +16,7 @@ public interface PfeFileLocal {
 	boolean deletePfeFileById(int PfeFileId);
 
 	PfeFile findPfeById(int id);
-		
-	List<PfeFile> getAllReadyPfeFile();
-	
+			
 	
 	
 

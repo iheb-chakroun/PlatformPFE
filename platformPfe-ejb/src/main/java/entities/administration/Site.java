@@ -1,6 +1,7 @@
 package entities.administration;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,17 +12,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 import entities.users.InternshipDirector;
 
-
-
 @Entity
-public class Site implements Serializable{
+public class Site implements Serializable {
 	/**
 	 * 
 	 */
@@ -33,13 +32,26 @@ public class Site implements Serializable{
 	private String nom;
 	private int nbrMaxVal;
 	private int nbrMaxAction;
+
+	// Note added this
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateOfSessionStarts;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateOfSessionEnds;
+
 	@JsonIgnoreProperties("sites")
 	@ManyToOne
 	private School school;
+
+	@JsonIgnoreProperties("site")
 	@OneToMany(mappedBy = "site")
 	private List<Template> templates;
-	@OneToMany(mappedBy = "site", cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
+
+	@JsonIgnoreProperties("site")
+	@OneToMany(mappedBy = "site", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<Departement> departements;
+	
+	@JsonIgnoreProperties("site")
 	@OneToOne
 	private InternshipDirector internshipDirector;
 
@@ -114,6 +126,21 @@ public class Site implements Serializable{
 	public void setInternshipDirector(InternshipDirector internshipDirector) {
 		this.internshipDirector = internshipDirector;
 	}
-	
+
+	public Date getDateOfSessionStarts() {
+		return dateOfSessionStarts;
+	}
+
+	public void setDateOfSessionStarts(Date dateOfSessionStarts) {
+		this.dateOfSessionStarts = dateOfSessionStarts;
+	}
+
+	public Date getDateOfSessionEnds() {
+		return dateOfSessionEnds;
+	}
+
+	public void setDateOfSessionEnds(Date dateOfSessionEnds) {
+		this.dateOfSessionEnds = dateOfSessionEnds;
+	}
 
 }

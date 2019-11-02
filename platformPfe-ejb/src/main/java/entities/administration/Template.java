@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 public class Template implements Serializable{
 	/**
@@ -17,8 +19,12 @@ public class Template implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String content;
+	
+	@JsonIgnoreProperties("templates")
 	@ManyToOne
 	private Site site;
+	
+	
 	public Site getSite() {
 		return site;
 	}

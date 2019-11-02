@@ -34,13 +34,14 @@ public class School implements Serializable {
 	private String tel;
 	private String colors;
 	private String license;
+	
 	@JsonIgnoreProperties("school")
-	@OneToMany(mappedBy = "school", cascade= {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "school", cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER)
 	private List<Site> sites = new ArrayList<Site>();
 
-	@OneToOne(fetch=FetchType.EAGER)
+	@JsonIgnoreProperties("school")
+	@OneToOne(fetch = FetchType.EAGER)
 	private Admin admin;
-	
 
 	public int getId() {
 		return id;
@@ -129,5 +130,5 @@ public class School implements Serializable {
 	public void setLicense(String license) {
 		this.license = license;
 	}
-	
+
 }

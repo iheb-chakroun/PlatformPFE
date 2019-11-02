@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import entities.administration.Classroom;
 import entities.users.TeacherRole;
 
@@ -27,14 +29,19 @@ public class Thesis implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	//Note added the classroom where the thesis will occur
+	@JsonIgnoreProperties({ "thesis" })
 	@ManyToOne
 	private Classroom classroom;
+	
 	//Note we need to add the annotation @Temporal when we have date
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
+	
+	@JsonIgnoreProperties({ "thesis" })
 	@OneToOne
 	private PfeFile pfeFile;
 	
+	@JsonIgnoreProperties({ "thesis" })
 	@OneToMany(mappedBy="thesis")
 	private List<TeacherRole> teacherRole;
 
@@ -84,7 +91,6 @@ public class Thesis implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((classroom == null) ? 0 : classroom.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + id;
 		return result;
@@ -99,11 +105,6 @@ public class Thesis implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Thesis other = (Thesis) obj;
-		if (classroom == null) {
-			if (other.classroom != null)
-				return false;
-		} else if (!classroom.equals(other.classroom))
-			return false;
 		if (date == null) {
 			if (other.date != null)
 				return false;
@@ -113,8 +114,7 @@ public class Thesis implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
+
 	
 	
 	

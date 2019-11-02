@@ -2,6 +2,7 @@ package interfaces;
 
 import java.util.List;
 
+import entities.documents.PfeFile;
 import entities.documents.Thesis;
 
 public interface ThesisLocal {
@@ -15,7 +16,7 @@ public interface ThesisLocal {
 	List<Thesis> getAllThesis();
 
 	boolean updateThesis(Thesis p);
-	
-	void planThesis();
+
+	void plan(PfeFile pfeFile);
 
 }
