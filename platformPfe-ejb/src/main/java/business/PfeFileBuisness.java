@@ -86,7 +86,7 @@ public class PfeFileBuisness implements PfeFileLocal {
 			if(item.equals("status")) {filters.add("e.status");}
 			if(item.equals("year")) {filters.add("e.student.classe.scholarYear");}
 			if(item.equals("country")) {filters.add("e.entreprise.country");}
-			if(item.equals("category")) {filters.add("e.category");}
+			if(item.equals("category")) {filters.add("e.categorie.label");}
 		}
 		String values = filters.stream().collect(Collectors.joining(", "));
 		TypedQuery<PfeFile> q = em.createQuery("select e from PfeFile e order by "+values, PfeFile.class);
@@ -111,8 +111,7 @@ public class PfeFileBuisness implements PfeFileLocal {
 	public DepartementHead accepterPfe(int id) {
 		// TODO Auto-generated method stub
 		PfeFile pfe = em.find(PfeFile.class, id);
-		//pfe.getStudent().getClasse().getOption().getDepartement().getDepartementHead()
-		DepartementHead dep = em.find(DepartementHead.class,17);
+		DepartementHead dep = em.find(DepartementHead.class,pfe.getStudent().getClasse().getOption().getDepartement().getDepartementHead().getId());
 		pfe.setStatus(true);
 		pfe.setModerator(dep);
 		return dep;

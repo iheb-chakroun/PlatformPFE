@@ -97,16 +97,8 @@ public class StudentBusiness implements StudentRemote{
 		// TODO Auto-generated method stub
 		String values = Arrays.asList(years).stream().filter(y -> y != null).collect(Collectors.joining(", "));
 		String query = "select e from Student e where e.classe.scholarYear IN ("+values+")";
-		//System.out.println(names);
-		List<Student> studentsFiltred = new ArrayList<>();
 		TypedQuery<Student> q = em.createQuery(query, Student.class);
-		q.getResultList().forEach(line -> {
-		    if(line.getPfeFile() == null) {
-		    	//System.out.println(line);
-		    	studentsFiltred.add(line);
-		    	} 	
-		    });
-			return studentsFiltred;
+			return q.getResultList().stream().filter(line -> line.getPfeFile()==null).collect(Collectors.toList());
 	}
 	
 	//Requirement 7

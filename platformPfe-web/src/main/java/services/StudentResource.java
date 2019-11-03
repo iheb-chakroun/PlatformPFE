@@ -157,7 +157,7 @@ public class StudentResource {
 		List<Student> st = new ArrayList<>();
 		st = studentBusiness.findStudentsByYears(years);
 		st.forEach(s -> eb.sendEmail(s.getEmail(), "Notification", EmailTemplate.template));
-		return Response.ok(studentBusiness.findStudentsByYears(years), MediaType.APPLICATION_JSON).build();
+		return Response.ok(st, MediaType.APPLICATION_JSON).build();
 	}
 	
 	

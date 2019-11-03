@@ -1,18 +1,14 @@
 package entities.documents;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Categorie implements Serializable{
@@ -21,6 +17,9 @@ public class Categorie implements Serializable{
 	private int id;
 	private String label;
 	private boolean status;
+	@JsonIgnoreProperties({"categorie"})
+	@OneToOne(mappedBy="categorie")
+	private PfeFile pfefile;
 	
 	
 	public int getId() {
@@ -41,14 +40,14 @@ public class Categorie implements Serializable{
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	public Categorie(int id, String label, boolean status) {
-		super();
-		this.id = id;
-		this.label = label;
-		this.status = status;
-	}
 	public Categorie() {
 		super();
+	}
+	public PfeFile getPfefile() {
+		return pfefile;
+	}
+	public void setPfefile(PfeFile pfefile) {
+		this.pfefile = pfefile;
 	}
 
 }

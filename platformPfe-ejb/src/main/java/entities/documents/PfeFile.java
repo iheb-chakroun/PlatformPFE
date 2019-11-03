@@ -16,7 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import collection.Status;
 import entities.tracking.ArchivePfeFile;
@@ -26,7 +28,7 @@ import entities.users.Teacher;
 
 @Entity
 public class PfeFile implements Serializable{
-
+	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +47,7 @@ public class PfeFile implements Serializable{
 	private Status annulation;
 	private Date createdAt;
 	private boolean reportDeposite;
-	@JsonIgnoreProperties({"pfeFile"})
+	@JsonIgnoreProperties({"pfeFile","password","status","convention","email","birthDate","tel"})
 	@OneToOne
 	private Student student;
 	@OneToOne
@@ -54,14 +56,16 @@ public class PfeFile implements Serializable{
 	@OneToMany(mappedBy="pfeFile", fetch=FetchType.EAGER)
 	private List<ArchivePfeFile> archivePfeFile;
 	@OneToOne
-	@JsonIgnoreProperties({"pfeFile"})
+	@JsonIgnoreProperties({"pfeFile","nameResponsable","emailResponsable","emailEncadrent"})
 	private Entreprise entreprise;
 	@OneToOne(mappedBy="pfeFile")
 	private Thesis thesis;
 	@ManyToOne
 	private Teacher pre_validator;
-	@ManyToMany
-	private List<Categorie> categories;
+	@JsonIgnoreProperties({"id","status","pfefile"})
+	@OneToOne
+	private Categorie categorie;
+	@JsonIgnoreProperties({"departement","password","username","address","email"})
 	@ManyToOne()
 	private DepartementHead moderator;
 
@@ -167,36 +171,6 @@ public class PfeFile implements Serializable{
 	public void setPre_validator(Teacher pre_validator) {
 		this.pre_validator = pre_validator;
 	}
-	public List<Categorie> getCategories() {
-		return categories;
-	}
-	public void setCategories(List<Categorie> categories) {
-		this.categories = categories;
-	}
-	public PfeFile(int id, String title, String description, String problematic, String functionnalities,
-			String keywords, float gradeSupervisor, float gradeReporter, String emailPersonel, String emailProfessionel,
-			boolean status, boolean reportDeposite, Student student, List<ArchivePfeFile> archivePfeFile,
-			Entreprise entreprise, Thesis thesis, Teacher pre_validator, List<Categorie> categories) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.description = description;
-		this.problematic = problematic;
-		this.functionnalities = functionnalities;
-		this.keywords = keywords;
-		this.gradeSupervisor = gradeSupervisor;
-		this.gradeReporter = gradeReporter;
-		this.emailPersonel = emailPersonel;
-		this.emailProfessionel = emailProfessionel;
-		this.status = status;
-		this.reportDeposite = reportDeposite;
-		this.student = student;
-		this.archivePfeFile = archivePfeFile;
-		this.entreprise = entreprise;
-		this.thesis = thesis;
-		this.pre_validator = pre_validator;
-		this.categories = categories;
-	}
 	public PfeFile() {
 		super();
 	}
@@ -217,6 +191,12 @@ public class PfeFile implements Serializable{
 	}
 	public void setAnnulation(Status annulation) {
 		this.annulation = annulation;
+	}
+	public Categorie getCategorie() {
+		return categorie;
+	}
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
 	}
 	
 	

@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import entities.administration.Class;
@@ -39,14 +40,14 @@ public class Student implements Serializable {
 	private boolean status;
 	
 	//Associations
-	@JsonIgnoreProperties({"students"})
+	@JsonIgnoreProperties({"students","id"})
 	@ManyToOne
 	private Class classe;
-	
+
 	@OneToOne(mappedBy="student")
 	private Convention convention;
 	
-	@JsonIgnoreProperties({"student"})
+	@JsonIgnore
 	@OneToMany(mappedBy="student",fetch = FetchType.EAGER)
 	private Set<StudentNotification> notifications;
 	
@@ -167,86 +168,4 @@ public class Student implements Serializable {
 		this.pfeFile = pfeFile;
 	}
 	
-	//Override methods like hashcode, toString, etc...
-	
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Student other = (Student) obj;
-		if (birthDate == null) {
-			if (other.birthDate != null)
-				return false;
-		} else if (!birthDate.equals(other.birthDate))
-			return false;
-		if (classe == null) {
-			if (other.classe != null)
-				return false;
-		} else if (!classe.equals(other.classe))
-			return false;
-		if (convention == null) {
-			if (other.convention != null)
-				return false;
-		} else if (!convention.equals(other.convention))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
-				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (id != other.id)
-			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
-			return false;
-		if (notifications == null) {
-			if (other.notifications != null)
-				return false;
-		} else if (!notifications.equals(other.notifications))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (pfeFile == null) {
-			if (other.pfeFile != null)
-				return false;
-		} else if (!pfeFile.equals(other.pfeFile))
-			return false;
-		if (sexe == null) {
-			if (other.sexe != null)
-				return false;
-		} else if (!sexe.equals(other.sexe))
-			return false;
-		if (status != other.status)
-			return false;
-		if (tel == null) {
-			if (other.tel != null)
-				return false;
-		} else if (!tel.equals(other.tel))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthDate=" + birthDate
-				+ ", email=" + email + ", sexe=" + sexe + ", tel=" + tel + ", password=" + password + ", status="
-				+ status + ", classe=" + classe + ", convention=" + convention + ", notifications=" + notifications
-				+ ", pfeFile=" +pfeFile + "]";
-	}
-
 }

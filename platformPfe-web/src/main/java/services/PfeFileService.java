@@ -87,10 +87,17 @@ public class PfeFileService {
 	
 	//@author: khaled
 	@POST
+	@Path("/approval")
+	@Consumes("application/json")
 	@Produces("application/json")
-	public Response accepterPfe(@QueryParam("id") int id) {
-		DepartementHead dep = pfeService.accepterPfe(id);
-		return Response.status(Status.CREATED).entity("Moderator"+dep.getFirstName()+dep.getLastName()).build();
+	public Response accepterPfe(PfeFile pfe) {
+		if(pfe == null) {
+			String message = "{\"message\": \"No content was entred!\"}";
+			return Response.status(Response.Status.NO_CONTENT).entity(message).build();
+		}
+		DepartementHead dep = pfeService.accepterPfe(pfe.getId());
+		String message = "{\"message\":\"The pfe is approved and Now "+dep.getFirstName()+" "+dep.getLastName()+" is the moderator of pfe number: "+pfe.getId()+"\"}";
+		return Response.status(Status.CREATED).entity(message).build();
 
 	}
 	
