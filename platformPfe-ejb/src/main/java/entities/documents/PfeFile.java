@@ -14,11 +14,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import collection.Role;
 import entities.tracking.ArchivePfeFile;
 import entities.users.Student;
 import entities.users.Teacher;
+import entities.users.TeacherRole;
 
 @Entity
 public class PfeFile implements Serializable {
@@ -41,24 +43,24 @@ public class PfeFile implements Serializable {
 	private boolean status;
 	private boolean reportDeposite;
 	
-	@JsonIgnoreProperties({ "pfeFile" })
+	@JsonIgnore
 	@OneToOne
 	private Student student;
 	
-	@JsonIgnoreProperties({ "pfeFile" })
+	@JsonIgnore
 	@OneToMany(mappedBy = "pfeFile", fetch = FetchType.EAGER)
 	private List<ArchivePfeFile> archivePfeFile;
 	
 	
 	@OneToOne
-	@JsonIgnoreProperties({ "pfeFile" })
+	@JsonIgnore
 	private Entreprise entreprise;
 	
-	@JsonIgnoreProperties({ "pfeFile" })
+	@JsonIgnore
 	@OneToOne(mappedBy = "pfeFile", cascade = {CascadeType.MERGE, CascadeType.REMOVE, CascadeType.PERSIST})
 	private Thesis thesis;
 	
-	@JsonIgnoreProperties({ "pfeFiles" })
+	@JsonIgnore
 	@ManyToOne
 	private Teacher pre_validator;
 	
@@ -245,5 +247,51 @@ public class PfeFile implements Serializable {
 		}
 		return false;
 	}
+	
+	public boolean hasReporter() {
+		boolean has = false;
+		for (TeacherRole tr : getThesis().getTeacherRole()) {
+			if (tr.getRole().compareTo(Role.RAPPORTEUR) == 0)
+				has = true;
+		}
+		return has;
+	}
+	
+	public Teacher getReporter() {
+		Teacher t = new Teacher();
+		if (hasReporter()) {
+			for (TeacherRole tr : getThesis().getTeacherRole()) {
+				if (tr.getRole().compareTo(Role.RAPPORTEUR) == 0)
+					t = tr.getTeacher();
+			}
+		}
+		return t;
+	}
+	
+	public boolean hasSupervisor() {
+		boolean has = false;
+		for (TeacherRole tr : getThesis().getTeacherRole()) {
+			if (tr.getRole().compareTo(Role.SUPERVISOR) == 0)
+				has = true;
+		}
+		return has;
+	}
+	
+	public Teacher getSupervisor() {
+		Teacher t = new Teacher();
+		if (hasReporter()) {
+			for (TeacherRole tr : getThesis().getTeacherRole()) {
+				if (tr.getRole().compareTo(Role.SUPERVISOR) == 0)
+					t = tr.getTeacher();
+			}
+		}
+		return t;
+	}
+	
+	public boolean hasValidator() {
+		return this.pre_validator != null;
+	}
+	
+	
 
 }

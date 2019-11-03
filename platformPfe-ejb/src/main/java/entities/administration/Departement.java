@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import entities.users.DepartementHead;
 import entities.users.Teacher;
@@ -20,34 +20,32 @@ import entities.users.Teacher;
 @Entity
 public class Departement implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private String label;
 
-	@JsonIgnoreProperties("departements")
+	@JsonIgnore
 	@ManyToOne
 	private Site site;
 
-	@JsonIgnoreProperties("departement")
+	@JsonIgnore
 	@OneToMany(mappedBy = "departement")
 	private List<Option> options;
 
-	@JsonIgnoreProperties("departement")
+	@JsonIgnore
 	@OneToOne
 	private DepartementHead departementHead;
 
-	@JsonIgnoreProperties("departement")
+	@JsonIgnore
 	@OneToMany(mappedBy = "departement", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<Teacher> teachers;
 
-	// Note new attribute
-	@JsonIgnoreProperties("departement")
+	@JsonIgnore
 	@OneToMany(mappedBy = "departement", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<Classroom> classrooms;
 

@@ -2,6 +2,7 @@ package business;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,6 +15,10 @@ public class PfeFileBuisness implements PfeFileLocal {
 
 	@PersistenceContext(unitName = "platform")
 	EntityManager em;
+	
+	@EJB
+	ThesisBuisness tb;
+	
 
 	@Override
 	public PfeFile findPfeById(int id) {
@@ -34,7 +39,6 @@ public class PfeFileBuisness implements PfeFileLocal {
 		} catch (Exception e) {
 			return false;
 		}
-
 	}
 
 	@Override
@@ -42,6 +46,7 @@ public class PfeFileBuisness implements PfeFileLocal {
 		em.persist(p);
 		if (p.isReady()) {
 			// XXX
+			tb.plan(p);
 		}
 	}
 
@@ -58,6 +63,7 @@ public class PfeFileBuisness implements PfeFileLocal {
 			em.merge(p);
 			if (p.isReady()) {
 				// XXX
+				tb.plan(p);
 			}
 			return true;
 

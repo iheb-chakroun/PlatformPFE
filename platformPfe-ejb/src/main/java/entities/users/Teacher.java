@@ -109,6 +109,7 @@ public class Teacher extends Employe implements Serializable {
 	 * @return
 	 */
 	public boolean isValid(Thesis thesis, Date date) {
+		//XXX 
 		boolean valid = true;
 		if (this.teacherRole.size() >= this.departement.getSite().getNbrMaxAction()) {
 			valid = false;

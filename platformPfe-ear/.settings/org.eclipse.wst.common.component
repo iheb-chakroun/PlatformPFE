@@ -8,6 +8,57 @@
         <dependent-module archiveName="platformPfe-ejb.jar" deploy-path="/" handle="module:/resource/platformPfe-ejb/platformPfe-ejb">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="google-api-client.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/google/api-client/google-api-client/1.23.0/google-api-client-1.23.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="google-oauth-client.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/google/oauth-client/google-oauth-client/1.23.0/google-oauth-client-1.23.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="google-http-client.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/google/http-client/google-http-client/1.23.0/google-http-client-1.23.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="httpclient.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/apache/httpcomponents/httpclient/4.0.1/httpclient-4.0.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="httpcore.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/apache/httpcomponents/httpcore/4.0.1/httpcore-4.0.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-logging.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-codec.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/commons-codec/commons-codec/1.3/commons-codec-1.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jsr305.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="google-http-client-jackson2.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/google/http-client/google-http-client-jackson2/1.23.0/google-http-client-jackson2-1.23.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jackson-core.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/fasterxml/jackson/core/jackson-core/2.1.3/jackson-core-2.1.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="guava-jdk5.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/google/guava/guava-jdk5/17.0/guava-jdk5-17.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="google-oauth-client-jetty.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/google/oauth-client/google-oauth-client-jetty/1.23.0/google-oauth-client-jetty-1.23.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="google-oauth-client-java6.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/google/oauth-client/google-oauth-client-java6/1.23.0/google-oauth-client-java6-1.23.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jetty.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/mortbay/jetty/jetty/6.1.26/jetty-6.1.26.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jetty-util.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/mortbay/jetty/jetty-util/6.1.26/jetty-util-6.1.26.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="servlet-api.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/mortbay/jetty/servlet-api/2.5-20081211/servlet-api-2.5-20081211.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="google-api-services-calendar.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/google/apis/google-api-services-calendar/v3-rev305-1.23.0/google-api-services-calendar-v3-rev305-1.23.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="jackson-annotations.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/fasterxml/jackson/core/jackson-annotations/2.10.0/jackson-annotations-2.10.0.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>

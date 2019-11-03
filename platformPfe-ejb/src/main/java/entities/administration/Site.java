@@ -21,9 +21,6 @@ import entities.users.InternshipDirector;
 
 @Entity
 public class Site implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +37,7 @@ public class Site implements Serializable {
 	private Date dateOfSessionEnds;
 
 	@JsonIgnoreProperties("sites")
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.MERGE)
 	private School school;
 
 	@JsonIgnoreProperties("site")
@@ -52,7 +49,7 @@ public class Site implements Serializable {
 	private List<Departement> departements;
 	
 	@JsonIgnoreProperties("site")
-	@OneToOne
+	@OneToOne(cascade=CascadeType.MERGE)
 	private InternshipDirector internshipDirector;
 
 	public List<Departement> getDepartements() {
@@ -142,5 +139,4 @@ public class Site implements Serializable {
 	public void setDateOfSessionEnds(Date dateOfSessionEnds) {
 		this.dateOfSessionEnds = dateOfSessionEnds;
 	}
-
 }

@@ -45,11 +45,33 @@ public class SchoolService {
 	public Response listerSchoolParId(@PathParam("id") int id) {
 		return Response.ok(schoolBusiness.getSchoolById(id), MediaType.APPLICATION_JSON).build();
 	}
+	
+	@GET
+	@Path("{id}/admin")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listerSchoolAdmin(@PathParam("id") int id) {
+		return Response.ok(schoolBusiness.getSchoolAdmin(id), MediaType.APPLICATION_JSON).build();
+	}
+	
+	@GET
+	@Path("{id}/sites")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listerSchoolSites(@PathParam("id") int id) {
+		return Response.ok(schoolBusiness.getSchoolSites(id), MediaType.APPLICATION_JSON).build();
+	}
+	
+	@POST
+	@Path("assign/{idSchool}/{idAdmin}")
+	public Response affecterAdmin(@PathParam("idSchool") int idSchool, @PathParam("idAdmin") int idAdmin  ) {
+		if (schoolBusiness.assignAdminToSchool(idSchool, idAdmin)) {
+			return Response.status(Status.OK).build();
+		}
+		return Response.status(Response.Status.BAD_REQUEST).build();
+	}
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("{id}")
-	public Response modifierSchool(School s, @PathParam("id") int id) {
+	public Response modifierSchool(School s) {
 		schoolBusiness.updateSchool(s);
 		return Response.status(Status.OK).build();
 	}

@@ -16,17 +16,17 @@ import javax.ws.rs.core.Response.Status;
 import business.SiteBusiness;
 import entities.administration.Site;
 
-
 @Path("site")
 public class SiteService {
-	
+
 	@EJB
 	SiteBusiness siteBusiness;
-	
+
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response ajouterSite(Site site) {
 		try {
+			System.out.println(site.getAddress());
 			siteBusiness.addSite(site);
 			return Response.status(Status.CREATED).build();
 		} catch (Exception e) {
@@ -45,6 +45,38 @@ public class SiteService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response listerSiteParId(@PathParam("id") int id) {
 		return Response.ok(siteBusiness.getSiteById(id), MediaType.APPLICATION_JSON).build();
+	}
+
+	@POST
+	@Path("add/{idSite}/{idSchool}")
+	public Response affecterSchool(@PathParam("idSchool") int idSchool, @PathParam("idSite") int idSite) {
+		if (siteBusiness.affecterSchool(idSite, idSchool)) {
+			return Response.status(Status.OK).build();
+		}
+		return Response.status(Response.Status.BAD_REQUEST).build();
+	}
+
+	@POST
+	@Path("assign/{idSite}/{idIntDir}")
+	public Response affecterInterDir(@PathParam("idIntDir") int idIntDir, @PathParam("idSite") int idSite) {
+		if (siteBusiness.affecterInternshipDirector(idSite, idIntDir)) {
+			return Response.status(Status.OK).build();
+		}
+		return Response.status(Response.Status.BAD_REQUEST).build();
+	}
+
+	@GET
+	@Path("{id}/departements")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listerDepartement(@PathParam("id") int id) {
+		return Response.ok(siteBusiness.getSiteDepartements(id), MediaType.APPLICATION_JSON).build();
+	}
+
+	@GET
+	@Path("{id}/templates")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listerTemplates(@PathParam("id") int id) {
+		return Response.ok(siteBusiness.getSiteTemplates(id), MediaType.APPLICATION_JSON).build();
 	}
 
 	@PUT

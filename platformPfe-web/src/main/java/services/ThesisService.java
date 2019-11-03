@@ -1,10 +1,8 @@
 package services;
 
-
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-
 
 import business.ThesisBuisness;
 import entities.documents.PfeFile;
@@ -19,9 +17,8 @@ public class ThesisService {
 	@EJB
 	PfeFileLocal pfb;
 
-
 	@GET
-	public void plan()  {
+	public void plan() {
 		System.out.println("start planing ....... ");
 		System.out.println("calling method planThesis().......");
 		PfeFile pfeFile = pfb.findPfeById(1);

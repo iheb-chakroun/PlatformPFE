@@ -6,8 +6,11 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import entities.administration.School;
+import entities.administration.Site;
+import entities.users.Admin;
 import interfaces.SchoolBusinessLocal;
 import interfaces.SchoolBusinessRemote;
 
@@ -34,6 +37,21 @@ public class SchoolBusiness implements SchoolBusinessRemote, SchoolBusinessLocal
 	public List<School> getAllSchool() {
 		return em.createQuery("select s from School s", School.class).getResultList();
 	}
+	
+	@Override
+	public Admin getSchoolAdmin(int idSchool) {
+		TypedQuery<Admin> q = em.createQuery("select a from Admin a where a.school.id =:id", Admin.class);
+		q.setParameter("id", idSchool);
+		return q.getSingleResult();
+	}
+	
+	@Override
+	public List<Site> getSchoolSites(int idSchool) {
+		TypedQuery<Site> q = em.createQuery("select s from Site s where s.school.id =:id", Site.class);
+		q.setParameter("id", idSchool);
+		return q.getResultList();
+	}
+	
 
 	@Override
 	public void updateSchool(School school) {
@@ -50,6 +68,19 @@ public class SchoolBusiness implements SchoolBusinessRemote, SchoolBusinessLocal
 			return false;
 		}
 			
+	}
+
+	@Override
+	public boolean assignAdminToSchool(int isSchool, int idAdmin) {
+		try {
+			School school = em.find(School.class, isSchool);
+			Admin admin = em.find(Admin.class, idAdmin);
+			school.setAdmin(admin);
+			em.merge(school);
+			return true;
+		} catch  (Exception e) {
+			return false;
+		}
 	}
 	
 

@@ -35,6 +35,27 @@ public class DepartementService {
 		return Response.ok(departementBusiness.getDepartementById(id), MediaType.APPLICATION_JSON).build();
 	}
 	
+	@GET
+	@Path("{id}/teachers")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listerTeachersDepartementId(@PathParam("id") int id) {
+		return Response.ok(departementBusiness.getTeacherList(id), MediaType.APPLICATION_JSON).build();
+	}
+	
+	@GET
+	@Path("{id}/options")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listerOptionsDepartementId(@PathParam("id") int id) {
+		return Response.ok(departementBusiness.getOptionList(id), MediaType.APPLICATION_JSON).build();
+	}
+	
+	@GET
+	@Path("{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listerClassroomsDepartementId(@PathParam("id") int id) {
+		return Response.ok(departementBusiness.getClassroomList(id), MediaType.APPLICATION_JSON).build();
+	}
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response ajouterDepartment(Departement dep) {

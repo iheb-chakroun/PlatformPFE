@@ -78,12 +78,15 @@ public class Classroom implements Serializable {
 		this.schedules = schedule;
 	}
 
-	public boolean isAvailable(Date date) {
+	public boolean isAvailable(Date date, Departement dep) {
 		if (schedules.size() != 0) {
 			for (Schedule schedule : schedules) {
 				if (schedule.getDate().compareTo(date)==0)
 					return false;
 			}
+		}
+		if (this.departement.getId() != dep.getId()) {
+			return false;
 		}
 		return true;
 	}

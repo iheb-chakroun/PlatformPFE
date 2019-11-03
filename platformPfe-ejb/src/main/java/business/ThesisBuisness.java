@@ -20,6 +20,7 @@ import entities.tracking.ArchivePfeFile;
 import entities.users.Teacher;
 import entities.users.TeacherRole;
 import interfaces.ThesisLocal;
+import utilities.GoogleCalendar;
 
 @Stateless
 @LocalBean
@@ -76,10 +77,10 @@ public class ThesisBuisness implements ThesisLocal {
 	 * @author iheb Note : this method to plan a thesis
 	 * @throws ParseException
 	 */
-	public void doPlan(PfeFile pfeFile, Date date) throws ParseException {
+	public boolean doPlan(PfeFile pfeFile, Date date) throws ParseException {
 		boolean supervisorAvailable = false;
 		boolean rappoteurAvailable = false;
-
+		boolean done = false;
 		// to check if the supervisor and reporter of the pfefile are available in the
 		// given date
 		for (TeacherRole teacherRole : pfeFile.getThesis().getTeacherRole()) {
@@ -122,7 +123,7 @@ public class ThesisBuisness implements ThesisLocal {
 		List<Classroom> classrooms = em.createQuery("select c from Classroom c", Classroom.class).getResultList();
 		List<Classroom> availableClassrooms = new ArrayList<Classroom>();
 		for (Classroom classroom : classrooms) {
-			if (classroom.isAvailable(date)) {
+			if (classroom.isAvailable(date, pfeFile.getStudent().getClasse().getOption().getDepartement())) {
 				availableClassrooms.add(classroom);
 			}
 		}
@@ -136,8 +137,8 @@ public class ThesisBuisness implements ThesisLocal {
 		/**
 		 * if there is a teacher who can be a president in that date if the supervisor
 		 * is available in that date if the reporter is available in that date if there
-		 * is an available classroom in that date
-		 * president must be from the same site and the same dep and school
+		 * is an available classroom in that date president must be from the same site
+		 * and the same dep and school
 		 */
 		if ((validTeachers.size() > 0) && (supervisorAvailable) && (rappoteurAvailable)
 				&& (availableClassrooms.size() > 0)) {
@@ -181,7 +182,8 @@ public class ThesisBuisness implements ThesisLocal {
 			em.merge(pfeFile);
 			System.out.println("merging pfeFile end");
 
-			// TODO google calendar api
+			done = true;
+
 			String emailStudent = pfeFile.getStudent().getEmail();
 			String emailEntrepriseSupervisor = pfeFile.getEntreprise().getEmailEncadrent();
 			String emailSchoolSupervisor = "";
@@ -198,47 +200,67 @@ public class ThesisBuisness implements ThesisLocal {
 					emailSchoolSupervisor = teacherRole.getTeacher().getEmail();
 				}
 			}
-			System.out.println(emailStudent);
-			System.out.println(emailEntrepriseSupervisor);
-			System.out.println(emailSchoolSupervisor);
-			System.out.println(emailReporter);
-			System.out.println(emailPresident);
+
+			try {
+				GoogleCalendar.getInstance().sendEvent(pfeFile, date, this.addHours(date, 1), emailStudent,
+						emailEntrepriseSupervisor, emailSchoolSupervisor, emailReporter, emailPresident);
+			} catch (Exception e) {
+				System.err.println("google calender exception");
+				System.out.println(e.getMessage());
+			}
 
 		}
+
+		return done;
 
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
 	public void plan(PfeFile pfeFile) {
-		Date startDate = pfeFile.getStudent().getClasse().getOption().getDepartement().getSite()
-				.getDateOfSessionStarts();
-		Date endDate = pfeFile.getStudent().getClasse().getOption().getDepartement().getSite().getDateOfSessionEnds();
-		boolean ended = false;
-		List<Integer> workHours = new ArrayList<Integer>();
-		workHours.add(8);
-		workHours.add(9);
-		workHours.add(10);
-		workHours.add(11);
-		workHours.add(14);
-		workHours.add(15);
-		workHours.add(16);
-		workHours.add(17);
-		while ((startDate.before(endDate)) && (ended == false)) {
-			if ((this.getDayNumber(startDate) != 1) && (this.getDayNumber(startDate) != 7)) {
-				if (workHours.indexOf(startDate.getHours()) != -1) {
-					try {
-						this.doPlan(pfeFile, startDate);
-						ended = true;
-					} catch (ParseException e) {
-						System.out.println("error while planning .....");
 
+		boolean hasPresident = false;
+
+		for (TeacherRole tr : pfeFile.getThesis().getTeacherRole()) {
+			if (tr.getRole().compareTo(Role.PRESIDENT) == 0) {
+				hasPresident = true;
+				System.out.println("has president");
+			}
+		}
+
+		if (!hasPresident) {
+
+			Date startDate = pfeFile.getStudent().getClasse().getOption().getDepartement().getSite()
+					.getDateOfSessionStarts();
+			Date endDate = pfeFile.getStudent().getClasse().getOption().getDepartement().getSite()
+					.getDateOfSessionEnds();
+			boolean ended = false;
+			List<Integer> workHours = new ArrayList<Integer>();
+			workHours.add(8);
+			workHours.add(9);
+			workHours.add(10);
+			workHours.add(11);
+			workHours.add(14);
+			workHours.add(15);
+			workHours.add(16);
+			workHours.add(17);
+			while ((startDate.before(endDate)) && (ended == false)) {
+				if ((this.getDayNumber(startDate) != 1) && (this.getDayNumber(startDate) != 7)) {
+					if (workHours.indexOf(startDate.getHours()) != -1) {
+						try {
+
+							ended = this.doPlan(pfeFile, startDate);
+
+						} catch (ParseException e) {
+							System.out.println("error while planning .....");
+
+						}
 					}
 				}
+
+				startDate = this.addHours(startDate, 1);
+
 			}
-
-			startDate = this.addHours(startDate, 1);
-
 		}
 	}
 
