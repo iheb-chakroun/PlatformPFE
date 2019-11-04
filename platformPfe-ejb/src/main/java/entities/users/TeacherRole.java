@@ -23,5 +23,32 @@ public class TeacherRole {
 	@ManyToOne
 	@JoinColumn(name="idTeacher", referencedColumnName="id", insertable=false, updatable=false)
 	private Teacher teacher;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	public Thesis getThesis() {
+		return thesis;
+	}
+	public void setThesis(Thesis thesis) {
+		this.thesis = thesis;
+	}
+	public Teacher getTeacher() {
+		return teacher;
+	}
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+	
+	
+	
 	
 }

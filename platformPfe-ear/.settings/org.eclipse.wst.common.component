@@ -8,6 +8,9 @@
         <dependent-module archiveName="platformPfe-ejb.jar" deploy-path="/" handle="module:/resource/platformPfe-ejb/platformPfe-ejb">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="jackson-annotations.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/fasterxml/jackson/core/jackson-annotations/2.10.0/jackson-annotations-2.10.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="textmagic-java-sdk.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/textmagic/sdk/textmagic-java-sdk/1.2.0/textmagic-java-sdk-1.2.0.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>

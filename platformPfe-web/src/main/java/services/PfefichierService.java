@@ -22,6 +22,7 @@ import javax.ws.rs.core.Response.Status;
 
 import com.textmagic.sdk.RestException;
 
+import collection.Role;
 import collection.Statuspfefile;
 import entities.documents.Categorie;
 import interfaces.CategorieSerivceLocal;
@@ -34,35 +35,35 @@ public class PfefichierService {
 	PfeFichierLocal PfeFichierBusiness;
 	
 	@GET
-	@Path("one/{year}")
+	@Path("one/{id}/{year}/{r}")
 	@Produces("application/json")
-	public Response getAllpfefileone(@PathParam("year") String year) {
+	public Response getAllpfefileone(@PathParam("id") int id,@PathParam("year") String year,@PathParam("r") Role r) {
 
-		if (PfeFichierBusiness.getAllPfeFileyear(year) == null)
+		if (PfeFichierBusiness.getAllPfeFileyear(id,year,r) == null)
 			return Response.status(Response.Status.NOT_FOUND).build();
 
-		if (PfeFichierBusiness.getAllPfeFileyear(year).size() == 0)
+		if (PfeFichierBusiness.getAllPfeFileyear(id,year,r).size() == 0)
 			return Response.status(Response.Status.NO_CONTENT).entity("Pas de contenu").build();
 
 		else
-			return Response.ok(PfeFichierBusiness.getAllPfeFileyear(year), MediaType.APPLICATION_JSON).build();
+			return Response.ok(PfeFichierBusiness.getAllPfeFileyear(id,year,r), MediaType.APPLICATION_JSON).build();
 
 	}
 	
 	@GET
 	@Path("all")
 	@Produces("application/json")
-	public Response getAllpfefilesall(@QueryParam("year") String year) {
+	public Response getAllpfefilesall(@QueryParam("id") int id,@QueryParam("year") String year,@QueryParam("r") Role r) {
 
 		
-		if (PfeFichierBusiness.getAllPfeFileyears(year) == null)
+		if (PfeFichierBusiness.getAllPfeFileyears(id,year,r) == null)
 			return Response.status(Response.Status.NOT_FOUND).build();
 
-		if (PfeFichierBusiness.getAllPfeFileyears(year).size() == 0)
+		if (PfeFichierBusiness.getAllPfeFileyears(id,year,r).size() == 0)
 			return Response.status(Response.Status.NO_CONTENT).entity("Pas de contenu").build();
 
 		else
-			return Response.ok(PfeFichierBusiness.getAllPfeFileyears(year), MediaType.APPLICATION_JSON).build();
+			return Response.ok(PfeFichierBusiness.getAllPfeFileyears(id,year,r), MediaType.APPLICATION_JSON).build();
 
 	
 	}
@@ -124,7 +125,21 @@ public class PfefichierService {
 
 }
 	
-	
+	@GET
+	@Path("list")
+	@Produces("application/json")
+	public Response getAllprevalidatedfiles(@QueryParam("id") int id,@QueryParam("r") Role r) {
+
+		if (PfeFichierBusiness.getAllPfeFilencadreur(id,r) == null)
+			return Response.status(Response.Status.NOT_FOUND).build();
+
+		if (PfeFichierBusiness.getAllPfeFilencadreur(id,r).size() == 0)
+			return Response.status(Response.Status.NO_CONTENT).entity("Pas de contenu").build();
+
+		else
+			return Response.ok(PfeFichierBusiness.getAllPfeFilencadreur(id,r), MediaType.APPLICATION_JSON).build();
+
+	}
 	
 
 }

@@ -15,7 +15,7 @@ public class SmsSender {
 			String apiKey = "apikey=" + "0qwLfUmOSUU-fTdaLRQlCQsgRFBpAPUq2O2Jgo1XwZ";
 			String message = "&message=" + msg;
 			String sender = "&sender=" + "Jims Autos";
-			String numbers = "&numbers=" + "216"+n;
+			String numbers = "&numbers=" + "+216"+n;
 			System.out.println("I'm here hello?");
 			// Send data
 			HttpURLConnection conn = (HttpURLConnection) new URL("https://api.txtlocal.com/send/?").openConnection();

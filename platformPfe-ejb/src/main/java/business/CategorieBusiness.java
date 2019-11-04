@@ -25,8 +25,6 @@ public class CategorieBusiness implements CategorieSerivceLocal{
 	public boolean addCategorie(Categorie categorie) {
 			 em.persist(categorie);
 				return true;
-				
-			
 	}
 
 	@Override

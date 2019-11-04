@@ -1,5 +1,8 @@
 package business;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -9,9 +12,14 @@ import javax.persistence.Query;
 
 import com.textmagic.sdk.RestException;
 
+import collection.Role;
 import collection.Statuspfefile;
 import entities.documents.Categorie;
 import entities.documents.PfeFile;
+import entities.tracking.HeadDepartementNotification;
+import entities.tracking.StudentNotification;
+import entities.users.Teacher;
+import entities.users.TeacherRole;
 import interfaces.PfeFichierLocal;
 
 @Stateless
@@ -20,26 +28,38 @@ public class PfeFichierBusiness implements PfeFichierLocal{
 	
 	@PersistenceContext(unitName ="platform")
 	EntityManager em;
-	SmsSender sms=new SmsSender();
+	//SmsSender sms=new SmsSender();
 	@Override
-	public List<PfeFile> getAllPfeFileyear(String year) {
-		Query q = em.createQuery("SELECT p from PfeFile p where p.student.classe.scholarYear=:year ", PfeFile.class);
-		q.setParameter("year", year);
-		List<PfeFile> pfefiles = q.getResultList();
+	public List<PfeFile> getAllPfeFileyear(int id,String year,Role r) {
+		List<PfeFile> pfefiles=null ;
+		Teacher t = em.find(Teacher.class, id);
+		for (TeacherRole tr : t.getTeacherRole()) {
+			if(tr.getThesis().getPfeFile().getStudent().getClasse().getScholarYear().equals(year)) {
+				if(tr.getRole().equals(r) )
+				{
+					pfefiles.add(tr.getThesis().getPfeFile());
+				}
+			  }
+			}
 		return pfefiles;
+		
 	}
 
 	@Override
-	public List<PfeFile> getAllPfeFileyears(String year) {
+	public List<PfeFile> getAllPfeFileyears(int id,String year,Role r) {
 		List<PfeFile> pfefiles = null;
 		String[] years=year.split(";");
-		
+		Teacher t = em.find(Teacher.class, id);
 		for(String y:years) {
-			Query q = em.createQuery("SELECT p from PfeFile p where p.student.classe.scholarYear=:y ", PfeFile.class);
-			q.setParameter("y", y);
-			pfefiles = q.getResultList();		
-			System.out.println(y);
-			
+			for (TeacherRole tr : t.getTeacherRole()) {
+				
+				if(tr.getThesis().getPfeFile().getStudent().getClasse().getScholarYear().equals(y)) {
+					if(tr.getRole().equals(r) )
+					{
+						pfefiles.add(tr.getThesis().getPfeFile());
+					}
+				  }
+				}
 		}
 		
 		return pfefiles;
@@ -59,14 +79,19 @@ public class PfeFichierBusiness implements PfeFichierLocal{
 		q.setParameter("s", s);
 		q.setParameter("id", id);
 		System.out.println(s);
-		
+		//SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
 		Query q1 = em.createQuery("select s.tel from Student s,PfeFile p where p.id=:id  ");
 		q1.setParameter("id", id);
 		String n=(String) q1.getSingleResult();
 		
-		if(s==Statuspfefile.REFUSED) {
+		if(s==Statuspfefile.REFUSED) {	
 			System.out.println(n);
-			sms.send(n, msg);
+			//sms.send(n, msg);
+			StudentNotification sn=new StudentNotification();
+			sn.setContent(msg);
+			sn.setDate(new Date(System.currentTimeMillis()));
+			em.persist(sn);
 			
 		}
 		int modified= q.executeUpdate();
@@ -83,6 +108,19 @@ public class PfeFichierBusiness implements PfeFichierLocal{
 		Query q = em.createQuery("update PfeFile p set p.gradeSupervisor=:g where p.id=:id");
 		q.setParameter("g", g);
 		q.setParameter("id", id);
+		Query q1=em.createQuery("SELECT gradeReporter from PfeFile where p.id=:id");
+		float gr=(float)q1.getSingleResult();
+		if(gr-g<0) {
+			System.out.println("GREAT");
+		}
+		else
+		if(gr-g>5) {
+			HeadDepartementNotification hdn=new HeadDepartementNotification();
+			hdn.setContent("ATTENTION PLEASE REVIEW GRADES");
+			hdn.setDate(new Date(System.currentTimeMillis()));
+			em.persist(hdn);
+			
+		}
 		int modified= q.executeUpdate();
 		if(modified==1) {
 			return true;
@@ -96,12 +134,37 @@ public class PfeFichierBusiness implements PfeFichierLocal{
 		Query q = em.createQuery("update PfeFile p set p.gradeReporter=:g where p.id=:id");
 		q.setParameter("g", g);
 		q.setParameter("id", id);
+		Query q1=em.createQuery("SELECT gradeSupervisor from PfeFile where p.id=:id");
+		float gs=(float)q1.getSingleResult();
+		if(gs-g<0) {
+			System.out.println("GREAT");
+		}
+		if(gs-g>5) {
+			HeadDepartementNotification hdn=new HeadDepartementNotification();
+			hdn.setContent("ATTENTION PLEASE REVIEW GRADES");
+			hdn.setDate(new Date(System.currentTimeMillis()));
+			em.persist(hdn);
+			
+		}
 		int modified= q.executeUpdate();
 		if(modified==1) {
 			return true;
 		}else {
 			return false;
 		}
+	}
+
+	@Override
+	public List<PfeFile> getAllPfeFilencadreur(int id, Role r) {
+		List<PfeFile> l
+		= new ArrayList<PfeFile>();
+		Teacher t = em.find(Teacher.class, id);
+		for (TeacherRole tr : t.getTeacherRole()) {
+			if(tr.getRole().compareTo(r)==0) {
+				l.add(tr.getThesis().getPfeFile());
+			}
+		}
+		return l;
 	}
 	
 	

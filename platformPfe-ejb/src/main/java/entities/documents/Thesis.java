@@ -25,4 +25,55 @@ public class Thesis {
 	
 	@OneToMany(mappedBy="thesis")
 	private List<TeacherRole> teacherRole;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getClassroom() {
+		return classroom;
+	}
+
+	public void setClassroom(String classroom) {
+		this.classroom = classroom;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public PfeFile getPfeFile() {
+		return pfeFile;
+	}
+
+	public void setPfeFile(PfeFile pfeFile) {
+		this.pfeFile = pfeFile;
+	}
+
+	public List<TeacherRole> getTeacherRole() {
+		return teacherRole;
+	}
+
+	public void setTeacherRole(List<TeacherRole> teacherRole) {
+		this.teacherRole = teacherRole;
+	}
+	
+	
+	
 }
