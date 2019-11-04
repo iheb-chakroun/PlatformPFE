@@ -77,6 +77,56 @@ public class ThesisBuisness implements ThesisLocal {
 	 * @author iheb Note : this method to plan a thesis
 	 * @throws ParseException
 	 */
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public void plan(PfeFile pfeFile) {
+
+		boolean hasPresident = false;
+
+		for (TeacherRole tr : pfeFile.getThesis().getTeacherRole()) {
+			if (tr.getRole().compareTo(Role.PRESIDENT) == 0) {
+				hasPresident = true;
+				System.out.println("has president");
+			}
+		}
+
+		if (!hasPresident) {
+
+			Date startDate = pfeFile.getStudent().getClasse().getOption().getDepartement().getSite()
+					.getDateOfSessionStarts();
+			Date endDate = pfeFile.getStudent().getClasse().getOption().getDepartement().getSite()
+					.getDateOfSessionEnds();
+			boolean ended = false;
+			List<Integer> workHours = new ArrayList<Integer>();
+			workHours.add(8);
+			workHours.add(9);
+			workHours.add(10);
+			workHours.add(11);
+			workHours.add(14);
+			workHours.add(15);
+			workHours.add(16);
+			workHours.add(17);
+			while ((startDate.before(endDate)) && (ended == false)) {
+				if ((this.getDayNumber(startDate) != 1) && (this.getDayNumber(startDate) != 7)) {
+					if (workHours.indexOf(startDate.getHours()) != -1) {
+						try {
+
+							ended = this.doPlan(pfeFile, startDate);
+
+						} catch (ParseException e) {
+							System.out.println("error while planning .....");
+
+						}
+					}
+				}
+
+				startDate = this.addHours(startDate, 1);
+
+			}
+		}
+	}
+
 	public boolean doPlan(PfeFile pfeFile, Date date) throws ParseException {
 		boolean supervisorAvailable = false;
 		boolean rappoteurAvailable = false;
@@ -213,55 +263,6 @@ public class ThesisBuisness implements ThesisLocal {
 
 		return done;
 
-	}
-
-	@SuppressWarnings("deprecation")
-	@Override
-	public void plan(PfeFile pfeFile) {
-
-		boolean hasPresident = false;
-
-		for (TeacherRole tr : pfeFile.getThesis().getTeacherRole()) {
-			if (tr.getRole().compareTo(Role.PRESIDENT) == 0) {
-				hasPresident = true;
-				System.out.println("has president");
-			}
-		}
-
-		if (!hasPresident) {
-
-			Date startDate = pfeFile.getStudent().getClasse().getOption().getDepartement().getSite()
-					.getDateOfSessionStarts();
-			Date endDate = pfeFile.getStudent().getClasse().getOption().getDepartement().getSite()
-					.getDateOfSessionEnds();
-			boolean ended = false;
-			List<Integer> workHours = new ArrayList<Integer>();
-			workHours.add(8);
-			workHours.add(9);
-			workHours.add(10);
-			workHours.add(11);
-			workHours.add(14);
-			workHours.add(15);
-			workHours.add(16);
-			workHours.add(17);
-			while ((startDate.before(endDate)) && (ended == false)) {
-				if ((this.getDayNumber(startDate) != 1) && (this.getDayNumber(startDate) != 7)) {
-					if (workHours.indexOf(startDate.getHours()) != -1) {
-						try {
-
-							ended = this.doPlan(pfeFile, startDate);
-
-						} catch (ParseException e) {
-							System.out.println("error while planning .....");
-
-						}
-					}
-				}
-
-				startDate = this.addHours(startDate, 1);
-
-			}
-		}
 	}
 
 	public Date addHours(Date date, int hours) {

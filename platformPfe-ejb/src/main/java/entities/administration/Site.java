@@ -28,7 +28,10 @@ public class Site implements Serializable {
 	private String address;
 	private String nom;
 	private int nbrMaxVal;
-	private int nbrMaxAction;
+	private int nbrMaxEnc;
+	private int nbrMaxSup;
+	private int nbrMaxPres;
+	
 
 	// Note added this
 	@Temporal(TemporalType.TIMESTAMP)
@@ -108,14 +111,6 @@ public class Site implements Serializable {
 		this.nbrMaxVal = nbrMaxVal;
 	}
 
-	public int getNbrMaxAction() {
-		return nbrMaxAction;
-	}
-
-	public void setNbrMaxAction(int nbrMaxAction) {
-		this.nbrMaxAction = nbrMaxAction;
-	}
-
 	public InternshipDirector getInternshipDirector() {
 		return internshipDirector;
 	}
@@ -139,4 +134,30 @@ public class Site implements Serializable {
 	public void setDateOfSessionEnds(Date dateOfSessionEnds) {
 		this.dateOfSessionEnds = dateOfSessionEnds;
 	}
+
+	public int getNbrMaxEnc() {
+		return nbrMaxEnc;
+	}
+
+	public void setNbrMaxEnc(int nbrMaxEnc) {
+		this.nbrMaxEnc = nbrMaxEnc;
+	}
+
+	public int getNbrMaxSup() {
+		return nbrMaxSup;
+	}
+
+	public void setNbrMaxSup(int nbrMaxSup) {
+		this.nbrMaxSup = nbrMaxSup;
+	}
+
+	public int getNbrMaxPres() {
+		return nbrMaxPres;
+	}
+
+	public void setNbrMaxPres(int nbrMaxPres) {
+		this.nbrMaxPres = nbrMaxPres;
+	}
+	
+	
 }

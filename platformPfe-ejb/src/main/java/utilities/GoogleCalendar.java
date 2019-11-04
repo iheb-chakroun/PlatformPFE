@@ -31,24 +31,22 @@ import java.util.Date;
 import java.util.List;
 
 public class GoogleCalendar {
-	
+
 	private static GoogleCalendar instance;
-	
+
 	public static GoogleCalendar getInstance() {
 		if (instance == null) {
 			instance = new GoogleCalendar();
 		}
 		return instance;
 	}
-	
-	
+
 	private GoogleCalendar() {
 	}
-	
-	
+
 	private static final String APPLICATION_NAME = "Google Calendar API Java Quickstart";
 	private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-	private static final String TOKENS_DIRECTORY_PATH = "tokens";
+	private static final String TOKENS_DIRECTORY_PATH = "/tokens";
 
 	/**
 	 * Global instance of the scopes required by this quickstart. If modifying these
@@ -81,14 +79,18 @@ public class GoogleCalendar {
 		return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
 	}
 
-	public void sendEvent(PfeFile pfeFile, Date startDate, Date endDate, String emailStudent, String emailEntrepriseSupervisor, String emailSchoolSupervisor, String emailReporter, String emailPresident ) throws IOException, GeneralSecurityException {
+	public void sendEvent(PfeFile pfeFile, Date startDate, Date endDate, String emailStudent,
+			String emailEntrepriseSupervisor, String emailSchoolSupervisor, String emailReporter, String emailPresident)
+			throws IOException, GeneralSecurityException {
 		// Build a new authorized API client service.
 		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 		Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
 				.setApplicationName(APPLICATION_NAME).build();
 
-		Event event = new Event().setSummary("Thesis").setLocation(pfeFile.getStudent().getClasse().getOption().getDepartement().getSite().getAddress())
-				.setDescription("Thesis for the student " + pfeFile.getStudent().getFirstName() + " " + pfeFile.getStudent().getLastName() );
+		Event event = new Event().setSummary("Thesis")
+				.setLocation(pfeFile.getStudent().getClasse().getOption().getDepartement().getSite().getAddress())
+				.setDescription("Thesis for the student " + pfeFile.getStudent().getFirstName() + " "
+						+ pfeFile.getStudent().getLastName());
 
 		DateTime startDateTime = new DateTime(startDate);
 		EventDateTime start = new EventDateTime().setDateTime(startDateTime).setTimeZone("Africa/Tunis");
@@ -98,24 +100,21 @@ public class GoogleCalendar {
 		EventDateTime end = new EventDateTime().setDateTime(endDateTime).setTimeZone("Africa/Tunis");
 		event.setEnd(end);
 
-		EventAttendee[] attendees = new EventAttendee[] { 
-				new EventAttendee().setEmail(emailStudent),
-				new EventAttendee().setEmail(emailEntrepriseSupervisor),
-				new EventAttendee().setEmail(emailPresident),
-				new EventAttendee().setEmail(emailReporter),
-				new EventAttendee().setEmail(emailSchoolSupervisor),
-				
+		EventAttendee[] attendees = new EventAttendee[] { new EventAttendee().setEmail(emailStudent),
+				new EventAttendee().setEmail(emailEntrepriseSupervisor), new EventAttendee().setEmail(emailPresident),
+				new EventAttendee().setEmail(emailReporter), new EventAttendee().setEmail(emailSchoolSupervisor),
+
 		};
 		event.setAttendees(Arrays.asList(attendees));
 
 		EventReminder[] reminderOverrides = new EventReminder[] {
-				//remider before one day via email
+				// remider before one day via email
 				new EventReminder().setMethod("email").setMinutes(24 * 60),
-				//remider before three days via email
+				// remider before three days via email
 				new EventReminder().setMethod("email").setMinutes(24 * 60 * 3),
-				//remider before one week via email
+				// remider before one week via email
 				new EventReminder().setMethod("email").setMinutes(24 * 60 * 7),
-				//remider before 15 minutes via push notification
+				// remider before 15 minutes via push notification
 				new EventReminder().setMethod("popup").setMinutes(15), };
 		Event.Reminders reminders = new Event.Reminders().setUseDefault(false)
 				.setOverrides(Arrays.asList(reminderOverrides));

@@ -109,13 +109,14 @@ public class Teacher extends Employe implements Serializable {
 	 * @return
 	 */
 	public boolean isValid(Thesis thesis, Date date) {
-		//XXX 
+		// XXX
 		boolean valid = true;
-		if (this.teacherRole.size() >= this.departement.getSite().getNbrMaxAction()) {
+		if (this.teacherRole.size() >= this.departement.getSite().getNbrMaxPres()) {
 			valid = false;
 		}
 
-		if (this.getDepartement().getId() != thesis.getPfeFile().getStudent().getClasse().getOption().getDepartement().getId()) {
+		if (this.getDepartement().getId() != thesis.getPfeFile().getStudent().getClasse().getOption().getDepartement()
+				.getId()) {
 			valid = false;
 		}
 
