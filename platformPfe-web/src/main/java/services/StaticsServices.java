@@ -23,21 +23,44 @@ public class StaticsServices {
 	@EJB
 	StaticBusiness statServices;
 	
-	/*
+	
 	@GET
+	
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getstat(@QueryParam(value = "country") String country,@QueryParam(value = "year")String year) {
 		
 		return Response.ok(statServices.percentageEntreprisePfeFilesByYear(country,year), MediaType.APPLICATION_JSON).build();
-		}*/
+		}
 
-
+	
+	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getCategorie() {
+	@Path("country/{country}")
+	public Response getstatEvolution(@PathParam("country") String country) {
+		
+		return Response.ok(statServices.percentageEvoluation(country), MediaType.APPLICATION_JSON).build();
+		}
+
+	
+
+	@GET
+	@Path("Categorie")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getCategoriesByPfeOrder() {
 		
 		return Response.ok(statServices.getCategoriesOrder(), MediaType.APPLICATION_JSON).build();
 		}
+	
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("{category}")
+	public Response getCategoryEvolutionNumberByYear(@PathParam("category") String cat) {
+		
+		return Response.ok(statServices.EvoluationNumberCategoryByYear(cat), MediaType.APPLICATION_JSON).build();
+		}
+
 
 
 }

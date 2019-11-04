@@ -7,6 +7,8 @@ import javax.ejb.Local;
 
 @Local
 public interface StaticsLocal {
-	public List<Long> percentageEntreprisePfeFilesByYear(String name,String year)  ;
+	public float percentageEntreprisePfeFilesByYear(String name,String year)  ;
+	public Map<String, Integer> percentageEvoluation(String country);
 	public Map<String,Integer> getCategoriesOrder();
+	public Map<String,Integer> EvoluationNumberCategoryByYear(String cat);
 }
