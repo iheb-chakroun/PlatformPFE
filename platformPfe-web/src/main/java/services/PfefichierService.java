@@ -94,13 +94,7 @@ public class PfefichierService {
 			if(PfeFichierBusiness.prevalidatepfefile(id, s,msg) ) {
 			return Response.status(Status.OK).build(); }
 		return Response.status(Status.BAD_REQUEST).build();
-		
-		
-		
-	}
-	
-	
-	
+		}
 	
 	@PUT
 	@Path("gradesupervisor/{id}/{g}")
