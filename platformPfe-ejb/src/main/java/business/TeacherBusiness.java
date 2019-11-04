@@ -7,8 +7,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import collection.Role;
+import entities.documents.PfeFile;
+import entities.documents.Thesis;
 import entities.users.Employe;
 import entities.users.Teacher;
+import entities.users.TeacherRole;
 import interfaces.TeacherRemote;
 
 @Stateless
@@ -66,6 +70,24 @@ public class TeacherBusiness implements TeacherRemote {
 		List<Teacher> teachers =  em.createQuery("from Teacher", Teacher.class).getResultList();
 		System.out.println("Out of findAllTeachers : "); 
 		return teachers;
+	}
+	//@Author: khaled
+	//Reauirement 9
+	@Override
+	public int addTeacherRole(int id_teacher, int id_pfe) {
+		// TODO Auto-generated method stub
+		Teacher rapporteur = em.find(Teacher.class, id_teacher);
+		PfeFile pfe = em.find(PfeFile.class, id_pfe);
+		if(pfe.isStatus() == true) {
+			TeacherRole tr = new TeacherRole();
+			tr.setRole(Role.RAPPORTEUR);
+			tr.setTeacher(rapporteur);
+			Thesis thesis = em.find(Thesis.class, pfe.getThesis().getId());
+			tr.setThesis(thesis);
+			em.persist(tr);
+			return rapporteur.getId();
+			}
+		return 0;
 	}
 
 }

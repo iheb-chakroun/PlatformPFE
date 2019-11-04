@@ -25,11 +25,11 @@ public class TeacherRole implements Serializable{
 	
 	@ManyToOne
 	@JsonIgnoreProperties({"teacherRole"})
-    @JoinColumn(name="idThesis", referencedColumnName="id", insertable=false, updatable=false)
+    @JoinColumn(name="idThesis", referencedColumnName="id")
 	private Thesis thesis;
 	
 	@ManyToOne
-	@JoinColumn(name="idTeacher", referencedColumnName="id", insertable=false, updatable=false)
+	@JoinColumn(name="idTeacher", referencedColumnName="id")
 	private Teacher teacher;
 	
 	public TeacherRole(int id, Role role, Thesis thesis, Teacher teacher) {

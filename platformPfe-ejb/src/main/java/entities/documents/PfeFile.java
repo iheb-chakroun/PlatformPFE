@@ -11,14 +11,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import collection.Status;
 import entities.tracking.ArchivePfeFile;
@@ -45,21 +44,22 @@ public class PfeFile implements Serializable{
 	private boolean status;
 	@Enumerated(EnumType.STRING)
 	private Status annulation;
+	@JsonFormat(pattern="yyyy-MM-dd@HH:mm:ss")
 	private Date createdAt;
 	private boolean reportDeposite;
 	@JsonIgnoreProperties({"pfeFile","password","status","convention","email","birthDate","tel"})
 	@OneToOne
 	private Student student;
-	@OneToOne
-	@JsonIgnoreProperties({"pfeFile"})
-	private Thesis Thesis;
+	@JsonIgnoreProperties({"pfeFile","title","problematic","description","functionnalities","event","emmeteur","keywords","gradeSupervisor","gradeReporter","emailPersonel","emailProfessionel","status","reportDeposite"})
 	@OneToMany(mappedBy="pfeFile", fetch=FetchType.EAGER)
 	private List<ArchivePfeFile> archivePfeFile;
 	@OneToOne
 	@JsonIgnoreProperties({"pfeFile","nameResponsable","emailResponsable","emailEncadrent"})
 	private Entreprise entreprise;
+	@JsonIgnoreProperties({"pfeFile","teacherRole"})
 	@OneToOne(mappedBy="pfeFile")
 	private Thesis thesis;
+	@JsonIgnoreProperties({"departement","password","username","address","email","teacherRole","pfeFiles","categories","teacherNotification"})
 	@ManyToOne
 	private Teacher pre_validator;
 	@JsonIgnoreProperties({"id","status","pfefile"})

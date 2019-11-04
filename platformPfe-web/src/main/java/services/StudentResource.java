@@ -113,8 +113,9 @@ public class StudentResource {
 			String message = "{\"message\": \"No Content!\"}";
 			return Response.status(Response.Status.BAD_REQUEST).entity(message).build();
 		}
+		Student st = studentBusiness.findStudentById(reason.getId());
 		studentBusiness.declineAnnulation(reason);
-		String message = "{\"message\": \"The annulation demand for the pfe number: "+reason.getId()+" has been denied.\"}";
+		String message = "{\"message\": \"The annulation demand for the pfe number: "+st.getPfeFile().getId()+" has been denied.\"}";
 		return Response.status(Response.Status.OK).entity(message).build();
 	}
 	

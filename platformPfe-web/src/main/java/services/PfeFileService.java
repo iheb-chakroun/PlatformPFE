@@ -139,7 +139,7 @@ public class PfeFileService {
 	}
 	//@author: khaled
 		@POST
-		@Path("/reporter")
+		@Path("/validator")
 		@Consumes("application/json")
 		@Produces("application/json")
 		public Response asignReporter(PfeFile input) {

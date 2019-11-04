@@ -12,7 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -32,6 +35,7 @@ public class Student implements Serializable {
 	private int id;
 	private String firstName;
 	private String lastName;
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date birthDate;
 	private String email;
 	private String sexe;
@@ -51,7 +55,7 @@ public class Student implements Serializable {
 	@OneToMany(mappedBy="student",fetch = FetchType.EAGER)
 	private Set<StudentNotification> notifications;
 	
-	@JsonIgnoreProperties({"student"})
+	@JsonIgnoreProperties({"student","archivePfeFile"})
 	@OneToOne(mappedBy="student")
 	private PfeFile pfeFile;
 	

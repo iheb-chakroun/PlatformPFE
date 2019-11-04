@@ -1,7 +1,7 @@
 package entities.documents;
 
+import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -9,22 +9,18 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import entities.users.TeacherRole;
 
 @Entity
-public class Thesis {
+public class Thesis implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +32,7 @@ public class Thesis {
 	private Date date;
 	@JsonFormat(pattern="HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
-private Date startTime;
+    private Date startTime;
 	@OneToOne
 	@JsonIgnoreProperties({ "thesis" })
 	private PfeFile pfeFile;

@@ -137,6 +137,8 @@ public class StudentBusiness implements StudentRemote{
 		archive.setStatus(pfe.isStatus());
 		archive.setReportDeposite(pfe.isReportDeposite());
 		archive.setFunctionnalities(pfe.getFunctionnalities());
+		archive.setPfeFile(pfe);
+		archive.setNote("canceled");
 		em.persist(archive);
 		return pfe.getAnnulation();
 	}
@@ -146,10 +148,10 @@ public class StudentBusiness implements StudentRemote{
 	@Override
 	public void declineAnnulation(Reason reason) {
 		// TODO Auto-generated method stub
-		PfeFile pfe = em.find(PfeFile.class, reason.getId());
-		pfe.setAnnulation(Status.Declined);
+		Student st = em.find(Student.class, reason.getId());
+		st.getPfeFile().setAnnulation(Status.Declined);
 		TemplateMessage template = new TemplateMessage(reason.getMessage());
-		eb.sendEmail(pfe.getStudent().getEmail(), "PFE annulation denied.", template.getTemplate());
+		eb.sendEmail(st.getEmail(), "PFE annulation denied.", template.getTemplate());
 	}	 
 
 }
