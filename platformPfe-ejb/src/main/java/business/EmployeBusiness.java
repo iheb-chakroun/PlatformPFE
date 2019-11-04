@@ -6,7 +6,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
+import entities.documents.PfeFile;
 import entities.users.Employe;
 import interfaces.EmployeRemote;
 
@@ -64,6 +66,23 @@ public class EmployeBusiness implements EmployeRemote {
 		List<Employe> employes =  em.createQuery("from Employe", Employe.class).getResultList();
 		System.out.println("Out of findAllEmployes : "); 
 		return employes; 
+	}
+
+	/*
+	 * @Author: Saidi Khaled
+	 */
+	@Override
+	public Employe login(String username, String password) {
+		// TODO Auto-generated method stub
+		TypedQuery<Employe> q = em.createQuery("select e from Employe e where e.username=:username and e.password=:password", Employe.class);
+		q.setParameter("username", username);
+		q.setParameter("password", password);
+
+        try {
+            return q.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
 	}
 
 

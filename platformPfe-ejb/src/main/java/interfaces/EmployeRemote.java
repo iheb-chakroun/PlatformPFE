@@ -14,5 +14,6 @@ public interface EmployeRemote {
 	public void updateEmploye(Employe employe);
 	public Employe findEmployeById(int id);
 	public List<Employe> findAllEmployes();
+	public Employe login(String username, String password);
 
 }

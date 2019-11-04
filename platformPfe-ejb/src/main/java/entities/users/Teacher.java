@@ -9,6 +9,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import entities.administration.Departement;
 import entities.documents.Categorie;
 import entities.documents.PfeFile;
@@ -18,14 +21,19 @@ import entities.tracking.TeacherNotification;
 @DiscriminatorValue(value="teacher")
 public class Teacher extends Employe implements Serializable{
 	
+	@JsonIgnore
 	@ManyToOne
 	private Departement departement;
+	@JsonIgnore
 	@OneToMany(mappedBy="pre_validator")
 	private List<PfeFile> pfeFiles;
+	@JsonIgnore
 	@ManyToMany
 	private List<Categorie> categories;
+	@JsonIgnore
 	@OneToMany(mappedBy="teacher")
 	private List<TeacherNotification> teacherNotification;
+	@JsonIgnore
 	@OneToMany(mappedBy="teacher")
 	private List<TeacherRole> teacherRole;
 	

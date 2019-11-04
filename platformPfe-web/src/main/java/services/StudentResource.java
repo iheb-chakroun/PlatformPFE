@@ -20,6 +20,7 @@ import interfaces.StudentRemote;
 import utilities.EmailBusiness;
 import utilities.EmailTemplate;
 import utilities.Reason;
+import utilities.Secured;
 
 
 @Path("student")
@@ -142,6 +143,7 @@ public class StudentResource {
 		return Response.ok(studentBusiness.findAllStudents(), MediaType.APPLICATION_JSON).build();
 	}
 	
+	@Secured
 	@GET()
 	@Path("/year")
 	@Consumes("application/json")
