@@ -1,13 +1,16 @@
 package business;
 
 import java.awt.print.Pageable;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.List;
 
@@ -89,13 +92,27 @@ public class TemplateBusiness implements TemplateLocal,TemplateRemote{
 
 	@Override
 	public void exportApi(String path) {
+		 try {
+			 
+			 File htmlSource = new File("C:\\Users\\dorsa\\OneDrive\\Bureau\\out.txt");
+				FileOutputStream fos = new FileOutputStream(htmlSource);
+			 
+				BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+			 
+				
+					bw.write(path);
 		
+			 
+				bw.close();
+			 
+	
 			
-			File htmlSource = new File(path);
+			    
+		     
 	        File pdfDest = new File("C:\\Users\\dorsa\\OneDrive\\Bureau\\output.pdf");
 	         // pdfHTML specific code
 	        ConverterProperties converterProperties = new ConverterProperties();
-	        try {
+	       
 				HtmlConverter.convertToPdf(new FileInputStream(htmlSource),new FileOutputStream(pdfDest), converterProperties);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
