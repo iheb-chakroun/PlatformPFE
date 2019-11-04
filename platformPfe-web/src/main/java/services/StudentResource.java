@@ -72,7 +72,7 @@ public class StudentResource {
 			return Response.status(Response.Status.BAD_REQUEST).entity("No Content.").build();
 		}
 		studentBusiness.updateStudent(student);
-		return Response.status(Response.Status.ACCEPTED).entity(student).build();
+		return Response.status(Response.Status.OK).entity(student).build();
 	}
 	//prerequisite
 	@PUT
@@ -128,12 +128,12 @@ public class StudentResource {
 	}
 	
 	@DELETE
-	@Path("delete/{id}")
+	@Path("{id}")
 	@Produces("application/json")
 	public Response deleteStudent(@PathParam("id") int id) {
-		String deleted = "Student deleted :"+id;
+		String deleted = "{\"message\": \"Student deleted : "+id+"\"}";
 		studentBusiness.removeStudent(id);
-	    return Response.ok(MediaType.APPLICATION_JSON).entity(deleted).build();
+	    return Response.status(Response.Status.NO_CONTENT).entity(deleted).build();
 	}
 	
 	@GET
