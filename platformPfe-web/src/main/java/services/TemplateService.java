@@ -77,4 +77,21 @@ public class TemplateService {
 		 	return Response.status(Status.CREATED).build();
 	}
 	
+
+	@GET
+	@Path("Api")
+    @Produces(MediaType.APPLICATION_JSON)
+	public Response apiPdf(@QueryParam(value ="path") String path) {
+	try {
+		System.out.println("path"+path);
+		templateService.exportApi(path);
+
+	 return Response.status(Status.CREATED).build();
+	 
+	}catch(Exception e) {
+		 return Response.status(Status.NOT_ACCEPTABLE).build();
+	}
+		}
+
+	
 }

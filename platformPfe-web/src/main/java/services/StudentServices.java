@@ -3,6 +3,7 @@ package services;
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -24,5 +25,6 @@ public class StudentServices  {
 		System.out.println(option+" "+categorie+" "+year+" "+pays);
 		return Response.ok(studentServices.getStudents(option, categorie, year, pays), MediaType.APPLICATION_JSON).build();
 		}
-
+	
+	
 }

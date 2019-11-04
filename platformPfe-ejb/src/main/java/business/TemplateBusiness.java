@@ -1,11 +1,25 @@
 package business;
 
+import java.awt.print.Pageable;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import org.w3c.dom.Document;
+
+import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.html2pdf.HtmlConverter;
 
 import entities.administration.Site;
 import entities.administration.Template;
@@ -65,6 +79,32 @@ public class TemplateBusiness implements TemplateLocal,TemplateRemote{
 		t.setContent(temp.getContent());
 		t.setTemplateType(temp.getTemplateType());
 		em.merge(t);
+		
+	}
+
+
+
+	
+
+
+	@Override
+	public void exportApi(String path) {
+		
+			
+			File htmlSource = new File(path);
+	        File pdfDest = new File("C:\\Users\\dorsa\\OneDrive\\Bureau\\output.pdf");
+	         // pdfHTML specific code
+	        ConverterProperties converterProperties = new ConverterProperties();
+	        try {
+				HtmlConverter.convertToPdf(new FileInputStream(htmlSource),new FileOutputStream(pdfDest), converterProperties);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		
 	}
 

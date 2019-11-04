@@ -68,9 +68,7 @@ public class StaticBusiness implements StaticsLocal,StaticsRemote {
 
 	@Override
 	public float percentageEntreprisePfeFilesByYear(String name, String year) {
-		/*Query query=em.createQuery("Select Count(entreprise_id)/(Select Count(id) From PfeFile p"
-		+ " where p.student.classe.scholarYear=:y)*100 from PfeFile p join p.entreprise e "
-		+ "where e.country=:c and p.student.classe.scholarYear=:y", Long.class);*/
+		
 		Query query1=em.createQuery("Select p from PfeFile p join p.entreprise e where e.country=:c and p.student.classe.scholarYear=:y ");
 		Query query2=em.createQuery("Select p From PfeFile p where p.student.classe.scholarYear=:y");
 		query1.setParameter("c", name);

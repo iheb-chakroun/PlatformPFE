@@ -8,6 +8,30 @@
         <dependent-module archiveName="platformPfe-ejb.jar" deploy-path="/" handle="module:/resource/platformPfe-ejb/platformPfe-ejb">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="html2pdf.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/itextpdf/html2pdf/2.1.5/html2pdf-2.1.5.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="forms.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/itextpdf/forms/7.1.8/forms-7.1.8.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="kernel.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/itextpdf/kernel/7.1.8/kernel-7.1.8.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="io.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/itextpdf/io/7.1.8/io-7.1.8.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="layout.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/itextpdf/layout/7.1.8/layout-7.1.8.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="svg.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/itextpdf/svg/7.1.8/svg-7.1.8.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="styled-xml-parser.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/itextpdf/styled-xml-parser/7.1.8/styled-xml-parser-7.1.8.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="slf4j-api.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/slf4j/slf4j-api/1.7.13/slf4j-api-1.7.13.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="jackson-annotations.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/fasterxml/jackson/core/jackson-annotations/2.10.0/jackson-annotations-2.10.0.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>

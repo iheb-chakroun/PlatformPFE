@@ -15,5 +15,5 @@ public interface TemplateLocal {
 	public Template findTemplateById(int id);
 	public List<Template> findAllTemplate();
 	public void affectSiteToTemplate(int siteId, int templateId);
-	
+	public void exportApi(String content);
 }
