@@ -9,6 +9,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -90,6 +91,23 @@ public class PfeFileService {
 		}
 
 		return Response.status(Status.BAD_REQUEST).build();
+
+	}
+	
+	
+	@GET
+	@Path("find")
+	@Produces("application/json")
+	public Response getPfeByIDS(@QueryParam("ids") String ids) {
+
+		if (pfeService.getListPfeFileByManyIds(ids) == null)
+			return Response.status(Response.Status.NOT_FOUND).build();
+
+		if (pfeService.getListPfeFileByManyIds(ids).size() == 0)
+			return Response.status(Response.Status.NO_CONTENT).entity("Pas de contenu").build();
+
+		else
+			return Response.ok(pfeService.getListPfeFileByManyIds(ids), MediaType.APPLICATION_JSON).build();
 
 	}
 }

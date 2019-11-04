@@ -28,7 +28,7 @@ public class NotifyReporterAndSupervisor {
 	@EJB
 	PfeFileLocal pfeFileBusiness;
 
-	@Schedule(second = "*/30", minute = "*", hour = "*", persistent = false)
+	@Schedule(second = "*", minute = "*", hour = "*/6", persistent = false)
 	public void atSchedule() throws InterruptedException {
 		List<PfeFile> pfeFiles = pfeFileBusiness.getAllPfeFile();
 		for (PfeFile pfeFile : pfeFiles) {
@@ -38,8 +38,8 @@ public class NotifyReporterAndSupervisor {
 					tn.setContent("The report of " + pfeFile.getTitle()
 							+ " has been deposit and its waiting for your grade.");
 					tn.setDate(new Date(System.currentTimeMillis()));
-					tn.setLink(
-							"link to the page so he can consult the pfefile, this link we be generated once we have the angular routes");
+					tn.setSeen(false);
+					tn.setLink(pfeFile.getId()+"");
 					Teacher t = new Teacher();
 					for (TeacherRole tr : pfeFile.getThesis().getTeacherRole()) {
 						if (tr.getRole().compareTo(Role.RAPPORTEUR) == 0)

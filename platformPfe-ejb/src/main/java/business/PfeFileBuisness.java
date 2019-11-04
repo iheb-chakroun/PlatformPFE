@@ -1,5 +1,6 @@
 package business;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -15,10 +16,9 @@ public class PfeFileBuisness implements PfeFileLocal {
 
 	@PersistenceContext(unitName = "platform")
 	EntityManager em;
-	
+
 	@EJB
 	ThesisBuisness tb;
-	
 
 	@Override
 	public PfeFile findPfeById(int id) {
@@ -70,6 +70,17 @@ public class PfeFileBuisness implements PfeFileLocal {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+	@Override
+	public List<PfeFile> getListPfeFileByManyIds(String ids) {
+		List<PfeFile> pfes = new ArrayList<PfeFile>();
+		String[] tabId = ids.split(";");
+		for (String sId : tabId) {
+			int iId = Integer.parseInt(sId);
+			pfes.add(this.findPfeById(iId));
+		}
+		return pfes;
 	}
 
 }
