@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import entities.users.Student;
 
 @Entity
@@ -20,7 +22,11 @@ public class Convention implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@JsonFormat(pattern="yyyy-MM-dd")
+
 	private Date startDate;
+	@JsonFormat(pattern="yyyy-MM-dd")
+
 	private Date endDate;
 	@OneToOne
 	private Student student;
@@ -48,7 +54,15 @@ public class Convention implements Serializable {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-	
-	
+	public Convention(int id, Date startDate, Date endDate, Student student) {
+		super();
+		this.id = id;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.student = student;
+	}
+	public Convention() {
+		super();
+	}
 
 }

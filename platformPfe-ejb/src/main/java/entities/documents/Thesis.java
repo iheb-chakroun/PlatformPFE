@@ -2,6 +2,7 @@ package entities.documents;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -9,24 +10,22 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import entities.users.TeacherRole;
 
 @Entity
-public class Thesis implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Thesis {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,8 +37,7 @@ public class Thesis implements Serializable {
 	private Date date;
 	@JsonFormat(pattern="HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date startTime;
-	
+    private Date startTime;
 	@OneToOne
 	@JsonIgnoreProperties({ "thesis" })
 	private PfeFile pfeFile;
@@ -108,6 +106,12 @@ public class Thesis implements Serializable {
 
 	public void setTeacherRole(Set<TeacherRole> teacherRole) {
 		this.teacherRole = teacherRole;
+	}
+
+	@Override
+	public String toString() {
+		return "Thesis [id=" + id + ", classroom=" + classroom + ", date=" + date + ", startTime=" + startTime
+				+ ", pfeFile=" + pfeFile + ", teacherRole=" + teacherRole + "]";
 	}
 
 }

@@ -1,5 +1,7 @@
 package entities.tracking;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,7 +12,7 @@ import javax.persistence.ManyToOne;
 import entities.documents.PfeFile;
 
 @Entity
-public class ArchivePfeFile {
+public class ArchivePfeFile implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;

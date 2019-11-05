@@ -1,6 +1,7 @@
 package entities.users;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import entities.administration.Departement;
@@ -20,63 +25,68 @@ import entities.documents.PfeFile;
 import entities.tracking.TeacherNotification;
 
 @Entity
-@DiscriminatorValue(value="teacher")
-public class Teacher extends Employe implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+@DiscriminatorValue(value = "teacher")
+
+public class Teacher extends Employe implements Serializable {
 	@ManyToOne
 	private Departement departement;
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="pre_validator",fetch =FetchType.EAGER)
-	private Set<PfeFile> pfeFiles;
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-	@ManyToMany(cascade = CascadeType.ALL,mappedBy="teachers",fetch =FetchType.EAGER)
+	@OneToMany(mappedBy = "pre_validator", fetch = FetchType.EAGER)
+	@JsonIgnoreProperties({ "pre_validator" })
+	private List<PfeFile> pfeFiles;
+	@ManyToMany
+	@JsonIgnore
 	private Set<Categorie> categories;
+	@OneToMany(mappedBy = "teacher", fetch= FetchType.EAGER)
 	
-	
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-	@OneToMany(mappedBy="teacher",fetch =FetchType.EAGER)
-	private Set<TeacherRole> teacherRole;
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-	@OneToMany(cascade = CascadeType.ALL,mappedBy="teacher",fetch =FetchType.EAGER)
-	private Set<TeacherNotification> teacherNotification;
-	
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+
+	private List<TeacherNotification> teacherNotification;
+
+	@OneToMany(mappedBy = "teacher")
+	@JsonIgnore
+	private List<TeacherRole> teacherRole;
+
 	public Departement getDepartement() {
 		return departement;
 	}
+
 	public void setDepartement(Departement departement) {
 		this.departement = departement;
 	}
-	public Set<PfeFile> getPfeFiles() {
+
+	public List<PfeFile> getPfeFiles() {
 		return pfeFiles;
 	}
-	public void setPfeFiles(Set<PfeFile> pfeFiles) {
+
+	public void setPfeFiles(List<PfeFile> pfeFiles) {
 		this.pfeFiles = pfeFiles;
 	}
-	
+
 	public Set<Categorie> getCategories() {
 		return categories;
 	}
+
 	public void setCategories(Set<Categorie> categories) {
 		this.categories = categories;
 	}
-	public Set<TeacherNotification> getTeacherNotification() {
+
+	public List<TeacherNotification> getTeacherNotification() {
 		return teacherNotification;
 	}
-	public void setTeacherNotification(Set<TeacherNotification> teacherNotification) {
+
+	public void setTeacherNotification(List<TeacherNotification> teacherNotification) {
 		this.teacherNotification = teacherNotification;
 	}
-	public Set<TeacherRole> getTeacherRole() {
+
+	public List<TeacherRole> getTeacherRole() {
 		return teacherRole;
 	}
-	public void setTeacherRole(Set<TeacherRole> teacherRole) {
+
+	public void setTeacherRole(List<TeacherRole> teacherRole) {
 		this.teacherRole = teacherRole;
 	}
-	
-	
-	
+
+	public Teacher() {
+		super();
+	}
+
 }
