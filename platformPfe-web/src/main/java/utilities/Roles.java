@@ -1,7 +1,7 @@
 package utilities;
 
 public enum Roles {
-	EMPLOYEE("employee"),
+	EMPLOYEE("employe"),
     DEPARTMENTHEAD("dep-head"),
     DIRECTEURINTERNSHIPS("int-dir"),
     TEACHER("teacher"),

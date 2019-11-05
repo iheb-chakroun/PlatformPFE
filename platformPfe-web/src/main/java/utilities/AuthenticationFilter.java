@@ -36,6 +36,9 @@ public class AuthenticationFilter implements ContainerRequestFilter{
 
             try {
                 Jws<Claims> jws = Jwts.parser().setSigningKey(tokenService.getKey()).parseClaimsJws(token);
+                if (!requiredRoles(jws)) {
+                    throw new NotAuthorizedException("You do not have enough permission");
+                }
 
             } catch (JwtException je) {
                 throw new NotAuthorizedException("Token expired!");
@@ -45,6 +48,22 @@ public class AuthenticationFilter implements ContainerRequestFilter{
         }
 		
 	}
+	
+	 private boolean requiredRoles(Jws<Claims> jws) {
+	        Secured secured = resourceInfo.getResourceMethod().getAnnotation(Secured.class);
+	        if (secured == null) {
+	            secured = resourceInfo.getResourceClass().getAnnotation(Secured.class);
+	        }
+
+	        for (Roles role : secured.value()) {
+
+	            if (role.toString().equals(jws.getBody().get("role"))) {
+	                return true;
+	            }
+	        }
+
+	        return false;
+	    }
 	
 
 }

@@ -28,7 +28,7 @@ public class TokenUtility {
         claims.put("cin", user.getEmail().toString());
 
         if (user instanceof Employe) {
-            claims.put("role", "employee");
+            claims.put("role", "employe");
         }
 
         claims.put("firstname", user.getFirstName());
