@@ -15,6 +15,8 @@ import javax.ws.rs.core.Response;
 
 import entities.users.Teacher;
 import interfaces.TeacherRemote;
+import utilities.Roles;
+import utilities.Secured;
 
 @Path("teacher")
 public class TeacherResource {
@@ -33,6 +35,8 @@ public class TeacherResource {
 		teacherBusiness.addTeacher(teacher);
 		return Response.status(Response.Status.CREATED).entity(teacher).build();
 	}
+	//@author: khaled requirement 9.2
+	@Secured(Roles.DEPARTMENTHEAD)
 	@POST
 	@Path("/rapporteur")
 	@Produces("application/json")

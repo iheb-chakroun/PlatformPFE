@@ -20,8 +20,6 @@ import utilities.MapBusiness;
 public class DepartmentHeadResource {
 	@EJB
 	DepartmentHeadRemote headBusiness;
-	@EJB
-	MapBusiness useMap;
 	
 	@POST
 	@Path("/add")
@@ -67,19 +65,6 @@ public class DepartmentHeadResource {
 	@Produces("application/json")
 	public Response findAllHeads() {
 		return Response.ok(headBusiness.findDepartmentHeads(), MediaType.APPLICATION_JSON).build();
-	}
-	/*-------------------------------------------MAPBOX--------------------------------------------------*/
-	@GET
-	@Path("map")
-	@Consumes("application/json")
-	@Produces("application/json")
-	public Response findLocations() {
-		/*String data = "{ ... }";
-		Object json = new JSONTokener(data).nextValue();
-		if (json instanceof JSONObject)
-		  //you have an object
-		else if (json instanceof JSONArray)*/
-		return Response.ok(useMap.getLocationsForStudents(), MediaType.APPLICATION_JSON).build();
 	}
 
 

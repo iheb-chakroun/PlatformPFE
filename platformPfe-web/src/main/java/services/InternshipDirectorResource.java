@@ -15,11 +15,16 @@ import javax.ws.rs.core.Response;
 import entities.administration.Site;
 import entities.users.InternshipDirector;
 import interfaces.InternshipDirectorRemote;
+import utilities.MapBusiness;
+import utilities.Roles;
+import utilities.Secured;
 
 @Path("intern-dir")
 public class InternshipDirectorResource {
 	@EJB
 	InternshipDirectorRemote directorBusiness;
+	@EJB
+	MapBusiness useMap;
 	
 	@POST
 	@Path("/add")
@@ -44,6 +49,8 @@ public class InternshipDirectorResource {
 		return Response.status(Response.Status.ACCEPTED).entity(director).build();
 	}
 	
+	//@author:khaled Requirement 8
+	@Secured(Roles.DIRECTEURINTERNSHIPS)
 	@PUT
 	@Path("/maximum")
 	@Consumes("application/json")
@@ -81,7 +88,21 @@ public class InternshipDirectorResource {
 	public Response findAllDirectors() {
 		return Response.ok(directorBusiness.findAllDirectors(), MediaType.APPLICATION_JSON).build();
 	}
-	
+	/*-------------------------------------------MAPBOX--------------------------------------------------*/
+	//@Author: khaled Requirement 11 (API + METIER)
+	@Secured(Roles.DIRECTEURINTERNSHIPS)
+	@GET
+	@Path("map")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public Response findLocations() {
+		/*String data = "{ ... }";
+		Object json = new JSONTokener(data).nextValue();
+		if (json instanceof JSONObject)
+		  //you have an object
+		else if (json instanceof JSONArray)*/
+		return Response.ok(useMap.getLocationsForStudents(), MediaType.APPLICATION_JSON).build();
+	}
 	
 
 }

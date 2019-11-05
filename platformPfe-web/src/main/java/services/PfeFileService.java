@@ -19,19 +19,18 @@ import entities.users.DepartementHead;
 import entities.users.Teacher;
 import interfaces.PfeFileLocal;
 import interfaces.TeacherRemote;
+import utilities.Roles;
+import utilities.Secured;
 @Path("pfe")
 public class PfeFileService {
 	@EJB
 	PfeFileLocal pfeService;
 	@EJB
 	TeacherRemote teacherBusiness;
-
-	
-	
-	
 	
 	/*-------------------------------------------Required------------------------------------------------*/
-	//@Author: khaled
+	//@Author: khaled Requirement 2
+	@Secured(Roles.DIRECTEURINTERNSHIPS)
 	@GET
 	@Path("/filtred")
 	@Produces("application/json")
@@ -40,14 +39,16 @@ public class PfeFileService {
 		return Response.ok(pfeService.filterPfe(ops), MediaType.APPLICATION_JSON).build();
 	}
 	
-	//@author: khaled
+	//@author: khaled Requirement 3
+	@Secured(Roles.DIRECTEURINTERNSHIPS)
 	@GET
 	@Path("/NonTreated")
 	@Produces("application/json")
 	public Response getNonPfe() {
 		return Response.ok(pfeService.filterPfeNonTreated(), MediaType.APPLICATION_JSON).build();
 	}
-	//@author: khaled
+	//@author: khaled Requirement 10
+	@Secured(Roles.DIRECTEURINTERNSHIPS)
 	@GET
 	@Path("/planification")
 	@Produces("application/json")
@@ -59,7 +60,7 @@ public class PfeFileService {
 		return Response.ok(pfeService.getPedingFilesPlanification(), MediaType.APPLICATION_JSON).build();
 	}	
 	
-	//@author: khaled
+	//@Author: khaled Requirement 4
 	@POST
 	@Path("/approval")
 	@Consumes("application/json")
@@ -75,7 +76,7 @@ public class PfeFileService {
 
 	}
 	
-	//@author: khaled
+	//@author: khaled requirement 5
 	@POST
 	@Consumes("application/json")
 	@Produces("application/json")
@@ -90,7 +91,7 @@ public class PfeFileService {
 	      .build();
 	}
 	
-	//@author: khaled
+	//@author: khaled requirement 9.1
 	@POST
 	@Path("/report")
 	@Consumes("application/json")

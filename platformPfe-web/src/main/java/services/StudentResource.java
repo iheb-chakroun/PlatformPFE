@@ -45,7 +45,8 @@ public class StudentResource {
 		return Response.status(Response.Status.CREATED).entity(student).build();
 	}
 	
-	@Secured(Roles.ADMIN)
+	//@author: khaled requirement 7
+	@Secured(Roles.DIRECTEURINTERNSHIPS)
 	@POST
 	@Path("/authorization")
 	@Consumes("application/json")
@@ -78,7 +79,8 @@ public class StudentResource {
 		studentBusiness.updateStudent(student);
 		return Response.status(Response.Status.OK).entity(student).build();
 	}
-	//prerequisite
+	
+	//prerequisite 6
 	@Secured(Roles.STUDENT)
 	@PUT
 	@Path("/annulation")
@@ -95,6 +97,8 @@ public class StudentResource {
 		return Response.status(Response.Status.ACCEPTED).entity(message).build();
 	}
 	
+	//@author: khaled requirement 6.1
+	@Secured(Roles.DIRECTEURINTERNSHIPS)
 	@PUT
 	@Path("/annulation/approval")
 	@Consumes("application/json")
@@ -110,6 +114,9 @@ public class StudentResource {
 				+ "\"Archived\": \""+st.getPfeFile().getTitle()+" has been achrived.\"}";
 		return Response.status(Response.Status.ACCEPTED).entity(message).build();
 	}
+
+	//@author: khaled requirement 6.1
+	@Secured(Roles.DIRECTEURINTERNSHIPS)
 	@PUT
 	@Path("/annulation/denial")
 	@Consumes("application/json")
@@ -151,6 +158,7 @@ public class StudentResource {
 		return Response.ok(studentBusiness.findAllStudents(), MediaType.APPLICATION_JSON).build();
 	}
 	/*------------------------Required--------------------------------*/
+	//@Author: khaled Requirement 1
 	@Secured(Roles.DIRECTEURINTERNSHIPS)
 	@GET()
 	@Path("/year")
@@ -159,7 +167,7 @@ public class StudentResource {
 	public Response findYearStudents(String... years ) {
 		return Response.ok(studentBusiness.findStudentsByYears(years), MediaType.APPLICATION_JSON).build();
 	}
-	
+	//@Author: khaled Requirement 1.1
 	@Secured(Roles.DIRECTEURINTERNSHIPS)
 	@GET()
 	@Path("/year/notifications")
