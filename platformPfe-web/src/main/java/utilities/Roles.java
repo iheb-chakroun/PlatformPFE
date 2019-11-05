@@ -5,7 +5,8 @@ public enum Roles {
     DEPARTMENTHEAD("dep-head"),
     DIRECTEURINTERNSHIPS("int-dir"),
     TEACHER("teacher"),
-    ADMIN("admin");
+    ADMIN("admin"),
+    STUDENT("student");
 
     private final String role;
 

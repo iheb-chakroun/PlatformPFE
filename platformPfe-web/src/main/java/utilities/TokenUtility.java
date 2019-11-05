@@ -8,8 +8,12 @@ import java.util.Map;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.core.Cookie;
 
+import entities.users.Admin;
+import entities.users.DepartementHead;
 import entities.users.Employe;
+import entities.users.InternshipDirector;
 import entities.users.Student;
+import entities.users.Teacher;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
@@ -27,8 +31,14 @@ public class TokenUtility {
         Map<String, Object> claims = new HashMap<String, Object>();
         claims.put("cin", user.getEmail().toString());
 
-        if (user instanceof Employe) {
-            claims.put("role", "employe");
+        if (user instanceof DepartementHead) {
+            claims.put("role", Roles.DEPARTMENTHEAD.toString());
+        } else if (user instanceof InternshipDirector) {
+            claims.put("role", Roles.DIRECTEURINTERNSHIPS.toString());
+        } else if (user instanceof Teacher) {
+            claims.put("role", Roles.TEACHER.toString());
+        } else if (user instanceof Admin) {
+            claims.put("role", Roles.ADMIN.toString());
         }
 
         claims.put("firstname", user.getFirstName());
@@ -44,7 +54,7 @@ public class TokenUtility {
 	public static String getTokenStudent(Student user, Key key) {
         Map<String, Object> claims = new HashMap<String, Object>();
         claims.put("cin", user.getEmail().toString());
-        claims.put("role", "student");
+        claims.put("role", Roles.STUDENT.toString());
         claims.put("firstname", user.getFirstName());
         claims.put("lastname", user.getFirstName());
         claims.put("exp", new Date(new Date().getTime() + 3600));

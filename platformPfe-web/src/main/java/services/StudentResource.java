@@ -32,6 +32,7 @@ public class StudentResource {
 	
 	EmailBusiness eb = new EmailBusiness();
 	
+	@Secured(Roles.ADMIN)
 	@POST
 	@Path("/add")
 	@Consumes("application/json")
@@ -44,6 +45,7 @@ public class StudentResource {
 		return Response.status(Response.Status.CREATED).entity(student).build();
 	}
 	
+	@Secured(Roles.ADMIN)
 	@POST
 	@Path("/authorization")
 	@Consumes("application/json")
@@ -65,6 +67,7 @@ public class StudentResource {
 		}
 	}
 	
+	@Secured(Roles.ADMIN)
 	@PUT
 	@Consumes("application/json")
 	@Produces("application/json")
@@ -76,6 +79,7 @@ public class StudentResource {
 		return Response.status(Response.Status.OK).entity(student).build();
 	}
 	//prerequisite
+	@Secured(Roles.STUDENT)
 	@PUT
 	@Path("/annulation")
 	@Consumes("application/json")
@@ -121,6 +125,7 @@ public class StudentResource {
 		return Response.status(Response.Status.OK).entity(message).build();
 	}
 	
+	@Secured(Roles.ADMIN)
 	@GET
 	@Path("{id}")
 	@Produces("application/json")
@@ -128,6 +133,7 @@ public class StudentResource {
 		return Response.ok(studentBusiness.findStudentById(id), MediaType.APPLICATION_JSON).build();
 	}
 	
+	@Secured(Roles.ADMIN)
 	@DELETE
 	@Path("{id}")
 	@Produces("application/json")
@@ -137,14 +143,15 @@ public class StudentResource {
 	    return Response.status(Response.Status.NO_CONTENT).entity(deleted).build();
 	}
 	
+	@Secured(Roles.ADMIN)
 	@GET
 	@Consumes("application/json")
 	@Produces("application/json")
 	public Response findAllStudents() {
 		return Response.ok(studentBusiness.findAllStudents(), MediaType.APPLICATION_JSON).build();
 	}
-	
-	@Secured(Roles.EMPLOYEE)
+	/*------------------------Required--------------------------------*/
+	@Secured(Roles.DIRECTEURINTERNSHIPS)
 	@GET()
 	@Path("/year")
 	@Consumes("application/json")
@@ -153,6 +160,7 @@ public class StudentResource {
 		return Response.ok(studentBusiness.findStudentsByYears(years), MediaType.APPLICATION_JSON).build();
 	}
 	
+	@Secured(Roles.DIRECTEURINTERNSHIPS)
 	@GET()
 	@Path("/year/notifications")
 	@Consumes("application/json")

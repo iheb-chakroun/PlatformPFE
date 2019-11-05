@@ -26,37 +26,11 @@ public class PfeFileService {
 	@EJB
 	TeacherRemote teacherBusiness;
 
-	@GET
-	@Produces("application/json")
-	public Response getAllPfe() {
-
-		if (pfeService.getAllPfeFile() == null)
-			return Response.status(Response.Status.NOT_FOUND).build();
-
-		if (pfeService.getAllPfeFile().size() == 0)
-			return Response.status(Response.Status.NO_CONTENT).entity("Pas de contenu").build();
-
-		else
-			return Response.ok(pfeService.getAllPfeFile(), MediaType.APPLICATION_JSON).build();
-
-	}
-
-	@GET
-	@Path("{id}")
-	@Produces("application/json")
-	public Response getPfeById(@PathParam("id") int id) {
-		System.out.print(pfeService.findPfeById(id));
-		if (pfeService.findPfeById(id) == null)
-			return Response.status(Response.Status.NOT_FOUND).build();
-
-		else
-
-			return Response.ok(pfeService.findPfeById(id), MediaType.APPLICATION_JSON).build();
-	}
 	
 	
 	
-	/*------------Internship director-----------*/
+	
+	/*-------------------------------------------Required------------------------------------------------*/
 	//@Author: khaled
 	@GET
 	@Path("/filtred")
@@ -155,7 +129,34 @@ public class PfeFileService {
 			String message = "{\"message\": \"The student didn't deposit his report yet!\"}";
 			return Response.status(Response.Status.BAD_REQUEST).entity(message).build();
 		}
-	/*----------------------------------------------------------------------*/
+	/*----------------------------------------------------------------------------------------------------------------------------------------------*/
+		@GET
+		@Produces("application/json")
+		public Response getAllPfe() {
+
+			if (pfeService.getAllPfeFile() == null)
+				return Response.status(Response.Status.NOT_FOUND).build();
+
+			if (pfeService.getAllPfeFile().size() == 0)
+				return Response.status(Response.Status.NO_CONTENT).entity("Pas de contenu").build();
+
+			else
+				return Response.ok(pfeService.getAllPfeFile(), MediaType.APPLICATION_JSON).build();
+
+		}
+
+		@GET
+		@Path("{id}")
+		@Produces("application/json")
+		public Response getPfeById(@PathParam("id") int id) {
+			System.out.print(pfeService.findPfeById(id));
+			if (pfeService.findPfeById(id) == null)
+				return Response.status(Response.Status.NOT_FOUND).build();
+
+			else
+
+				return Response.ok(pfeService.findPfeById(id), MediaType.APPLICATION_JSON).build();
+		}
 	
 	@POST
 	@Consumes("application/json")
