@@ -23,7 +23,7 @@ public class Departement implements Serializable {
 	@ManyToOne
 	private Site site;
 	@OneToMany(mappedBy="departement")
-	private List<Option> options;
+	private List<Specialite> options;
 	@OneToOne
 	private DepartementHead departementHead;
 	@OneToMany(mappedBy="departement")
@@ -35,10 +35,10 @@ public class Departement implements Serializable {
 	public void setSite(Site site) {
 		this.site = site;
 	}
-	public List<Option> getOptions() {
+	public List<Specialite> getOptions() {
 		return options;
 	}
-	public void setOptions(List<Option> options) {
+	public void setOptions(List<Specialite> options) {
 		this.options = options;
 	}
 	

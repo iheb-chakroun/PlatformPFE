@@ -1,6 +1,10 @@
 package entities.users;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,10 +15,11 @@ import collection.Role;
 import entities.documents.Thesis;
 
 @Entity
-public class TeacherRole {
+public class TeacherRole implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Enumerated(EnumType.STRING)
 	private Role role;
 	
 	@ManyToOne

@@ -2,6 +2,7 @@ package services;
 
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -34,7 +35,7 @@ public class enseignatService {
 
 	}
 	
-	@GET
+	@PUT
 	@Path("pick/{id}/{ids}")
 	@Produces("application/json")
 	public Response pickcategory(@PathParam("id") int id,@PathParam("ids") String ids) {

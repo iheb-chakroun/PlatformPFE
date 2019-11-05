@@ -4,13 +4,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import com.textmagic.sdk.RestException;
 
 import collection.Role;
 import collection.Statuspfefile;
@@ -31,7 +31,7 @@ public class PfeFichierBusiness implements PfeFichierLocal{
 	//SmsSender sms=new SmsSender();
 	@Override
 	public List<PfeFile> getAllPfeFileyear(int id,String year,Role r) {
-		List<PfeFile> pfefiles=null ;
+		List<PfeFile> pfefiles=new ArrayList<PfeFile>();;
 		Teacher t = em.find(Teacher.class, id);
 		for (TeacherRole tr : t.getTeacherRole()) {
 			if(tr.getThesis().getPfeFile().getStudent().getClasse().getScholarYear().equals(year)) {
@@ -47,7 +47,7 @@ public class PfeFichierBusiness implements PfeFichierLocal{
 
 	@Override
 	public List<PfeFile> getAllPfeFileyears(int id,String year,Role r) {
-		List<PfeFile> pfefiles = null;
+		List<PfeFile> pfefiles = new ArrayList<PfeFile>();;
 		String[] years=year.split(";");
 		Teacher t = em.find(Teacher.class, id);
 		for(String y:years) {
@@ -108,7 +108,8 @@ public class PfeFichierBusiness implements PfeFichierLocal{
 		Query q = em.createQuery("update PfeFile p set p.gradeSupervisor=:g where p.id=:id");
 		q.setParameter("g", g);
 		q.setParameter("id", id);
-		Query q1=em.createQuery("SELECT gradeReporter from PfeFile where p.id=:id");
+		Query q1=em.createQuery("SELECT p.gradeReporter from PfeFile p where p.id=:id");
+		q1.setParameter("id", id);
 		float gr=(float)q1.getSingleResult();
 		if(gr-g<0) {
 			System.out.println("GREAT");
@@ -134,7 +135,8 @@ public class PfeFichierBusiness implements PfeFichierLocal{
 		Query q = em.createQuery("update PfeFile p set p.gradeReporter=:g where p.id=:id");
 		q.setParameter("g", g);
 		q.setParameter("id", id);
-		Query q1=em.createQuery("SELECT gradeSupervisor from PfeFile where p.id=:id");
+		Query q1=em.createQuery("SELECT p.gradeSupervisor from PfeFile p where p.id=:id");
+		q1.setParameter("id", id);
 		float gs=(float)q1.getSingleResult();
 		if(gs-g<0) {
 			System.out.println("GREAT");
@@ -159,12 +161,19 @@ public class PfeFichierBusiness implements PfeFichierLocal{
 		List<PfeFile> l
 		= new ArrayList<PfeFile>();
 		Teacher t = em.find(Teacher.class, id);
+		System.out.println(t.getAddress());
 		for (TeacherRole tr : t.getTeacherRole()) {
-			if(tr.getRole().compareTo(r)==0) {
+			if(tr.getRole()== r) {
 				l.add(tr.getThesis().getPfeFile());
 			}
 		}
 		return l;
+	
+	
+
+		
+		
+		
 	}
 	
 	

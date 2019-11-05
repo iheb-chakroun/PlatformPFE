@@ -16,6 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import collection.Statuspfefile;
 import entities.tracking.ArchivePfeFile;
 import entities.users.Student;
@@ -38,16 +41,28 @@ public class PfeFile implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private Statuspfefile spf;
 	private boolean reportDeposite;
+	
+	@JsonIgnore
 	@OneToOne
 	private Student student;
+	
+	@JsonIgnore
 	@OneToMany(mappedBy="pfeFile",fetch=FetchType.EAGER)
 	private Set<ArchivePfeFile> archivePfeFile;
+	
+	@JsonIgnore
 	@OneToOne
 	private Entreprise entreprise;
+	
+	@JsonIgnore
 	@OneToOne(mappedBy="pfeFile")
 	private Thesis thesis;
+	
+	@JsonIgnore
 	@ManyToOne
 	private Teacher pre_validator;
+	
+	@JsonIgnore
 	@ManyToMany(fetch=FetchType.EAGER)
 	private Set<Categorie> categories;
 	

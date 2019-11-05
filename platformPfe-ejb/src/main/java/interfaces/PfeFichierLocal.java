@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import com.textmagic.sdk.RestException;
 
 import collection.Role;
 import collection.Statuspfefile;

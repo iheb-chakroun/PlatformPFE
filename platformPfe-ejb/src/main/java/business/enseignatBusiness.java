@@ -45,9 +45,10 @@ public class enseignatBusiness implements enseignantServiceLocal{
 		
 		String[] categories=ids.split(";");
 		Teacher t =em.find(Teacher.class, id);
-		
+		int i;
 		for(String g:categories) {
-			Categorie c=em.find(Categorie.class, g);
+			i=Integer.parseInt(g);
+			Categorie c=em.find(Categorie.class, i);
 			t.getCategories().add(c);
 		}
 		

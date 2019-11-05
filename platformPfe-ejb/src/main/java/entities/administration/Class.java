@@ -19,19 +19,19 @@ public class Class {
 	private String label;
 	private String scholarYear;
 	@ManyToOne
-	private Option option;
+	private Specialite option;
 	@OneToMany(mappedBy="classe")
 	private List<Student> students;
 	
 	
 	
 	
-	public Class(int id, String label, String scholarYear, Option option, List<Student> students) {
+	public Class(int id, String label, String scholarYear, Specialite option, List<Student> students) {
 		super();
 		this.id = id;
 		this.label = label;
 		this.scholarYear = scholarYear;
-		this.option = option;
+		//this.option = option;
 		this.students = students;
 	}
 	
@@ -61,10 +61,10 @@ public class Class {
 	public void setScholarYear(String scholarYear) {
 		this.scholarYear = scholarYear;
 	}
-	public Option getOption() {
+	public Specialite getOption() {
 		return option;
 	}
-	public void setOption(Option option) {
+	public void setOption(Specialite option) {
 		this.option = option;
 	}
 	public List<Student> getStudents() {

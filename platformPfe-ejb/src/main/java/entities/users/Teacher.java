@@ -9,6 +9,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import entities.administration.Departement;
 import entities.documents.Categorie;
 import entities.documents.PfeFile;
@@ -22,12 +25,16 @@ public class Teacher extends Employe implements Serializable{
 	
 	@ManyToOne
 	private Departement departement;
+	
 	@OneToMany(mappedBy="pre_validator")
 	private List<PfeFile> pfeFiles;
+	
 	@ManyToMany
 	private List<Categorie> categories;
+	
 	@OneToMany(mappedBy="teacher")
 	private List<TeacherNotification> teacherNotification;
+	
 	@OneToMany(mappedBy="teacher")
 	private List<TeacherRole> teacherRole;
 	
