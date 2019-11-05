@@ -11,7 +11,7 @@ import entities.users.Admin;
 import entities.users.Employe;
 import interfaces.AdminRemote;
 
-@Stateless
+@Stateless 
 public class AdminBusiness implements AdminRemote {
 	
 	@PersistenceContext(unitName="platform")
