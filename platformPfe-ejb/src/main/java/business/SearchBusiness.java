@@ -13,7 +13,7 @@ import interfaces.StudentLocal;
 import interfaces.StudentRemote;
 @Stateless
 @LocalBean
-public class StudentBusiness implements StudentLocal,StudentRemote{
+public class SearchBusiness implements StudentLocal,StudentRemote{
 	@PersistenceContext(unitName="platform") 
 	EntityManager em;
 

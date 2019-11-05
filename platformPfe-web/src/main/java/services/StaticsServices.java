@@ -55,10 +55,11 @@ public class StaticsServices {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("{category}")
+	@Path("evolution/{category}")
 	public Response getCategoryEvolutionNumberByYear(@PathParam("category") String cat) {
 		
 		return Response.ok(statServices.EvoluationNumberCategoryByYear(cat), MediaType.APPLICATION_JSON).build();
+		
 		}
 
 

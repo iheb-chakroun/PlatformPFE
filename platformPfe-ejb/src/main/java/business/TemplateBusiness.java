@@ -1,5 +1,6 @@
 package business;
 
+import java.awt.Desktop;
 import java.awt.print.Pageable;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -61,11 +62,11 @@ public class TemplateBusiness implements TemplateLocal,TemplateRemote{
 	}
 
 	@Override
-	public void affectSiteToTemplate(int siteId, int templateId) {
+	public void affectSiteToTemplate(int  templateId,int siteId) {
 		Site siteManagedEntity = em.find(Site.class, siteId);
 		Template templateManagedEntity = em.find(Template.class, templateId);
 		templateManagedEntity.setSite(siteManagedEntity);
-		
+		em.merge(templateManagedEntity);
 	}
 
 	@Override
@@ -74,7 +75,8 @@ public class TemplateBusiness implements TemplateLocal,TemplateRemote{
 		em.persist(T);
 		
 	}
-
+	
+	
 
 	@Override
 	public void updateTemplate(int id, Template temp) {
@@ -86,34 +88,24 @@ public class TemplateBusiness implements TemplateLocal,TemplateRemote{
 	}
 
 
-
-	
-
-
 	@Override
-	public void exportApi(String path) {
-		 try {
+	public String exportApi(String content) {
+		 String userHomeFolder = System.getProperty("user.home");
+		try {
 			 
-			 File htmlSource = new File("C:\\Users\\dorsa\\OneDrive\\Bureau\\out.txt");
-				FileOutputStream fos = new FileOutputStream(htmlSource);
-			 
-				BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
-			 
-				
-					bw.write(path);
-		
-			 
-				bw.close();
-			 
-	
+			 File htmlSource = new File("input.txt");
+			 FileOutputStream fos = new FileOutputStream(htmlSource);
+			 BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+			 bw.write(content);
+		     bw.close();
 			
-			    
-		     
-	        File pdfDest = new File("C:\\Users\\dorsa\\OneDrive\\Bureau\\output.pdf");
+	       
+	        System.out.println(" you will find it in : "+userHomeFolder);
+	        File pdfDest = new File(userHomeFolder, "output.pdf");
 	         // pdfHTML specific code
 	        ConverterProperties converterProperties = new ConverterProperties();
-	       
-				HtmlConverter.convertToPdf(new FileInputStream(htmlSource),new FileOutputStream(pdfDest), converterProperties);
+	        HtmlConverter.convertToPdf(new FileInputStream(htmlSource),new FileOutputStream(pdfDest), converterProperties);
+				
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -121,9 +113,15 @@ public class TemplateBusiness implements TemplateLocal,TemplateRemote{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-		
+		return " you will find it in : "+userHomeFolder;
 	}
+
+
+
+	
+
+
+	
 
 
 

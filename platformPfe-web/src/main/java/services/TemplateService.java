@@ -52,6 +52,26 @@ public class TemplateService {
 	
 	
 	
+	@PUT
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("affect")
+	public Response AffectSiteToTemplate(@QueryParam(value="idTemp") int idtemp,@QueryParam(value="idSite") int idSite) {
+		try {
+		
+		templateService.affectSiteToTemplate(idtemp, idSite);
+			
+		 return Response.status(Status.CREATED).build();
+		 
+		}catch(Exception e) {
+			 return Response.status(Status.NOT_ACCEPTABLE).build();
+		}
+	}
+	
+	
+	
+	
+	
+	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
@@ -80,18 +100,21 @@ public class TemplateService {
 
 	@GET
 	@Path("Api")
-    @Produces(MediaType.APPLICATION_JSON)
-	public Response apiPdf(@QueryParam(value ="path") String path) {
+    @Produces(MediaType.TEXT_PLAIN)
+	public Response apiPdf(@QueryParam(value ="content") String content) {
 	try {
-		System.out.println("path"+path);
-		templateService.exportApi(path);
+		
+		templateService.exportApi(content);
 
-	 return Response.status(Status.CREATED).build();
+	
+	 return Response.ok(templateService.exportApi(content), MediaType.TEXT_PLAIN).build();
 	 
 	}catch(Exception e) {
 		 return Response.status(Status.NOT_ACCEPTABLE).build();
 	}
 		}
 
+	
+	
 	
 }
