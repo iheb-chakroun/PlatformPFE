@@ -13,7 +13,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import collection.Role;
 import entities.documents.PfeFile;
 import entities.documents.Thesis;
 import interfaces.PfeFileLocal;
@@ -92,21 +91,6 @@ public class ThesisService {
 		
 		
 		if(thesisService.updateThesis(p) ) {
-			return Response.status(Status.OK).build(); }
-		
-	
-	return Response.status(Status.BAD_REQUEST).build();
-
-}
-	@PUT
-	@Consumes("application/json")
-	@Path("{id}/{idt}/{role}")
-
-	public Response ajouterTeacherR(@PathParam (value="id") int id ,@PathParam (value="idt") int idt ,@PathParam (value="role") Role r ) {
-		
-		
-		
-		if(thesisService.AjouterTeacher(id, idt, r)) {
 			return Response.status(Status.OK).build(); }
 		
 	

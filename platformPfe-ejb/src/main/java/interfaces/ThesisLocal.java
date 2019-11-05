@@ -2,7 +2,6 @@ package interfaces;
 
 import java.util.List;
 
-import collection.Role;
 import entities.documents.Thesis;
 
 public interface ThesisLocal {
@@ -16,7 +15,5 @@ public interface ThesisLocal {
 	List<Thesis> getAllThesis();
 
 	boolean updateThesis(Thesis p);
-
-boolean AjouterTeacher(int idThesis, int idTeacher, Role r);
 
 }

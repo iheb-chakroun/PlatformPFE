@@ -21,8 +21,7 @@ public class TeacherRole implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Enumerated(EnumType.STRING)
-			private Role role;
+	private Role role;
 	
 	@ManyToOne
 	@JsonIgnoreProperties({"teacherRole"})
@@ -62,10 +61,6 @@ public class TeacherRole implements Serializable{
 	}
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
-	}
-	@Override
-	public String toString() {
-		return "TeacherRole [id=" + id + ", role=" + role + ", thesis=" + thesis + ", teacher=" + teacher + "]";
 	}
 	
 }
