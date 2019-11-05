@@ -26,5 +26,8 @@
         <dependent-module archiveName="jackson-core.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/fasterxml/jackson/core/jackson-core/2.8.2/jackson-core-2.8.2.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="javaee-api.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/javax/javaee-api/7.0/javaee-api-7.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>
