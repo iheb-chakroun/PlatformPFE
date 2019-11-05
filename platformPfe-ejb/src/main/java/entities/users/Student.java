@@ -2,7 +2,7 @@ package entities.users;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,9 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import entities.administration.ChangeSupervisorRequest;
 import entities.administration.Class;
 import entities.documents.Convention;
 import entities.documents.PfeFile;
@@ -40,14 +43,24 @@ public class Student implements Serializable {
 	private boolean status;
 	
 	//Associations
+	@JsonIgnoreProperties({"classe"})
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	@JsonIdentityReference(alwaysAsId = true) 
 	@ManyToOne
 	private Class classe;
+	
+	@JsonIgnoreProperties({"convention"})
 	@OneToOne(mappedBy="student")
 	private Convention convention;
 	
-	@JsonIgnoreProperties({"student"})
+	@JsonIgnoreProperties({"changeSupervisorRequest"})
+	@OneToOne(mappedBy="student")
+	private ChangeSupervisorRequest changeSupervisorRequest;
+	
 	@OneToMany(mappedBy="student",fetch = FetchType.EAGER)
-	private List<StudentNotification> notifications;
+	private Set<StudentNotification> notifications;
+	
+	@JsonIgnoreProperties({"pfeFile"})
 	@OneToOne(mappedBy="student")
 	private PfeFile pfeFile;
 	
@@ -143,15 +156,24 @@ public class Student implements Serializable {
 		return convention;
 	}
 
+	public ChangeSupervisorRequest getChangeSupervisorRequest() {
+		return changeSupervisorRequest;
+	}
+
+	public void setChangeSupervisorRequest(ChangeSupervisorRequest changeSupervisorRequest) {
+		this.changeSupervisorRequest = changeSupervisorRequest;
+	}
+
 	public void setConvention(Convention convention) {
 		this.convention = convention;
 	}
 
-	public List<StudentNotification> getNotifications() {
+
+	public Set<StudentNotification> getNotifications() {
 		return notifications;
 	}
 
-	public void setNotifications(List<StudentNotification> notifications) {
+	public void setNotifications(Set<StudentNotification> notifications) {
 		this.notifications = notifications;
 	}
 
@@ -165,25 +187,6 @@ public class Student implements Serializable {
 	
 	//Override methods like hashcode, toString, etc...
 	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((birthDate == null) ? 0 : birthDate.hashCode());
-		result = prime * result + ((classe == null) ? 0 : classe.hashCode());
-		result = prime * result + ((convention == null) ? 0 : convention.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((notifications == null) ? 0 : notifications.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((pfeFile == null) ? 0 : pfeFile.hashCode());
-		result = prime * result + ((sexe == null) ? 0 : sexe.hashCode());
-		result = prime * result + (status ? 1231 : 1237);
-		result = prime * result + ((tel == null) ? 0 : tel.hashCode());
-		return result;
-	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -261,7 +264,7 @@ public class Student implements Serializable {
 		return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthDate=" + birthDate
 				+ ", email=" + email + ", sexe=" + sexe + ", tel=" + tel + ", password=" + password + ", status="
 				+ status + ", classe=" + classe + ", convention=" + convention + ", notifications=" + notifications
-				+ ", pfeFile=" + pfeFile + "]";
+				+ ", pfeFile=" +pfeFile + "]";
 	}
 
 }

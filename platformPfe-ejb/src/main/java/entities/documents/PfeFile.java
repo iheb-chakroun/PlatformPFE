@@ -1,8 +1,12 @@
 package entities.documents;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,12 +15,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import entities.tracking.ArchivePfeFile;
 import entities.users.Student;
 import entities.users.Teacher;
 
 @Entity
-public class PfeFile {
+public class PfeFile implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -31,16 +43,152 @@ public class PfeFile {
 	private String emailProfessionel;
 	private boolean status;
 	private boolean reportDeposite;
+	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	@JsonIgnoreProperties({"pfeFile"})
 	@OneToOne
 	private Student student;
-	@OneToMany(mappedBy="pfeFile")
-	private List<ArchivePfeFile> archivePfeFile;
+	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@OneToOne
+	@JsonIgnoreProperties({"pfeFile"})
+	private Thesis Thesis;
+	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	@OneToMany(mappedBy="pfeFile", fetch=FetchType.EAGER)
+	private List<ArchivePfeFile> archivePfeFile;
+	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	@OneToOne
+	@JsonIgnoreProperties({"pfeFile"})
 	private Entreprise entreprise;
+	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@OneToOne(mappedBy="pfeFile")
 	private Thesis thesis;
+	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@ManyToOne
 	private Teacher pre_validator;
-	@ManyToMany
-	private List<Categorie> categories;
+	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	@ManyToMany(cascade = CascadeType.ALL,fetch =FetchType.EAGER)
+	private Set<Categorie> categories;
+
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getProblematic() {
+		return problematic;
+	}
+	public void setProblematic(String problematic) {
+		this.problematic = problematic;
+	}
+	public String getFunctionnalities() {
+		return functionnalities;
+	}
+	public void setFunctionnalities(String functionnalities) {
+		this.functionnalities = functionnalities;
+	}
+	public String getKeywords() {
+		return keywords;
+	}
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
+	}
+	public float getGradeSupervisor() {
+		return gradeSupervisor;
+	}
+	public void setGradeSupervisor(float gradeSupervisor) {
+		this.gradeSupervisor = gradeSupervisor;
+	}
+	public float getGradeReporter() {
+		return gradeReporter;
+	}
+	public void setGradeReporter(float gradeReporter) {
+		this.gradeReporter = gradeReporter;
+	}
+	public String getEmailPersonel() {
+		return emailPersonel;
+	}
+	public void setEmailPersonel(String emailPersonel) {
+		this.emailPersonel = emailPersonel;
+	}
+	public String getEmailProfessionel() {
+		return emailProfessionel;
+	}
+	public void setEmailProfessionel(String emailProfessionel) {
+		this.emailProfessionel = emailProfessionel;
+	}
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	public boolean isReportDeposite() {
+		return reportDeposite;
+	}
+	public void setReportDeposite(boolean reportDeposite) {
+		this.reportDeposite = reportDeposite;
+	}
+	public Student getStudent() {
+		return student;
+	}
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+	public List<ArchivePfeFile> getArchivePfeFile() {
+		return archivePfeFile;
+	}
+	public void setArchivePfeFile(List<ArchivePfeFile> archivePfeFile) {
+		this.archivePfeFile = archivePfeFile;
+	}
+	public Entreprise getEntreprise() {
+		return entreprise;
+	}
+	public void setEntreprise(Entreprise entreprise) {
+		this.entreprise = entreprise;
+	}
+	public Thesis getThesis() {
+		return thesis;
+	}
+	public void setThesis(Thesis thesis) {
+		this.thesis = thesis;
+	}
+	public Teacher getPre_validator() {
+		return pre_validator;
+	}
+	public void setPre_validator(Teacher pre_validator) {
+		this.pre_validator = pre_validator;
+	}
+	
+	public Set<Categorie> getCategories() {
+		return categories;
+	}
+	public void setCategories(Set<Categorie> categories) {
+		this.categories = categories;
+	}
+	public PfeFile() {
+		super();
+	}
+	
+	
+	
+	
 }
