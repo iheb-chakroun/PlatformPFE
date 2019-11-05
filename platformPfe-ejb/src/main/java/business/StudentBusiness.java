@@ -21,66 +21,73 @@ import utilities.EmailBusiness;
 import utilities.Reason;
 import utilities.TemplateMessage;
 
-@Stateless
-public class StudentBusiness implements StudentRemote{
+import org.passay.CharacterRule;
+import org.passay.EnglishCharacterData;
+import org.passay.PasswordGenerator;
 
-	@PersistenceContext(unitName="platform")
+import collection.StudentStatus;
+import entities.documents.PfeFile;
+import entities.users.Student;
+import interfaces.StudentLocal;
+
+@Stateless
+public class StudentBusiness implements StudentLocal {
+	@PersistenceContext(unitName = "platform")
 	EntityManager em;
 	
 	EmailBusiness eb = new EmailBusiness();
 	
 	@Override
-	public int addStudent(Student student) {
-		// TODO Auto-generated method stub
-		System.out.println("Starting input:");
-		em.persist(student);
-		System.out.println("Finished");
-		return student.getId();
-	}
+	public boolean activateAccount (int id) {
+		System.out.print("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"+id);
 
-	@Override
-	public void removeStudent(int id) {
-		// TODO Auto-generated method stub
-		//Find managed Entity reference
-        Student st = em.find(Student.class, id );
-        //Call remove method to remove the entity
-        if(st != null){
-            em.remove(st);
-        }
-	}
+		TypedQuery<Student> q = em.createQuery("Select e from Student e where e.id=:idw", Student.class);
+		q.setParameter("idw", id);
+		Student a = new Student(); 
+			a=	q.getSingleResult();
+			System.out.print("kkkkkkkkkkkkkkkkkkkkkkkkkkkhhhhhhhhhhhhhhkkkkkk"+a.getEmail());
+		if(a.getStatus()== StudentStatus.AUTHORIZED) {
+		try {
+			
+				
+				 CharacterRule alphabets = new CharacterRule(EnglishCharacterData.Alphabetical);
+			     CharacterRule digits = new CharacterRule(EnglishCharacterData.Digit);
 
-	@Override
-	public void updateStudent(Student student) {
-		// TODO Auto-generated method stub
-		Query query = em.createQuery("update Student u set u.email=:email, u.firstName=:fname, u.lastName=:lname, u.password=:password, u.sexe=:sexe, u.status=:status, u.tel=:tel where u.id=:id");
-		query.setParameter("id", student.getId());
-		query.setParameter("email", student.getEmail());
-		query.setParameter("fname", student.getFirstName());
-		query.setParameter("lname", student.getLastName());
-		query.setParameter("password", student.getPassword());
-		query.setParameter("sexe", student.getSexe());
-		query.setParameter("status", student.isStatus());
-		query.setParameter("tel", student.getTel());
-		query.executeUpdate();
+			     PasswordGenerator passwordGenerator = new PasswordGenerator();
+			     String password = passwordGenerator.generatePassword(8, alphabets, digits);
+			     System.out.println(password);
+			     a.setPassword(password);
+			     em.merge(a);
+			     SendMail s = new SendMail() ;
+			     s.envoi(a.getEmail(), "Activation account", "your PFE account has been activated \n your email : "+ a.getEmail()+
+			    		 " \n your password is : " + a.getPassword());
+			     
+				
+			
+			return true;
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return false;
+		}	
+
+		}
+		
+		return false;
+
 		
 	}
-
 	@Override
-	public Student findStudentById(int id) {
-		System.out.println("In findStudentById : "); 
-		Student st = em.find(Student.class, id); 
-		System.out.println("Out of findStudentById : "); 
-		return st; 
-	}
-
-	@Override
-	public List<Student> findAllStudents() {
-		// TODO Auto-generated method stub
-		System.out.println("In findAllStudents : "); 
-		List<Student> students =  em.createQuery("from Student", Student.class).getResultList();
-		System.out.println("Out of findAlltudents : "); 
-		return students; 
-	}
+	public boolean authorizeStudent(int id) {
+		try {
+			System.out.print("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"+id);
+			
+			TypedQuery<Student> q = em.createQuery("select e from Student e where e.id=:idw", Student.class);
+			q.setParameter("idw", id);
+			Student a = new Student(); 
+				a=q.getSingleResult();
+				System.out.print("kkkkkkkkkkkkkkkkkkkkkkkkkkkhhhhhhhhhhhhhhkkkkkk"+a.getEmail());
+			System.out.print(a.getEmail());
 
 	@Override
 	public List<StudentNotification> findAllNotifications() {
@@ -154,4 +161,16 @@ public class StudentBusiness implements StudentRemote{
 		eb.sendEmail(st.getEmail(), "PFE annulation denied.", template.getTemplate());
 	}	 
 
+			a.setStatus(StudentStatus.AUTHORIZED);
+			System.out.print(a.getStatus());
+
+			em.merge(a);
+						return true;
+
+		} catch (Exception e) {
+			return false;
+		}
+		
+		
+	}
 }

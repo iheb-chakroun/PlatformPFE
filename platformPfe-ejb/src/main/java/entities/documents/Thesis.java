@@ -103,4 +103,10 @@ public class Thesis implements Serializable {
 		this.teacherRole = teacherRole;
 	}
 
+	@Override
+	public String toString() {
+		return "Thesis [id=" + id + ", classroom=" + classroom + ", date=" + date + ", startTime=" + startTime
+				+ ", pfeFile=" + pfeFile + ", teacherRole=" + teacherRole + "]";
+	}
+
 }

@@ -1,9 +1,10 @@
 package entities.administration;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,6 +26,7 @@ public class Departement implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String label;
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@ManyToOne
 	private Site site;
 	@JsonIgnoreProperties({"departement","classes"})
@@ -32,25 +34,47 @@ public class Departement implements Serializable {
 	private List<Option> options;
 	@OneToOne
 	private DepartementHead departementHead;
-	@OneToMany(mappedBy="departement")
-	private List<Teacher> teachers;
 	
-	//Default Constructor
-	public Departement() {
-		super();
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	@OneToMany(mappedBy="departement",fetch =FetchType.EAGER)
+	private Set<Teacher> teachers;
+	
+	
+	
+	public int getId() {
+		return id;
 	}
-	
-	//Getters & Setters
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getLabel() {
+		return label;
+	}
+	public void setLabel(String label) {
+		this.label = label;
+	}
+	public DepartementHead getDepartementHead() {
+		return departementHead;
+	}
+	public void setDepartementHead(DepartementHead departementHead) {
+		this.departementHead = departementHead;
+	}
+	public Set<Teacher> getTeachers() {
+		return teachers;
+	}
+	public void setTeachers(Set<Teacher> teachers) {
+		this.teachers = teachers;
+	}
 	public Site getSite() {
 		return site;
 	}
 	public void setSite(Site site) {
 		this.site = site;
 	}
-	public List<Option> getOptions() {
+	public Set<Option> getOptions() {
 		return options;
 	}
-	public void setOptions(List<Option> options) {
+	public void setOptions(Set<Option> options) {
 		this.options = options;
 	}
 	public String getLabel() {

@@ -3,7 +3,9 @@ package entities.documents;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -49,18 +51,24 @@ public class PfeFile implements Serializable{
 	private boolean reportDeposite;
 	@JsonIgnoreProperties({"pfeFile","password","status","convention","email","birthDate","tel"})
 	@OneToOne
+	@JsonIgnoreProperties({"pfeFile"})
 	private Student student;
 	@JsonIgnoreProperties({"pfeFile","title","problematic","description","functionnalities","event","emmeteur","keywords","gradeSupervisor","gradeReporter","emailPersonel","emailProfessionel","status","reportDeposite"})
 	@OneToMany(mappedBy="pfeFile", fetch=FetchType.EAGER)
 	private List<ArchivePfeFile> archivePfeFile;
+	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@OneToOne
 	@JsonIgnoreProperties({"pfeFile","nameResponsable","emailResponsable","emailEncadrent"})
 	private Entreprise entreprise;
 	@JsonIgnoreProperties({"pfeFile","teacherRole"})
 	@OneToOne(mappedBy="pfeFile")
+	@JsonIgnoreProperties({"pfeFile"})
+
 	private Thesis thesis;
 	@JsonIgnoreProperties({"departement","password","username","address","email","teacherRole","pfeFiles","categories","teacherNotification"})
 	@ManyToOne
+	@JsonIgnoreProperties({"pfeFile"})
 	private Teacher pre_validator;
 	@JsonIgnoreProperties({"id","status","pfefile"})
 	@OneToOne
@@ -129,12 +137,6 @@ public class PfeFile implements Serializable{
 	public void setEmailProfessionel(String emailProfessionel) {
 		this.emailProfessionel = emailProfessionel;
 	}
-	public boolean isStatus() {
-		return status;
-	}
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
 	public boolean isReportDeposite() {
 		return reportDeposite;
 	}
@@ -198,6 +200,7 @@ public class PfeFile implements Serializable{
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
 	}
+	
 	
 	
 	

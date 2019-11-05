@@ -8,24 +8,26 @@ import javax.persistence.PersistenceContext;
 
 import entities.documents.Thesis;
 import interfaces.ThesisLocal;
+import entities.documents.Convention;
+import interfaces.ConventionLocal;
 
 @Stateless
-public class ThesisBuisness implements ThesisLocal  {
+public class ConventionBusiness implements ConventionLocal {
 	@PersistenceContext(unitName = "platform")
 	EntityManager em;
 	
 	@Override
-	public Thesis findThesisById(int id) {
+	public Convention findConventionisById(int id) {
 
-		Thesis a = em.find(Thesis.class, id);
+		Convention a = em.find(Convention.class, id);
 
 		return a;
 	}
 
 	@Override
-	public boolean deleteThesisById(int ThesisId) {
+	public boolean deleteConventionById(int Id) {
 		// TODO Auto-generated method stub
-		Thesis emp = em.find(Thesis.class, ThesisId);
+		Convention emp = em.find(Convention.class,Id);
 
 		try {
 			em.remove(emp);
@@ -38,20 +40,20 @@ public class ThesisBuisness implements ThesisLocal  {
 	}
 
 	@Override
-	public void ajouterThesis(Thesis p) {
+	public void ajouterConvention(Convention p) {
 		// TODO Auto-generated method stub
 		em.persist(p);
 	}
 
 	@Override
-	public List<Thesis> getAllThesis() {
+	public List<Convention> getAllConvention() {
 		// TODO Auto-generated method stub
-		List<Thesis> thesis = em.createQuery("select e from Thesis e", Thesis.class).getResultList();
+		List<Convention> thesis = em.createQuery("select e from Convention e", Convention.class).getResultList();
 		return thesis;
 	}
 
 	@Override
-	public boolean updateThesis(Thesis p) {
+	public boolean updateConvention(Convention p) {
 		// TODO Auto-generated method stub
 		try {
 			em.merge(p);
