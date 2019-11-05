@@ -11,6 +11,22 @@ import entities.administration.Departement;
 @Entity
 @DiscriminatorValue(value="dep-head")
 public class DepartementHead extends Employe implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
+	//Attributes
+	
 	@OneToOne(mappedBy="departementHead")
 	private Departement departement;
+	
+	//Getters & Setters
+	
+	public Departement getDepartement() {
+		return departement;
+	}
+	public void setDepartement(Departement departement) {
+		this.departement = departement;
+	}
+	
+	
 }

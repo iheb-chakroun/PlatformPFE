@@ -1,5 +1,6 @@
 package entities.documents;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -28,7 +29,11 @@ import entities.users.Student;
 import entities.users.Teacher;
 
 @Entity
-public class PfeFile {
+public class PfeFile implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -48,6 +53,9 @@ public class PfeFile {
 	private PfeStatus status;
 	
 	private boolean reportDeposite;
+	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	@JsonIgnoreProperties({"pfeFile"})
 	@OneToOne
 	@JsonIgnoreProperties({"pfeFile"})
 	private Student student;
@@ -57,14 +65,17 @@ public class PfeFile {
 	
 	@OneToMany(mappedBy="pfeFile", fetch=FetchType.EAGER)
 	private List<ArchivePfeFile> archivePfeFile;
+	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@OneToOne
 	@JsonIgnoreProperties({"pfeFile"})
 	private Entreprise entreprise;
+	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@OneToOne(mappedBy="pfeFile")
 	@JsonIgnoreProperties({"pfeFile"})
 
 	private Thesis thesis;
-
 	@ManyToOne
 	@JsonIgnoreProperties({"pfeFile"})
 	private Teacher pre_validator;
@@ -180,7 +191,6 @@ private List<Categorie> categories;
 	public void setEmailProfessionel(String emailProfessionel) {
 		this.emailProfessionel = emailProfessionel;
 	}
-
 	public boolean isReportDeposite() {
 		return reportDeposite;
 	}

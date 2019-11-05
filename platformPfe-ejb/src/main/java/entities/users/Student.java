@@ -43,6 +43,8 @@ public class Student implements Serializable {
 	private StudentStatus status;
 	@ManyToOne
 	private Class classe;
+	
+	@JsonIgnoreProperties({"convention"})
 	@OneToOne(mappedBy="student")
 	private Convention convention;
 	@OneToMany(mappedBy="student")

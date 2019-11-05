@@ -20,6 +20,7 @@ public class TeacherNotification implements Serializable {
 	private int id;
 	private Date date;
 	private String content;
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@ManyToOne
 	@JsonIgnore
 	private Teacher teacher;
