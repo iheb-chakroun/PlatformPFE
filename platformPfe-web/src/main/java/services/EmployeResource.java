@@ -26,8 +26,7 @@ public class EmployeResource {
 	
 	@EJB
 	EmployeRemote employeBusiness;
-	@EJB
-	TokenRemote tokenService;
+	
 	
 	@POST
 	@Path("/add")
@@ -74,46 +73,5 @@ public class EmployeResource {
 	public Response findAllEmployes() {
 		return Response.ok(employeBusiness.findAllEmployes(), MediaType.APPLICATION_JSON).build();
 	}
-	
-	@GET
-	@Path("login")
-	@Consumes("application/json")
-	@Produces("application/json")
-	public Response logIn(Employe emp) {
-		if(emp == null) {
-			String message = "{\"message\": \"No content was entred!\"}";
-			return Response.status(Response.Status.NO_CONTENT).entity(message).build();
-		}
-		Employe user = employeBusiness.login(emp.getUsername(), emp.getPassword());
-        System.out.println("User found, adding coockie");
-        return Optional.ofNullable(user)
-                .map(u ->
-                        Response.ok(u).cookie(
-                                new NewCookie("access_token",
-                                        TokenUtility.getToken(user, tokenService.getKey()),
-                                        "/",
-                                        "127.0.0.1",
-                                        "",
-                                        36000,
-                                        false,
-                                        false))
-                                .build()
-                )
-                .orElseThrow(NotFoundException::new);
-	}
-	
-	@Path("logout")
-    @GET
-    @Produces("application/json")
-    public Response logout() {
-        return Response.ok().cookie(new NewCookie("access_token",
-                "none",
-                "/",
-                "127.0.0.1",
-                "",
-                3600,
-                true,
-                true)).build();
-    }
 
 }

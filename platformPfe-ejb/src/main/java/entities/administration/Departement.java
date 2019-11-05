@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import entities.users.DepartementHead;
 import entities.users.Teacher;
 
@@ -25,6 +27,7 @@ public class Departement implements Serializable {
 	private String label;
 	@ManyToOne
 	private Site site;
+	@JsonIgnoreProperties({"departement","classes"})
 	@OneToMany(mappedBy="departement")
 	private List<Option> options;
 	@OneToOne

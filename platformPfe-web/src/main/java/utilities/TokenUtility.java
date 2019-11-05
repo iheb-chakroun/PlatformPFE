@@ -9,6 +9,7 @@ import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.core.Cookie;
 
 import entities.users.Employe;
+import entities.users.Student;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
@@ -22,9 +23,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
  */
 public class TokenUtility {
 	
-	public static String getToken(Employe user, Key key) {
+	public static String getTokenEmploye(Employe user, Key key) {
         Map<String, Object> claims = new HashMap<String, Object>();
-
         claims.put("cin", user.getEmail().toString());
 
         if (user instanceof Employe) {
@@ -36,7 +36,21 @@ public class TokenUtility {
         claims.put("exp", new Date(new Date().getTime() + 3600));
 
         return Jwts.builder()
-                .setSubject(user.getUsername())
+                .setSubject(user.getEmail())
+                .setClaims(claims)
+                .signWith(SignatureAlgorithm.HS256, key)
+                .compact();
+    }
+	public static String getTokenStudent(Student user, Key key) {
+        Map<String, Object> claims = new HashMap<String, Object>();
+        claims.put("cin", user.getEmail().toString());
+        claims.put("role", "student");
+        claims.put("firstname", user.getFirstName());
+        claims.put("lastname", user.getFirstName());
+        claims.put("exp", new Date(new Date().getTime() + 3600));
+
+        return Jwts.builder()
+                .setSubject(user.getEmail())
                 .setClaims(claims)
                 .signWith(SignatureAlgorithm.HS256, key)
                 .compact();

@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import entities.administration.Departement;
 import entities.documents.PfeFile;
 
@@ -19,8 +22,10 @@ public class DepartementHead extends Employe implements Serializable {
 	
 	//Attributes
 	
+	@JsonIgnoreProperties({"departementHead","site"})
 	@OneToOne(mappedBy="departementHead")
 	private Departement departement;
+	@JsonIgnore
 	@OneToMany(mappedBy="moderator")
 	private Set<PfeFile> moderatedFiles;
 	
