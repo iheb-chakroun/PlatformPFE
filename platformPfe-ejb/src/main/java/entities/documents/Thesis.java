@@ -36,7 +36,7 @@ public class Thesis {
 	private Date date;
 	@JsonFormat(pattern="HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
-private Date startTime;
+    private Date startTime;
 	@OneToOne
 	@JsonIgnoreProperties({ "thesis" })
 	private PfeFile pfeFile;
@@ -105,6 +105,12 @@ private Date startTime;
 
 	public void setTeacherRole(Set<TeacherRole> teacherRole) {
 		this.teacherRole = teacherRole;
+	}
+
+	@Override
+	public String toString() {
+		return "Thesis [id=" + id + ", classroom=" + classroom + ", date=" + date + ", startTime=" + startTime
+				+ ", pfeFile=" + pfeFile + ", teacherRole=" + teacherRole + "]";
 	}
 
 }

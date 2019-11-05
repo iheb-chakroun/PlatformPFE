@@ -90,6 +90,12 @@ public class Employe implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	@Override
+	public String toString() {
+		return "Employe [id=" + id + ", lastName=" + lastName + ", firstName=" + firstName + ", email=" + email
+				+ ", address=" + address + ", username=" + username + ", password=" + password + "]";
+	}
 	
 	
 

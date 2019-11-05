@@ -4,6 +4,8 @@ import java.util.List;
 
 import entities.documents.Entreprise;
 import entities.documents.PfeFile;
+import entities.users.Teacher;
+import entities.users.TeacherRole;
 
 public interface PfeFileLocal {
 
@@ -16,6 +18,17 @@ public interface PfeFileLocal {
 	boolean deletePfeFileById(int PfeFileId);
 
 	PfeFile findPfeById(int id);
+
+
+	boolean ToProcessStatusPfe(int id);
+
+	boolean ToValidStatusPfe(int id);
+
+
+
+	boolean ToRefusedStatusPfe(int id, String cause);
+
+	Teacher supervisorName(int id);
 	
 
 }
