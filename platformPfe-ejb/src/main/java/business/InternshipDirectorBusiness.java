@@ -78,7 +78,7 @@ public class InternshipDirectorBusiness implements InternshipDirectorRemote {
 		st.setNmapresident(site.getNmapresident());
 		st.setNmarapporteur(site.getNmarapporteur());
 		st.setNmasupervisor(site.getNmasupervisor());
-		st.setNmavalidator(st.getNmavalidator());
+		st.setNmavalidator(site.getNmavalidator());
 	}
 
 }

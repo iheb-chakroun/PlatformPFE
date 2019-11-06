@@ -61,6 +61,7 @@ public class PfeFileService {
 	}	
 	
 	//@Author: khaled Requirement 4
+	@Secured(Roles.DIRECTEURINTERNSHIPS)
 	@POST
 	@Path("/approval")
 	@Consumes("application/json")
@@ -77,6 +78,7 @@ public class PfeFileService {
 	}
 	
 	//@author: khaled requirement 5
+	@Secured(Roles.DIRECTEURINTERNSHIPS)
 	@POST
 	@Consumes("application/json")
 	@Produces("application/json")
@@ -92,6 +94,7 @@ public class PfeFileService {
 	}
 	
 	//@author: khaled requirement 9.1
+	@Secured(Roles.DIRECTEURINTERNSHIPS)
 	@POST
 	@Path("/report")
 	@Consumes("application/json")

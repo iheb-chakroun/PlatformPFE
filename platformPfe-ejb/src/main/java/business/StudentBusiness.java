@@ -151,7 +151,7 @@ public class StudentBusiness implements StudentRemote{
 		Student st = em.find(Student.class, reason.getId());
 		st.getPfeFile().setAnnulation(Status.Declined);
 		TemplateMessage template = new TemplateMessage(reason.getMessage());
-		eb.sendEmail(st.getEmail(), "PFE annulation denied.", template.getTemplate());
+		eb.sendEmail(st.getPfeFile().getEmailPersonel(), "PFE annulation denied.", template.getTemplate());
 	}	 
 
 }

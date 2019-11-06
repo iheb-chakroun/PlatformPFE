@@ -16,6 +16,7 @@ import entities.users.Teacher;
 import interfaces.PfeFileLocal;
 import utilities.EmailBusiness;
 import utilities.EmailTemplate;
+import utilities.TemplateMessage;
 
 @Stateless
 public class PfeFileBuisness implements PfeFileLocal {
@@ -123,7 +124,8 @@ public class PfeFileBuisness implements PfeFileLocal {
 		// TODO Auto-generated method stub
 		PfeFile pfe = em.find(PfeFile.class, id);
 		pfe.setStatus(false);
-		eb.sendEmail(pfe.getStudent().getEmail(), reason, EmailTemplate.template);
+		TemplateMessage template = new TemplateMessage(reason);
+		eb.sendEmail(pfe.getEmailPersonel(), reason, template.getTemplate());
 	}
 	
 	//Requirement 10
