@@ -1,5 +1,8 @@
 package entities.tracking;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -7,10 +10,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import entities.documents.PfeFile;
 
 @Entity
-public class ArchivePfeFile {
+public class ArchivePfeFile implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -28,29 +39,11 @@ public class ArchivePfeFile {
 	private String event;
 	private String emmeteur;
 	private String note;
-	@ManyToOne(fetch= FetchType.EAGER)
+	private Date date;
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	@ManyToOne()
 	private PfeFile pfeFile;
-	public ArchivePfeFile(int id, String title, String description, String problematic, String functionnalities,
-			String keywords, float gradeSupervisor, float gradeReporter, String emailPersonel, String emailProfessionel,
-			boolean status, boolean reportDeposite, String event, String emmeteur, String note, PfeFile pfeFile) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.description = description;
-		this.problematic = problematic;
-		this.functionnalities = functionnalities;
-		this.keywords = keywords;
-		this.gradeSupervisor = gradeSupervisor;
-		this.gradeReporter = gradeReporter;
-		this.emailPersonel = emailPersonel;
-		this.emailProfessionel = emailProfessionel;
-		this.status = status;
-		this.reportDeposite = reportDeposite;
-		this.event = event;
-		this.emmeteur = emmeteur;
-		this.note = note;
-		this.pfeFile = pfeFile;
-	}
+	
 	public int getId() {
 		return id;
 	}
@@ -150,5 +143,12 @@ public class ArchivePfeFile {
 	public ArchivePfeFile() {
 		super();
 	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
 	
 }

@@ -50,7 +50,7 @@ public class PfeFile implements Serializable{
 	private Student student;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-	@OneToOne
+	@OneToOne(mappedBy="pfeFile")
 	@JsonIgnoreProperties({"pfeFile"})
 	private Thesis Thesis;
 	
@@ -72,7 +72,7 @@ public class PfeFile implements Serializable{
 	private Teacher pre_validator;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-	@ManyToMany(cascade = CascadeType.ALL,fetch =FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL,fetch =FetchType.EAGER,mappedBy="pfeFile")
 	private Set<Categorie> categories;
 
 	public int getId() {

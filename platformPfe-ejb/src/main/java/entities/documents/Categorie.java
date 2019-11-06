@@ -29,32 +29,50 @@ public class Categorie implements Serializable{
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@ManyToMany
 	private Set<Teacher> teachers;
+	
+	@ManyToMany
+	private Set<PfeFile> pfeFile;
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getLabel() {
 		return label;
 	}
+
 	public void setLabel(String label) {
 		this.label = label;
 	}
+
 	public boolean isStatus() {
 		return status;
 	}
+
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	public Categorie(int id, String label, boolean status) {
-		super();
-		this.id = id;
-		this.label = label;
-		this.status = status;
+
+	public Set<Teacher> getTeachers() {
+		return teachers;
 	}
-	public Categorie() {
-		super();
+
+	public void setTeachers(Set<Teacher> teachers) {
+		this.teachers = teachers;
 	}
+
+	public Set<PfeFile> getPfeFile() {
+		return pfeFile;
+	}
+
+	public void setPfeFile(Set<PfeFile> pfeFile) {
+		this.pfeFile = pfeFile;
+	}
+	
+	
 
 }

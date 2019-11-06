@@ -10,10 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import entities.users.Student;
 
@@ -73,6 +70,10 @@ public class Class implements Serializable{
 	public void setStudents(Set<Student> students) {
 		this.students = students;
 	}
+	public Class() {
+	}
+	
+	
 	
 	
 	
