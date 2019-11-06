@@ -66,7 +66,7 @@ public class TemplateBusiness implements TemplateLocal,TemplateRemote{
 		Site siteManagedEntity = em.find(Site.class, siteId);
 		Template templateManagedEntity = em.find(Template.class, templateId);
 		templateManagedEntity.setSite(siteManagedEntity);
-		em.merge(templateManagedEntity);
+		em.persist(templateManagedEntity);
 	}
 
 	@Override

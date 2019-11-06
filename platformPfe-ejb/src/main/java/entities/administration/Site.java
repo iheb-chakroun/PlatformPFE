@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import entities.users.InternshipDirector;
 
 @Entity
@@ -30,8 +32,10 @@ public class Site {
 	private int nbrMaxAction;
 	@ManyToOne
 	private School school;
-	@OneToMany(mappedBy = "site")
+	@JsonIgnore
+	@OneToMany(mappedBy = "site",fetch=FetchType.EAGER)
 	private List<Template> templates;
+	@JsonIgnore
 	@OneToMany(mappedBy = "site")
 	private List<Departement> departements;
 	@Override

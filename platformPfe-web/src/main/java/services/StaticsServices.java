@@ -17,6 +17,8 @@ import javax.ws.rs.core.Response.Status;
 import business.StaticBusiness;
 import business.TemplateBusiness;
 import entities.administration.Template;
+import utilities.Roles;
+import utilities.Secured;
 
 @Path("stat")
 public class StaticsServices {
@@ -25,8 +27,7 @@ public class StaticsServices {
 	
 	
 	@GET
-	
-	@Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
 	public Response getstat(@QueryParam(value = "country") String country,@QueryParam(value = "year")String year) {
 		
 		return Response.ok(statServices.percentageEntreprisePfeFilesByYear(country,year), MediaType.APPLICATION_JSON).build();

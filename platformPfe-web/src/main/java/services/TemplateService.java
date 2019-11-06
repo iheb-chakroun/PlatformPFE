@@ -20,6 +20,8 @@ import javax.ws.rs.core.Response.Status;
 
 import business.TemplateBusiness;
 import entities.administration.Template;
+import utilities.Roles;
+import utilities.Secured;
 @Path("template")
 public class TemplateService {
 	@EJB
@@ -52,7 +54,7 @@ public class TemplateService {
 	
 	
 	
-	@PUT
+	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("affect")
 	public Response AffectSiteToTemplate(@QueryParam(value="idTemp") int idtemp,@QueryParam(value="idSite") int idSite) {
