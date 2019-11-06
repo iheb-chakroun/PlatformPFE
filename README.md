@@ -5,4 +5,4 @@ Get the list of students with no pfe file for a year or group of years.
 ```bash
 Method: GET /platformPfe-web/app/student/year
 ```
-<img src="https://i.imgur.com/hYlLlrX.png" width="850" height="400">
+<img src="https://i.imgur.com/hYlLlrX.png" width="880" height="400">
