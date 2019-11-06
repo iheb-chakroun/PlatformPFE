@@ -40,13 +40,14 @@ With QueryParam.
 <img src="https://i.imgur.com/ht22KwP.png" width="880" height="200">
 
 ## Requirement 6: 
-Decline Internship and send notification via a templated email with a reason.
+Approve the cancelation of an internship.
 ```bash
 Method: POST /platformPfe-web/app/student/annulation/approval
 Accept header : supports/prefers(application/json)
 ```
 <img src="https://i.imgur.com/hdRyvc8.png" width="880" height="200">
 
+Decline the cancelation of internship and send notification via a templated email with a reason.
 ```bash
 Method: POST /platformPfe-web/app/student/annulation/denial
 Accept header : supports/prefers(application/json)
