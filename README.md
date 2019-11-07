@@ -89,7 +89,7 @@ Accept header : supports/prefers(application/json)
 <img src="https://i.imgur.com/VEOSL4x.png" width="880" height="350">
 
 ## Requirement 11 (MapBox api "End point consuming"): implementation Algorithm
-Get the list of geographical points of students that their pfe files got approved( by director on internships) 
+Get the list of geographical points of students that their pfe files got approved( by director of internships) 
 and validated ( by pre-validateur) based on the entreprise locations associated with their pfe files.
 ```bash
 Method: POST /platformPfe-web/app/intern-dir/map
