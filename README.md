@@ -45,14 +45,14 @@ Approve the cancelation of an internship.
 Method: POST /platformPfe-web/app/student/annulation/approval
 Accept header : supports/prefers(application/json)
 ```
-<img src="https://i.imgur.com/hdRyvc8.png" width="880" height="200">
+<img src="https://i.imgur.com/28BJeoM.png" width="880" height="200">
 
 Decline the cancelation of internship and send notification via a templated email with a reason.
 ```bash
 Method: POST /platformPfe-web/app/student/annulation/denial
 Accept header : supports/prefers(application/json)
 ```
-<img src="https://i.imgur.com/ht22KwP.png" width="880" height="350">
+<img src="https://i.imgur.com/i9u7pXt.png" width="880" height="350">
 
 ## Requirement 7: 
 Give a student access to the platform.
@@ -86,7 +86,7 @@ And got reviewed (got a mark/20 ) by a supervisor and a rapporteur.
 Method: POST /platformPfe-web/app/pfe/planification
 Accept header : supports/prefers(application/json)
 ```
-<img src="https://i.imgur.com/kcl4ZcB.png" width="880" height="350">
+<img src="https://i.imgur.com/VEOSL4x.png" width="880" height="350">
 
 ## Requirement 11 (MapBox api "End point consuming"): implementation Algorithm
 Get the list of geographical points of students that their pfe files got approved( by director on internships) 
