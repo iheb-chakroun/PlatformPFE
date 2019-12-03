@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import entities.users.DepartementHead;
 import entities.users.Teacher;
@@ -29,19 +30,19 @@ public class Departement implements Serializable {
 
 	private String label;
 
-	@JsonIgnore
+	@JsonIgnoreProperties("departements")
 	@ManyToOne
 	private Site site;
 
-	@JsonIgnore
+	@JsonIgnoreProperties("departement")
 	@OneToMany(mappedBy = "departement")
 	private List<Option> options;
 
-	@JsonIgnore
+	@JsonIgnoreProperties("departement")
 	@OneToOne
 	private DepartementHead departementHead;
 
-	@JsonIgnore
+	@JsonIgnoreProperties("departement")
 	@OneToMany(mappedBy = "departement", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<Teacher> teachers;
 

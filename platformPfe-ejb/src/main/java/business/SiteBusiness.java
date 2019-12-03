@@ -86,6 +86,9 @@ public class SiteBusiness implements SiteBusinessRemote, SiteBusinessLocal {
 
 	@Override
 	public void updateSite(Site site) {
+		//site.setSchool(em.find(School.class, site.getSchool().getId()));
+		//site.setInternshipDirector(em.find(InternshipDirector.class, site.getInternshipDirector().getId()));
+		System.out.println("here ----------------------------------- ");
 		em.merge(site);
 
 	}

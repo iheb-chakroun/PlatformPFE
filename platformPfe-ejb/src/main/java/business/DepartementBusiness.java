@@ -34,7 +34,7 @@ public class DepartementBusiness implements DepartementRemote, DepartementLocal 
 	}
 
 	@Override
-	public Departement getDepartementById(int id) {
+	public Departement getDepartementUsingId(int id) {
 		return em.find(Departement.class, id);
 	}
 

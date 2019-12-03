@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import entities.users.Student;
@@ -30,7 +31,8 @@ public class Class implements Serializable {
 	@ManyToOne
 	private Option option;
 
-	@JsonIgnoreProperties("classe")
+	//@JsonIgnoreProperties("classe")
+	@JsonIgnore
 	@OneToMany(mappedBy = "classe")
 	private List<Student> students;
 

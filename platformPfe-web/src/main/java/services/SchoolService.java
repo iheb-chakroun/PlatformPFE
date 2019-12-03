@@ -15,6 +15,8 @@ import javax.ws.rs.core.Response.Status;
 
 import business.SchoolBusiness;
 import entities.administration.School;
+import utilities.Roles;
+import utilities.Secured;
 
 @Path("school")
 public class SchoolService {
@@ -22,6 +24,7 @@ public class SchoolService {
 	@EJB
 	SchoolBusiness schoolBusiness;
 
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response ajouterSchool(School school) {
@@ -33,6 +36,7 @@ public class SchoolService {
 		}
 	}
 
+	//@Secured(Roles.ADMIN)
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response listerSchool() {

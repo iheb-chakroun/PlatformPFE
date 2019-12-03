@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -26,7 +27,7 @@ public class Schedule implements Serializable{
 	private Date date;
 	private boolean available;
 	
-	@JsonIgnoreProperties("schedules")
+	@JsonIgnore
 	@ManyToOne
 	private Classroom classroom;
 	

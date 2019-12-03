@@ -31,7 +31,7 @@ public class Teacher extends Employe implements Serializable {
 	private Departement departement;
 
 	@JsonIgnore
-	// @JsonIgnoreProperties("pre_validator")
+	 //@JsonIgnoreProperties("pre_validator")
 	@OneToMany(mappedBy = "pre_validator")
 	private List<PfeFile> pfeFiles;
 

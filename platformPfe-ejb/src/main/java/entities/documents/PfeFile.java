@@ -241,8 +241,8 @@ public class PfeFile implements Serializable {
 	}
 
 	public boolean isReady() {
-		if ((this.getGradeReporter() != 0) && (this.getGradeSupervisor() != 0) && (this.isReportDeposite())
-				&& (this.isStatus()) && (this.getThesis() == null)) {
+		if ((this.getGradeReporter() > -1) && (this.getGradeSupervisor() > -1) && (this.isReportDeposite() == true)
+				&& (this.isStatus() == true )) {
 			return true;
 		}
 		return false;

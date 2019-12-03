@@ -47,8 +47,7 @@ public class ClassService {
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("{id}")
-	public Response modifierClass(Class classe, @PathParam("id") int id) {
+	public Response modifierClass(Class classe) {
 		classBusiness.update(classe);
 		return Response.status(Status.OK).build();
 	}

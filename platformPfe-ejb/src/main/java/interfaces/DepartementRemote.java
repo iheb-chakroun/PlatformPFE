@@ -13,7 +13,6 @@ import entities.users.Teacher;
 public interface DepartementRemote {
 	int addDepartement(Departement departement);
 
-	Departement getDepartementById(int id);
 
 	List<Departement> getAllDepartement();
 
@@ -30,5 +29,7 @@ public interface DepartementRemote {
 	boolean affecterSite(int idSite, int idDep);
 
 	boolean affecterDepartementHead(int idDepartementHead, int idDep);
+	
+	Departement getDepartementUsingId(int id);
 
 }

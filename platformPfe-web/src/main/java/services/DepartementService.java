@@ -32,7 +32,7 @@ public class DepartementService {
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response listerDepartementParId(@PathParam("id") int id) {
-		return Response.ok(departementBusiness.getDepartementById(id), MediaType.APPLICATION_JSON).build();
+		return Response.ok(departementBusiness.getDepartementUsingId(id), MediaType.APPLICATION_JSON).build();
 	}
 	
 	@GET
@@ -50,7 +50,7 @@ public class DepartementService {
 	}
 	
 	@GET
-	@Path("{id}")
+	@Path("{id}/classrooms")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response listerClassroomsDepartementId(@PathParam("id") int id) {
 		return Response.ok(departementBusiness.getClassroomList(id), MediaType.APPLICATION_JSON).build();
@@ -69,8 +69,7 @@ public class DepartementService {
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("{id}")
-	public Response modifierDep(Departement dep, @PathParam("id") int id) {
+	public Response modifierDep(Departement dep) {
 		departementBusiness.updateDepartement(dep);
 		return Response.status(Status.OK).build();
 	}

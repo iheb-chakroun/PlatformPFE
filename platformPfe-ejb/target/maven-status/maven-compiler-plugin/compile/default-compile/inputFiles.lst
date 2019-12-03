@@ -21,11 +21,13 @@ D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPf
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\interfaces\ThesisLocal.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\collection\Role.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\entities\tracking\StudentNotification.java
+D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\business\HeadDepartementNotificationBusiness.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\entities\users\InternshipDirector.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\interfaces\SchoolBusinessLocal.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\interfaces\ClassBusinessRemote.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\interfaces\DepartmentHeadRemote.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\business\DepartementBusiness.java
+D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\business\LoginBusiness.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\business\TeacherBusiness.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\entities\tracking\ArchivePfeFile.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\entities\administration\Schedule.java
@@ -35,6 +37,7 @@ D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPf
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\business\ThesisBuisness.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\entities\users\Student.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\entities\tracking\TeacherNotification.java
+D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\interfaces\TokenRemote.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\interfaces\DepartementLocal.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\interfaces\AdminBusinessRemote.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\business\ClassroomBusiness.java
@@ -44,7 +47,9 @@ D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPf
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\entities\administration\Site.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\business\DepartmentHeadBusiness.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\entities\users\TeacherRole.java
+D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\business\TokenBusiness.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\entities\documents\Convention.java
+D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\business\NotifyReporterAndSupervisor.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\entities\administration\Class.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\interfaces\SiteBusinessLocal.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\interfaces\TeacherBusinessLocal.java
@@ -53,7 +58,10 @@ D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPf
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\business\AdminBusiness.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\entities\users\Teacher.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\entities\documents\Thesis.java
+D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\business\TeacherNotificationBusiness.java
+D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\entities\tracking\HeadDepartementNotification.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\interfaces\StudentRemote.java
+D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\utilities\GoogleCalendar.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\business\SiteBusiness.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\interfaces\InternshipDirectorRemote.java
 D:\Study\Esprit\4TWIN2\Projet intégration développement\Platform\test\platformPfe\platformPfe-ejb\src\main\java\entities\administration\Template.java

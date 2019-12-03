@@ -3,6 +3,7 @@ package entities.administration;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,6 +16,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import entities.users.InternshipDirector;
@@ -34,25 +37,27 @@ public class Site implements Serializable {
 	
 
 	// Note added this
-	@Temporal(TemporalType.TIMESTAMP)
+	//@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date dateOfSessionStarts;
-	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern="yyyy-MM-dd")
+	//@Temporal(TemporalType.TIMESTAMP)
 	private Date dateOfSessionEnds;
 
 	@JsonIgnoreProperties("sites")
-	@ManyToOne(cascade=CascadeType.MERGE)
+	@ManyToOne
 	private School school;
 
-	@JsonIgnoreProperties("site")
+	@JsonIgnore
 	@OneToMany(mappedBy = "site")
 	private List<Template> templates;
 
-	@JsonIgnoreProperties("site")
+	@JsonIgnore
 	@OneToMany(mappedBy = "site", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<Departement> departements;
 	
 	@JsonIgnoreProperties("site")
-	@OneToOne(cascade=CascadeType.MERGE)
+	@OneToOne
 	private InternshipDirector internshipDirector;
 
 	public List<Departement> getDepartements() {

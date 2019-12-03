@@ -1,5 +1,6 @@
 entities\users\InternshipDirector.class
 entities\users\Teacher.class
+interfaces\TokenRemote.class
 interfaces\OptionBusinessRemote.class
 interfaces\StudentRemote.class
 interfaces\TeacherBusinessRemote.class
@@ -14,6 +15,7 @@ entities\administration\Departement.class
 entities\tracking\ArchivePfeFile.class
 business\EmployeBusiness.class
 interfaces\TeacherBusinessLocal.class
+business\HeadDepartementNotificationBusiness.class
 entities\administration\School.class
 interfaces\ThesisLocal.class
 business\ClassBusiness.class
@@ -22,10 +24,12 @@ interfaces\OptionBusinessLocal.class
 entities\users\Student.class
 business\ThesisBuisness.class
 interfaces\PfeFileLocal.class
+business\NotifyReporterAndSupervisor.class
 interfaces\SiteBusinessLocal.class
 entities\documents\Thesis.class
 entities\users\Employe.class
 interfaces\AdminBusinessRemote.class
+business\LoginBusiness.class
 business\StudentBusiness.class
 entities\documents\PfeFile.class
 interfaces\AdminBusinessLocal.class
@@ -53,9 +57,13 @@ entities\administration\Template.class
 entities\documents\Entreprise.class
 entities\tracking\TeacherNotification.class
 business\AdminBusiness.class
+entities\tracking\HeadDepartementNotification.class
 entities\administration\Classroom.class
 business\ClassroomBusiness.class
+business\TokenBusiness.class
 interfaces\DepartmentHeadRemote.class
+business\TeacherNotificationBusiness.class
 interfaces\EmployeLocal.class
+utilities\GoogleCalendar.class
 entities\users\Admin.class
 business\SchoolBusiness.class

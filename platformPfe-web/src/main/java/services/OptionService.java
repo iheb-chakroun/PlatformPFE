@@ -48,8 +48,7 @@ public class OptionService {
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("{id}")
-	public Response modifierOption(Option o, @PathParam("id") int id) {
+	public Response modifierOption(Option o) {
 		optionBusiness.updateOption(o);
 		return Response.status(Status.OK).build();
 	}

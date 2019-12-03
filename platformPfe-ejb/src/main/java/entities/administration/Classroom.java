@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import entities.documents.Thesis;
@@ -30,11 +31,11 @@ public class Classroom implements Serializable {
 	@OneToMany(mappedBy = "classroom")
 	private List<Schedule> schedules;
 	
-	@JsonIgnoreProperties("classrooms")
+	@JsonIgnore
 	@ManyToOne
 	private Departement departement;
 	
-	@JsonIgnoreProperties("classroom")
+	@JsonIgnore
 	@OneToMany(mappedBy = "classroom")
 	private List<Thesis> thesis;
 
@@ -85,9 +86,12 @@ public class Classroom implements Serializable {
 					return false;
 			}
 		}
-		if (this.departement.getId() != dep.getId()) {
-			return false;
+		if (this.departement != null) {
+			if (this.departement.getId() != dep.getId()) {
+				return false;
+			}
 		}
+		
 		return true;
 	}
 

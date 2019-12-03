@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import entities.users.Admin;
@@ -35,8 +36,8 @@ public class School implements Serializable {
 	private String colors;
 	private String license;
 	
-	@JsonIgnoreProperties("school")
-	@OneToMany(mappedBy = "school", cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER)
+	@JsonIgnore
+	@OneToMany(mappedBy = "school", cascade = { CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE }, fetch = FetchType.EAGER)
 	private List<Site> sites = new ArrayList<Site>();
 
 	@JsonIgnoreProperties("school")
