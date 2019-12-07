@@ -32,7 +32,7 @@ Accept header : supports/prefers(application/json)
 ## Requirement 5: 
 Decline Internship and send notification via a templated email with a reason.
 ```bash
-Method: POST /platformPfe-web/app/pfe
+Method: POST /platformPfe-web/app/pfe/denial
 With QueryParam.
 ```
 <img src="https://i.imgur.com/hdRyvc8.png" width="880" height="350">
