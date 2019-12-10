@@ -35,8 +35,6 @@ public class Site implements Serializable {
 	private int nbrMaxSup;
 	private int nbrMaxPres;
 	
-
-	// Note added this
 	//@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date dateOfSessionStarts;
@@ -45,7 +43,7 @@ public class Site implements Serializable {
 	private Date dateOfSessionEnds;
 
 	@JsonIgnoreProperties("sites")
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	private School school;
 
 	@JsonIgnore

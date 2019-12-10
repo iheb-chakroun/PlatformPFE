@@ -13,6 +13,7 @@ import entities.users.DepartementHead;
 import entities.users.Employe;
 import entities.users.InternshipDirector;
 import entities.users.Student;
+import entities.users.SuperAdmin;
 import entities.users.Teacher;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -39,6 +40,8 @@ public class TokenUtility {
             claims.put("role", Roles.TEACHER.toString());
         } else if (user instanceof Admin) {
             claims.put("role", Roles.ADMIN.toString());
+        } else if (user instanceof SuperAdmin) {
+        	claims.put("role", Roles.SUPERADMIN.toString());
         }
 
 		claims.put("firstname", user.getFirstName());

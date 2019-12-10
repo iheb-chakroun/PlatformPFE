@@ -1,5 +1,6 @@
 package business;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -62,6 +63,17 @@ public class DepartmentHeadBusiness implements DepartmentHeadRemote {
 		List<DepartementHead> dhs =  em.createQuery("from DepartementHead", DepartementHead.class).getResultList();
 		System.out.println("Out of findAllAdmins : "); 
 		return dhs;
+	}
+
+	@Override
+	public List<DepartementHead> findAvailable() {
+		List<DepartementHead> dh = new ArrayList<DepartementHead>();
+		for (DepartementHead d : this.findDepartmentHeads()) {
+			if (d.getDepartement()==null) {
+				dh.add(d);
+			}
+		}
+		return dh;
 	}
 
 }

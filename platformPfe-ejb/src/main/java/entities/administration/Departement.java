@@ -34,20 +34,20 @@ public class Departement implements Serializable {
 	@ManyToOne
 	private Site site;
 
-	@JsonIgnoreProperties("departement")
-	@OneToMany(mappedBy = "departement")
+	@JsonIgnore
+	@OneToMany(mappedBy = "departement", cascade = {  CascadeType.REMOVE })
 	private List<Option> options;
 
 	@JsonIgnoreProperties("departement")
 	@OneToOne
 	private DepartementHead departementHead;
 
-	@JsonIgnoreProperties("departement")
-	@OneToMany(mappedBy = "departement", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@JsonIgnore
+	@OneToMany(mappedBy = "departement", cascade = { CascadeType.REMOVE })
 	private List<Teacher> teachers;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "departement", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@OneToMany(mappedBy = "departement", cascade = {  CascadeType.REMOVE })
 	private List<Classroom> classrooms;
 
 	public Site getSite() {

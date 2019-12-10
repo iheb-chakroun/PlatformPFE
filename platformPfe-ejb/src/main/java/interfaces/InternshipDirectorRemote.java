@@ -15,5 +15,6 @@ public interface InternshipDirectorRemote {
 	public void updateDirector(InternshipDirector director);
 	public InternshipDirector findDirectorById(int id);
 	public List<InternshipDirector> findAllDirectors();
+	List<InternshipDirector> findAvailable();
 
 }

@@ -1,5 +1,6 @@
 package business;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -7,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import entities.users.DepartementHead;
 import entities.users.InternshipDirector;
 import interfaces.InternshipDirectorRemote;
 
@@ -62,6 +64,17 @@ public class InternshipDirectorBusiness implements InternshipDirectorRemote {
 		List<InternshipDirector> directors =  em.createQuery("from InternshipDirector", InternshipDirector.class).getResultList();
 		System.out.println("Out of findAllDirectors : "); 
 		return directors;
+	}
+	
+	@Override
+	public List<InternshipDirector> findAvailable() {
+		List<InternshipDirector> dh = new ArrayList<InternshipDirector>();
+		for (InternshipDirector d : this.findAllDirectors()) {
+			if (d.getSite() == null) {
+				dh.add(d);
+			}
+		}
+		return dh;
 	}
 
 }

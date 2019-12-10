@@ -6,6 +6,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import entities.administration.Departement;
@@ -86,9 +87,13 @@ public class SiteBusiness implements SiteBusinessRemote, SiteBusinessLocal {
 
 	@Override
 	public void updateSite(Site site) {
-		//site.setSchool(em.find(School.class, site.getSchool().getId()));
-		//site.setInternshipDirector(em.find(InternshipDirector.class, site.getInternshipDirector().getId()));
-		System.out.println("here ----------------------------------- ");
+		if (site.getSchool() != null) {
+			site.setSchool(em.find(School.class, site.getSchool().getId()));
+		}
+		
+		if (site.getInternshipDirector()!= null) {
+			site.setInternshipDirector(em.find(InternshipDirector.class, site.getInternshipDirector().getId()));
+		}
 		em.merge(site);
 
 	}
@@ -96,7 +101,13 @@ public class SiteBusiness implements SiteBusinessRemote, SiteBusinessLocal {
 	@Override
 	public boolean deleteSite(int id) {
 		try {
-			em.remove(em.find(Site.class, id));
+			/**TypedQuery<Site> q = em.createQuery("delete from Site s where s.id = :id", Site.class);
+			q.setParameter("id", id);
+			q.getFirstResult();*/
+			Site site = em.find(Site.class, id);
+			//site.setSchool(null);
+			//this.updateSite(site);
+			em.remove(site);
 			return true;
 		} catch (Exception e) {
 			return false;

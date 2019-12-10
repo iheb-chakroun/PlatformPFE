@@ -82,9 +82,6 @@ public class SiteService {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response modifierSite(Site site) {
-		System.out.println("here ----------------------------------- ");
-		System.out.println(site);
-		System.out.println("here ----------------------------------- ");
 		siteBusiness.updateSite(site);
 		return Response.status(Status.OK).build();
 	}

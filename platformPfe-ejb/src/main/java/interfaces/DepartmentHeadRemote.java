@@ -14,5 +14,6 @@ public interface DepartmentHeadRemote {
 	public void updateDepartmentHead(DepartementHead dh);
 	public DepartementHead findDepartmentHeadById(int id);
 	public List<DepartementHead> findDepartmentHeads();
+	public List<DepartementHead> findAvailable();
 
 }
