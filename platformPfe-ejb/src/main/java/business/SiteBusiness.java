@@ -113,5 +113,22 @@ public class SiteBusiness implements SiteBusinessRemote, SiteBusinessLocal {
 			return false;
 		}
 	}
+	
+	@Override
+	public Site mySite(String email) {
+		for(Site s : this.getAllSite()) {
+			if (s.getInternshipDirector().getEmail().compareTo(email)==0) {
+				return s;
+			}
+		}
+		return null;
+	}
+	
+	@Override
+	public List<Departement> myDep(String email) {
+		return this.mySite(email).getDepartements();
+	}
+	
+	
 
 }

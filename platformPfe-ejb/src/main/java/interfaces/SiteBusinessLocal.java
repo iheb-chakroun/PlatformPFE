@@ -27,4 +27,8 @@ public interface SiteBusinessLocal {
 	List<Departement> getSiteDepartements(int idSite);
 	
 	List<Template> getSiteTemplates(int idSite);
+
+	Site mySite(String email);
+
+	List<Departement> myDep(String email);
 }

@@ -95,5 +95,21 @@ public class SiteService {
 		return Response.status(Response.Status.BAD_REQUEST).build();
 
 	}
+	
+	
+	@GET
+	@Path("/mySite/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listerSiteParemail(@PathParam("id") String id) {
+		return Response.ok(siteBusiness.mySite(id), MediaType.APPLICATION_JSON).build();
+	}
+	
+	@GET
+	@Path("/myDeps/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response lister(@PathParam("id") String id) {
+		return Response.ok(siteBusiness.myDep(id), MediaType.APPLICATION_JSON).build();
+	}
+	
 
 }
